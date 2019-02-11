@@ -1,0 +1,126 @@
+/* 自定义全局css */
+
+body, a, blockquote {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-family: 宋体;
+    color: #000;
+    word-break: break-all;
+}
+
+input, img {
+    vertical-align: middle;
+    border: 0 none;
+    outline-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #175199;
+    text-decoration: none;
+}
+
+/* 清除浮动 */
+.clearfix:after {
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+/*自定义css*/
+body {
+    background-color: #F6F6F6;
+    line-height: 1.6;
+}
+
+article {
+    width: 888px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+}
+
+header {
+    height: 120px;
+    overflow: hidden;
+    border-bottom: 1px solid #E4D0D0;
+}
+
+header h1 {
+    text-align: center;
+    margin: 25px auto 0;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+    font-family: Arial, 华文行楷;
+    color: #1a1a1a;
+}
+
+header #info {
+    padding: 10px 20px;
+    text-align: right;
+    font-weight: 500;
+    color: gray;
+}
+
+header #info #time {
+    float: left;
+}
+
+.content {
+    padding: 10px;
+    border-bottom: 1px solid #E4D0D0;
+}
+
+.content img, embed {
+    display: block;
+    margin: 1em auto;
+    box-sizing: border-box;
+    max-width: 100%;
+    border: 3px solid black;
+    border-radius: 15px;
+}
+
+.content img.origin {
+    display: inline-block;
+    margin: 0;
+    box-sizing: content-box;
+    border: 0px;
+}
+
+.content pre {
+    white-space: pre-wrap;
+}
+
+.content blockquote {
+    margin: 1.4em 0;
+    padding-left: 1em;
+    color: #646464;
+    border-left: 5px solid #D3D3D3;
+    display: block;
+    line-height: 1.6;
+}
+
+em {
+    color: rgb(164, 34, 16);
+    font-weight: bolder;
+    font-style: normal;
+}
+
+strong {
+    background-color: #00ff3754;
+    font-weight: normal;
+    font-style: normal;
+}
+
+footer {
+    height: 100px;
+}
