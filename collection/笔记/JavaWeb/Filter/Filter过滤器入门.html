@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter过滤器入门</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>Filter过滤器入门</h1>
+        <div id="info">
+            <span id="time">2018-11-23</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <h3>过滤器是干什么的？</h3>
+        <p>他会在一组资源（jsp、servlet、css、html等）的前面执行<br>他可以控制你是否能得到你请求的资源</p>
+
+        <h3>过滤器怎么编写？</h3>
+        <ol>
+            <li>首先在web项目中创建一个servlet，配置web.xml后用浏览器访问成功那么准备工作完成</li>
+            <li>创建一个普通类，实现Filter接口
+                <div align="left" style="background: black;"><span lang="EN-US"
+                                                                   style="font-size:15.0pt;font-family:宋体;color:#60FF60">package </span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#2B91AF">cn.loubth.web</span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+<br>
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#2B91AF">javax.servlet.</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">*;<br>
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#2B91AF">java.io.IOException</span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#60FF60">public
+class </span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;
+color:#2B91AF">AFilter </span><span lang="EN-US" style="font-size:15.0pt;
+font-family:宋体;color:#60FF60">implements </span><span lang="EN-US"
+                                                      style="font-size:15.0pt;font-family:宋体;color:#2B91AF">Filter </span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;font-family:
+宋体;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15.0pt;
+font-family:宋体;color:white">init</span><span lang="EN-US" style="font-size:15.0pt;
+font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;
+font-family:宋体;color:#2B91AF">FilterConfig </span><span lang="EN-US"
+                                                        style="font-size:15.0pt;font-family:宋体;color:#BFA4A4">filterConfig</span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;font-family:宋体;color:#60FF60">throws </span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#2B91AF">ServletException
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;font-family:
+宋体;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15.0pt;
+font-family:宋体;color:white">doFilter</span><span lang="EN-US" style="font-size:
+15.0pt;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:
+15.0pt;font-family:宋体;color:#2B91AF">ServletRequest </span><span lang="EN-US"
+                                                                 style="font-size:15.0pt;font-family:宋体;color:#BFA4A4">servletRequest</span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;font-family:宋体;color:#2B91AF">ServletResponse
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#BFA4A4">servletResponse</span><span lang="EN-US"
+                                                                                                            style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">, </span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#2B91AF">FilterChain </span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#BFA4A4">filterChain</span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;font-family:宋体;color:#60FF60">throws </span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#2B91AF">IOException</span><span
+                        lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;font-family:宋体;color:#2B91AF">ServletException
+</span><span lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;font-family:
+宋体;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15.0pt;
+font-family:宋体;color:white">destroy</span><span lang="EN-US" style="font-size:
+15.0pt;font-family:宋体;color:#D8D8D8">() {<br>
+<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></div>
+
+                <p>我们发现Filter接口有三个方法，init'方法是在过滤器创建后马上执行，’destroy方法是filter销毁之前执行，而doFilter在每次过滤的时候都会执行。</p>
+                <p><strong>注意：Filter在服务器启动是就会创建！服务器关闭的时候Filter销毁。Filter是单例的，与servlet一样。</strong></p>
+            </li>
+            <li>为Filter配置web.xml
+                <p>
+                    这个过程与servlet十分相似<br>
+                    找到web.xml，同样在web-app标签下配置过滤器，我们看一下AServlet（为了测试效果编写的一个简单的servlet）的配置
+                </p>
+                <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">servlet</span><span lang="EN-US"
+                                                                                                        style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;AServlet&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">servlet-class</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;cn.loubth.web.AServlet&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">servlet-class</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">servlet</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">servlet-mapping</span><span lang="EN-US"
+                                                                                                 style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;AServlet&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;/AServlet&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">servlet-mapping</span><span lang="EN-US"
+                                                                                                  style="font-size:15.0pt;color:#D8D8D8">&gt;</span>
+                </div>
+                <p>根据这个servlet 的配置，我们要想使拦截器拦截这个servlet，就可以这么配</p>
+                <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">&lt;!--</span><span
+                        style="font-size:15.0pt;color:#757575">在这配置想要拦截的资源，不仅仅是<span lang="EN-US">servlet</span>，其他资源也可以，这里用<span
+                        lang="EN-US">ASerlvet</span>做实验<span lang="EN-US">--&gt;<br>
+&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">url-pattern</span><span lang="EN-US"
+                                                                                                            style="font-size:15.0pt;color:#D8D8D8">&gt;/AServlet&lt;/</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#60FF60">url-pattern</span><span lang="EN-US"
+                                                                                                    style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span lang="EN-US"
+                                                                                                 style="font-size:15.0pt;color:#D8D8D8">&gt;</span>
+                </div>
+                <p>然后我们为了看出效果，修改的一下AFilter的代码</p>
+                <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">package </span><span lang="EN-US" style="font-size:15.0pt;
+color:#2B91AF">cn.loubth.web</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">;<br>
+<br>
+<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">javax.servlet.</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">*;<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">java.io.IOException</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">public class </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#2B91AF">AFilter </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#60FF60">implements </span><span lang="EN-US"
+                                                                                                    style="font-size:15.0pt;color:#2B91AF">Filter </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">public void </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:white">init</span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#D8D8D8">(</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">FilterConfig </span><span lang="EN-US"
+                                                                                                      style="font-size:15.0pt;color:#BFA4A4">filterConfig</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#60FF60">throws </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletException </span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15.0pt;color:#2B91AF">System</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                style="font-size:15.0pt;color:#660E7A">out</span></i></b><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:white">println</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#FFA0A0">"AFilter</span><span
+                        style="font-size:15.0pt;color:#FFA0A0">初始化<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">public void </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:white">doFilter</span><span lang="EN-US"
+                                                                                               style="font-size:15.0pt;color:#D8D8D8">(</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletRequest </span><span lang="EN-US"
+                                                                                                        style="font-size:15.0pt;color:#BFA4A4">servletRequest</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#2B91AF">ServletResponse </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">servletResponse</span><span lang="EN-US"
+                                                                                                        style="font-size:15.0pt;color:#D8D8D8">, </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">FilterChain </span><span lang="EN-US"
+                                                                                                     style="font-size:15.0pt;color:#BFA4A4">filterChain</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#60FF60">throws </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">IOException</span><span lang="EN-US"
+                                                                                                    style="font-size:15.0pt;color:#D8D8D8">, </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletException </span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15.0pt;color:#2B91AF">System</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                style="font-size:15.0pt;color:#660E7A">out</span></i></b><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:white">println</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#FFA0A0">"AFilter</span><span
+                        style="font-size:15.0pt;color:#FFA0A0">拦截你<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                          style="font-size:15.0pt;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">public void </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:white">destroy</span><span lang="EN-US"
+                                                                                              style="font-size:15.0pt;color:#D8D8D8">() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15.0pt;color:#2B91AF">System</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                style="font-size:15.0pt;color:#660E7A">out</span></i></b><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:white">println</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#FFA0A0">"AFilter</span><span
+                        style="font-size:15.0pt;color:#FFA0A0">销毁<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                         style="font-size:15.0pt;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></div>
+                <p>我们再看一下AServlet的测试代码</p>
+                <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">package </span><span lang="EN-US" style="font-size:15.0pt;
+color:#2B91AF">cn.loubth.web</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">javax.servlet.ServletException</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">javax.servlet.annotation.</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#757575">WebServlet</span><span lang="EN-US"
+                                                                                                   style="font-size:15.0pt;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">javax.servlet.http.HttpServlet</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">javax.servlet.http.HttpServletRequest</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">javax.servlet.http.HttpServletResponse</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15.0pt;color:#2B91AF">java.io.IOException</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">public class </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#2B91AF">AServlet </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#60FF60">extends </span><span lang="EN-US"
+                                                                                                 style="font-size:15.0pt;color:#2B91AF">HttpServlet </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">protected void </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:white">doPost</span><span lang="EN-US"
+                                                                                             style="font-size:15.0pt;color:#D8D8D8">(</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">HttpServletRequest </span><span lang="EN-US"
+                                                                                                            style="font-size:15.0pt;color:#BFA4A4">request</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#2B91AF">HttpServletResponse </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">response</span><span lang="EN-US"
+                                                                                                 style="font-size:15.0pt;color:#D8D8D8">) </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#60FF60">throws </span><span lang="EN-US"
+                                                                                                style="font-size:15.0pt;color:#2B91AF">ServletException</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#2B91AF">IOException </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">protected void </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:white">doGet</span><span lang="EN-US"
+                                                                                            style="font-size:15.0pt;color:#D8D8D8">(</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#2B91AF">HttpServletRequest </span><span lang="EN-US"
+                                                                                                            style="font-size:15.0pt;color:#BFA4A4">request</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#2B91AF">HttpServletResponse </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">response</span><span lang="EN-US"
+                                                                                                 style="font-size:15.0pt;color:#D8D8D8">) </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#60FF60">throws </span><span lang="EN-US"
+                                                                                                style="font-size:15.0pt;color:#2B91AF">ServletException</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#2B91AF">IOException </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15.0pt;color:#2B91AF">System</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                style="font-size:15.0pt;color:#660E7A">out</span></i></b><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:white">println</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#FFA0A0">"AServlet........"</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></div>
+                <p>此时我们就可以启动服务器看一下效果：</p>
+                <strong>AFilter初始化</strong>
+                <p>输入“http://localhost:8080/AServlet”访问AServlet：</p>
+                <strong>AFilter拦截你</strong>
+                <p>关闭服务器：</p>
+                <strong>AFilter销毁</strong>
+            </li>
+        </ol>
+        <h3>参数介绍</h3>
+        <p>我们可能注意到了我么编写的Filter的方法中是有参数的</p>
+        <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">public void </span><span lang="EN-US" style="font-size:15.0pt;
+color:white">init</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">FilterConfig </span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">filterConfig</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">)</span></div>
+        <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">public void </span><span lang="EN-US" style="font-size:15.0pt;
+color:white">doFilter</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletRequest </span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">servletRequest</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletResponse </span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">servletResponse</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">FilterChain </span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">filterChain</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">)</span></div>
+        <p>现在我们来介绍一下这些参数的作用<br>
+            首先是init中的filterConfig，他与servletConfig类似
+        </p>
+        <ul>
+            <li>获取初始化参：<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/FilterConfig.html#getInitParameter-java.lang.String-"><span style="color: windowtext; text-decoration-line: none;">getInitParameter</span></a></li>
+            <li>获取过滤器名称：<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/FilterConfig.html#getFilterName--"><span style="color: windowtext; text-decoration-line: none;">getFilterName</span></a></li>
+            <li>获取application：<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/FilterConfig.html#getServletContext--"><span style="color: windowtext; text-decoration-line: none;">getServletContext</span></a></li>
+            <li>放行，也就是允许servlet通过：doFilter(ServletRequest,ServletResponse)&nbsp;&nbsp;&nbsp;<em>注意区分与filter接口中doFilter方法的区别，二者参数不同</em></li>
+        </ul>
+        <p>
+            其实放行就相当于调用了对应servlet的service方法 <br>
+            我们使用一下这个FilterChain的doFilter方法让过滤器允许AServlet执行
+        </p>
+        <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">public void </span><span lang="EN-US" style="font-size:15.0pt;
+color:white">doFilter</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletRequest </span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">servletRequest</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletResponse </span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">servletResponse</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">FilterChain </span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">filterChain</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">) </span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">throws </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">IOException</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">, </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">ServletException </span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">System</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><b><i><span lang="EN-US" style="font-size:15.0pt;color:#660E7A">out</span></i></b><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><span lang="EN-US" style="font-size:15.0pt;color:white">println</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;color:#FFA0A0">"AFilter</span><span style="font-size:15.0pt;color:#FFA0A0">拦截你<span lang="EN-US">"</span></span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">//</span><span style="font-size:15.0pt;color:#757575">放行<span lang="EN-US"><br>
+&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15.0pt;
+color:#BFA4A4">filterChain</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">.</span><span lang="EN-US" style="font-size:15.0pt;color:white">doFilter</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">servletRequest</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">,</span><span lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">servletResponse</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF">System</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><b><i><span lang="EN-US" style="font-size:15.0pt;color:#660E7A">out</span></i></b><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">.</span><span lang="EN-US" style="font-size:15.0pt;color:white">println</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;color:#FFA0A0">"</span><span style="font-size:
+15.0pt;color:#FFA0A0">放行成功！！！<span lang="EN-US">"</span></span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">);<br>
+}</span></div>
+
+        <p>
+            再次访问AServlet我们看结果
+        </p>
+        <strong>AFilter拦截你</strong><br>
+        <strong>AServlet........</strong><br>
+        <strong>放行成功！！！</strong><br>
+        <p>
+            可以看到AServlet确实执行了，并且程序最后又回到了AFilter执行了这句“放行成功！！！”印证了“放行就是调用了对应servlet的service方法”
+        </p>
+        <h3>拓展</h3>
+        <p>如下配置可以过滤所有资源</p>
+        <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-class</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;cn.loubth.web.AFilter&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-class</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; <span style="background:darkgreen">&lt;</span></span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60;background:darkgreen">url-pattern</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8;background:darkgreen">&gt;/*&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60;background:darkgreen">url-pattern</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8;background:darkgreen">&gt;</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8"><br>
+&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;</span></div>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

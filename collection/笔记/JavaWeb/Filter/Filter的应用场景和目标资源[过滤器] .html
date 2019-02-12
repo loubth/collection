@@ -1,0 +1,63 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter的应用场景和目标资源</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>Filter的应用场景和目标资源</h1>
+        <div id="info"><span id="time">2018-11-24</span> 作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <h2>过滤器的应用场景</h2>
+        <h3>设置目标资源</h3>
+        <ul>
+            <li>执行目标资源之前做预处理工作，例如设置编码，这种通常都会放行，只是在目标资源执行之前做一些准备工作（<em>几乎所有的servlet中都需要写request.setCharacterEncoding()，这种情况我们就可以把它写到Filter中</em>）
+            </li>
+            <li>通过条件判断是否放行，例如校验当前用户是否已经登录，或者用户IP是否已经被禁用</li>
+            <li>在目标资源执行后，做一些后续的特殊处理工作，例如把目标资源输出的数据进行处理（回程拦截）</li>
+        </ul>
+        <p>通常我们看到的Filter拦截的资源在<em>web.xml</em>是这么匹配的</p>
+        <p align="left" style="background:  black;"><span lang="EN-US"
+                                                          style="font-size:15px;font-family:宋体;color:#D8D8D8">&lt;</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">filter-mapping</span><span
+                lang="EN-US"
+                style="font-size:15px;font-family:宋体;color:#D8D8D8">&gt;<br>    &nbsp;&nbsp;&nbsp;  &lt;</span><span
+                lang="EN-US" style="font-size:15px;    font-family:宋体;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">&gt;AFilter&lt;/</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">filter-name</span><span
+                lang="EN-US"
+                style="font-size:15px;font-family:宋体;color:#D8D8D8">&gt;<br>    &nbsp;&nbsp;&nbsp;  &lt;</span><span
+                lang="EN-US" style="font-size:15px;    font-family:宋体;color:#60FF60"><strong>url-pattern</strong></span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">&gt;/AServlet&lt;/</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">url-pattern</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">&gt;<br>    &lt;/</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">filter-mapping</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">&gt;</span></p>
+        <p> 表示只拦截AServlet<br> 其实还有另一种方法，就是不写url-pattern标签而是直接用servlet-name标签，示例如下 </p>
+        <p style="background:black"><span lang="EN-US" style="font-size:15px;    color:#D8D8D8">&lt;</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">filter-mapping</span><span lang="EN-US"
+                                                                                             style="font-size:15px;color:#D8D8D8">&gt;<br>    &nbsp;&nbsp;&nbsp;  &lt;</span><span
+                lang="EN-US" style="font-size:15px;    color:#60FF60">filter-name</span><span lang="EN-US"
+                                                                                              style="font-size:15px;    color:#D8D8D8">&gt;AFilter&lt;/</span><span
+                lang="EN-US" style="font-size:15px;    color:#60FF60">filter-name</span><span lang="EN-US"
+                                                                                              style="font-size:15px;    color:#D8D8D8">&gt;<br>    &nbsp;&nbsp;&nbsp;  &lt;</span><span
+                lang="EN-US" style="font-size:15px;    color:#60FF60"><strong>servlet-name</strong></span><span lang="EN-US"
+                                                                                               style="font-size:15px;    color:#D8D8D8">&gt;AServlet&lt;/</span><span
+                lang="EN-US" style="font-size:15px;    color:#60FF60">servlet-name</span><span lang="EN-US"
+                                                                                               style="font-size:15px;    color:#D8D8D8">&gt;<br>    &lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">filter-mapping</span><span lang="EN-US"
+                                                                                             style="font-size:15px;color:#D8D8D8">&gt;</span>
+        </p>
+        <p>这种方式效果和上面那种相同</p>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

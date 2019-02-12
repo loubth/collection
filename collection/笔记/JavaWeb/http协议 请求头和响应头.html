@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>http协议 请求头和响应头</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>http协议 请求头和响应头</h1>
+        <div id="info">
+            <span id="time">2018-11-25</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <dl>
+            <dt>请求头</dt>
+            <dd>Accept:用于告诉浏览器，客户机支持的数据类型</dd>
+            <dd>Accept-Charset:用于告诉服务器，客户机采用的编码</dd>
+            <dd>Accept-Encoding:用于告诉服务器，客户机支持的数据压缩格式</dd>
+            <dd>Accept-Language:客户机的语言环境</dd>
+            <dd>Host:客户机通过这个头告诉服务器，想访问的主机名</dd>
+            <dd>If-Modified-Since:客户机通过这个头告诉服务器，资源的缓存时间</dd>
+            <dd>Refer:客户机通过这个头告诉服务器，他是从哪个资源来访问服务器的（用于防盗链）</dd>
+            <dd>User-Agent:客户机通过这个头告诉服务器，客户机的软件环境</dd>
+            <dd>Cookie:客户机通过这个头可以向服务器带数据</dd>
+        </dl>
+        <dl>
+            <dt>响应头</dt>
+            <dd>Location:这个头配合302状态码使用，用于告诉客户机找谁</dd>
+            <dd>Server:服务器通过这个头，告诉浏览服务器的类型</dd>
+            <dd>Content-Encoding:服务器通过这个头，数据的压缩格式</dd>
+            <dd>Content-Length:服务器通过这个头，告诉浏览器回送数据的长度</dd>
+            <dd>Content-Type:服务器通过这个头，告诉浏览器回送数据的类型</dd>
+            <dd>Last-Modified:服务器通过这个头，告诉浏览器当前资源缓存时间</dd>
+            <dd>Refresh:服务器通过这个头，告诉浏览器隔多长时间刷新一次</dd>
+            <dd>Content-Disposition:服务器通过这个头，告诉浏览器以下载方式打开数据</dd>
+            <dd>Transfer-Enconding:服务器通过这个头，告诉浏览器数据的传送格式</dd>
+            <dd>ETag:缓存相关的头</dd>
+            <dd>Expires:服务器通过这个头，告诉浏览器回送的资源缓存多长时间，-1或0，则是不缓存</dd>
+            <dd>Cache-Control:no-cache</dd>
+            <dd>Pragma:no-cache</dd>
+            <dd>服务器通过以上两个头，也是控制浏览器不要缓存数据</dd>
+        </dl>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

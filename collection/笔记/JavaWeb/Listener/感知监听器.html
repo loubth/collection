@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>感知监听器</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>感知监听器</h1>
+        <div id="info">
+            <span id="time">2018-11-29</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <h3>感知监听（与HttpSession相关）</h3>
+        <ul>
+            <li>感知监听是用来添加到JavaBean上，而不是添加到三大域上！</li>
+            <li>这两个监听器都不用在web.xml中配置</li>
+        </ul>
+        <h3>即将要被绑定到session中的对象有几种状态</h3>
+        <ul>
+            <li>绑定状态：就一个对象被放到session域中</li>
+            <li>解绑状态：就是这个对象从session域中移除了</li>
+            <li>钝化状态：是将session内存中的对象持久化（序列化）到磁盘</li>
+            <li>活化状态：就是将磁盘上的对象再次恢复到session内存中</li>
+        </ul>
+        <h2>开始搞一个HttpSessionBindingListener的小例子</h2>
+        <p>首先我们看一下对象绑定到session的示意图</p>
+        <img src="/collection/image/2018/11/20181129_1.png" alt="">
+        <p>接下来就开始实现这一步，准备一个实现HttpSessionBindingListener接口的JavaBean（本例中为User）并且实现其方法（valueBound和ValueUnBound方法）</p>
+        <div align="left" style="background: black;"><span lang="EN-US"
+                                                           style="font-size:15px;font-family:宋体;color:#60FF60">package </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">cn.loubth.web</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.http.HttpSessionBindingEvent</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.http.HttpSessionBindingListener</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">public
+class </span><span lang="EN-US" style="font-size:15px;font-family:宋体;
+color:#2B91AF">User </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">implements </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#2B91AF">HttpSessionBindingListener </span><span lang="EN-US"
+                                                                      style="font-size:15px;font-family:宋体;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">private </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#2B91AF">String </span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#CFBFAD">username</span><span lang="EN-US"
+                                                          style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">private </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#2B91AF">String </span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#CFBFAD">password</span><span lang="EN-US"
+                                                          style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#BED6FF">User</span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#D8D8D8">() {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#BED6FF">User</span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#2B91AF">String </span><span lang="EN-US"
+                                                         style="font-size:15px;font-family:宋体;color:#BFA4A4">username</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                                  style="font-size:15px;font-family:宋体;color:#2B91AF">String </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#BFA4A4">password</span><span lang="EN-US"
+                                                                                                        style="font-size:15px;font-family:宋体;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#60FF60">this</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:#CFBFAD">username </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">= </span><span lang="EN-US"
+                                                                                                  style="font-size:15px;font-family:宋体;color:#BFA4A4">username</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#60FF60">this</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:#CFBFAD">password </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">= </span><span lang="EN-US"
+                                                                                                  style="font-size:15px;font-family:宋体;color:#BFA4A4">password</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#2B91AF">String </span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:white">getUsername</span><span lang="EN-US"
+                                                           style="font-size:15px;font-family:宋体;color:#D8D8D8">() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#60FF60">return </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#CFBFAD">username</span><span lang="EN-US"
+                                                                                                        style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">setUsername</span><span lang="EN-US"
+                                                    style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">String </span><span lang="EN-US"
+                                                                                                       style="font-size:15px;font-family:宋体;color:#BFA4A4">username</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#60FF60">this</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:#CFBFAD">username </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">= </span><span lang="EN-US"
+                                                                                                  style="font-size:15px;font-family:宋体;color:#BFA4A4">username</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#2B91AF">String </span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:white">getPassword</span><span lang="EN-US"
+                                                           style="font-size:15px;font-family:宋体;color:#D8D8D8">() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#60FF60">return </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#CFBFAD">password</span><span lang="EN-US"
+                                                                                                        style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">setPassword</span><span lang="EN-US"
+                                                    style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">String </span><span lang="EN-US"
+                                                                                                       style="font-size:15px;font-family:宋体;color:#BFA4A4">password</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#60FF60">this</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:#CFBFAD">password </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">= </span><span lang="EN-US"
+                                                                                                  style="font-size:15px;font-family:宋体;color:#BFA4A4">password</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">valueBound</span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#2B91AF">HttpSessionBindingEvent </span><span lang="EN-US"
+                                                                          style="font-size:15px;font-family:宋体;color:#BFA4A4">httpSessionBindingEvent</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                       style="font-size:15px;font-family:宋体;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:#FFA0A0">"</span><span
+                style="font-size:15px;font-family:宋体;color:#FFA0A0">哇，<span lang="EN-US">session</span>添加了我！<span
+                lang="EN-US">"</span></span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">valueUnbound</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">HttpSessionBindingEvent </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#BFA4A4">httpSessionBindingEvent</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                       style="font-size:15px;font-family:宋体;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;font-family:宋体;color:#FFA0A0">"</span><span
+                style="font-size:15px;font-family:宋体;color:#FFA0A0">啊，<span lang="EN-US">session</span>移除了我！<span
+                lang="EN-US">"</span></span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></div>
+        <p>实现接口中的valueBound和ValueUnBound方法，不用配置web.xml，直接开始写触发事件的测试用到的jsp</p>
+        <h3>add.jsp（测试代码一 将javaBean绑定到session）</h3>
+        <pre style="background:black"><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&lt;%@ </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">page </span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#BFA4A4">import</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">="</span><span lang="EN-US"
+                                                                                   style="font-size:15px;color:#FFA0A0">cn.loubth.web.User</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">" %&gt;</span><i><span lang="EN-US"
+                                                                                           style="font-size:15px;color:gray"><br></span></i><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&lt;%@ </span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#60FF60">page </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">contentType</span><span lang="EN-US"
+                                                                                            style="font-size:15px;color:#D8D8D8">="</span><span
+                lang="EN-US" style="font-size:15px;color:#FFA0A0">text/html;charset=UTF-8</span><span lang="EN-US"
+                                                                                                        style="font-size:15px;color:#D8D8D8">" </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">language</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">="</span><span
+                lang="EN-US" style="font-size:15px;color:#FFA0A0">java</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">" %&gt;<br>&lt;</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">html</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">head</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&nbsp;&nbsp;&nbsp; &lt;</span><span
+                lang="EN-US" style="font-size:15px;
+color:#60FF60">title</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;add&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">title</span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">head</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">body</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>add<br>&lt;%<br>&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">User </span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#D8D8D8">user=</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">new </span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:white">User</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">();<br>&nbsp;&nbsp;&nbsp; session.</span><span
+                lang="EN-US" style="font-size:15px;
+color:white">setAttribute</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15px;color:#FFA0A0">"user"</span><span lang="EN-US"
+                                                                                                    style="font-size:15px;color:#D8D8D8">,user);<br>%&gt;<br>&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">body</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">html</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;</span></pre>
+
+        <h3>remove.jsp（测试代码二 将javaBean解绑session）</h3>
+        <pre style="text-indent:38.0pt;background:black"><i><span lang="EN-US" style="font-size:15px;color:gray">
+</span></i><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&lt;%@ </span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#60FF60">page </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">contentType</span><span lang="EN-US"
+                                                                                            style="font-size:15px;color:#D8D8D8">="</span><span
+                lang="EN-US" style="font-size:15px;color:#FFA0A0">text/html;charset=UTF-8</span><span lang="EN-US"
+                                                                                                        style="font-size:15px;color:#D8D8D8">" </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">language</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">="</span><span
+                lang="EN-US" style="font-size:15px;color:#FFA0A0">java</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">" %&gt;<br>&lt;</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">html</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">head</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&nbsp;&nbsp;&nbsp; &lt;</span><span
+                lang="EN-US" style="font-size:15px;
+color:#60FF60">title</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;remove&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">title</span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">head</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">body</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>remove<br>&lt;%<br>&nbsp;&nbsp;&nbsp; session.</span><span
+                lang="EN-US" style="font-size:15px;
+color:white">removeAttribute</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15px;color:#FFA0A0">"user"</span><span lang="EN-US"
+                                                                                                    style="font-size:15px;color:#D8D8D8">);<br>%&gt;<br>&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">body</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;<br>&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">html</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">&gt;</span></pre>
+
+        <p>
+            现在我们来访问一下 <em>add.jsp</em> <br>
+            得到结果 <br>
+            <strong>
+                哇，session添加了我！
+            </strong><br>
+            现在我们来访问一下 <em>remove.jsp</em> <br>
+            得到结果 <br>
+            <strong>
+                啊，session移除了我！
+            </strong>
+        </p>
+
+        <h2>再搞一个HttpSessionActivationListener的小例子</h2>
+        <h3>首先要搞清楚钝化和活化是怎么回事</h3>
+        <ul>
+            <li>钝化是将session内存中的对象持久化（序列化）到磁盘</li>
+            <li>活化是将磁盘上的对象再次恢复到session内存中</li>
+        </ul>
+        <p>
+            举个例子，你将一个对象添加到session域当中，比如<em>session.setAttribute("user","userTest")</em>然后重启服务器，再通过<em>session.getAttribute("user")</em>获取这个对象，按照道理来说，当服务器关闭的时候，内存中关于服务器的数据全都会释放，内存空间会被回收，但是我们却发现仍然可以获取到这个对象，难道是内存中关于session的数据不释放？其实并不是，而是服务器在关闭的时候会将session序列化，也就是说服务器会将相关数据从内存转移到硬盘当中，当服务器重新启动后再从硬盘中将session反序列话到内存当中去，这样就可以让session仍然可以获取到内部的对象了。
+        </p>
+
+        <img src="/collection/image/2018/11/20181129_2.png" alt="">
+
+        <p>那么如何让服务器的这个特性失效呢，也好办，操作如下</p>
+        <img src="/collection/image/2018/11/20181129_3.png" alt="">
+
+        <p>当然一般情况下我们不会让其失效，可是随着用户的增加，服务器的压力太大怎么办，这时候我们可以通过一种手段让用户session在一段时间没有使用后自动序列化到硬盘，也就是钝化，那么怎么操作呢？</p>
+        <img src="/collection/image/2018/11/20181129_4.png" alt="">
+        <p>意在这个位置下如此配置会对服务器中所有的项目都生效，而且其生成的session文件（这次后缀名为.session）不会随着再次被访问而而销毁</p>
+        <p>效果如下：</p>
+        <img src="/collection/image/2018/11/20181129_5.png" alt="">
+        <p>
+            现在我们开始介绍HttpSessionActivationListener接口，在上面的过程中，我们介绍了session的钝化和活化，但我们要注意一点，session可以钝化和活化，但不要以为session域内部的对象也会序列化，我们知道，在java中一个对象要是想序列化必须实现可序列化接口（Serializable），上面的例子当中<em>session.setAttribute("user","userTest")</em>设置的对象之所以可以成功被访问是因为我们设置的是字符串对象，字符串类实现了可序列化接口（Serializable）。回归主题HttpSessionActivationListener是干啥的呢？它的作用其实就是监听对象本身被钝化或活化的事件，示例代码
+        </p>
+        <pre style="background:black"><span lang="EN-US" style="font-size:15px;
+color:#60FF60">package </span><span lang="EN-US" style="font-size:15px;
+color:#2B91AF">cn.loubth.web</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">;</span><br><br><span lang="EN-US" style="font-size:15px;color:#60FF60">import </span><span lang="EN-US" style="font-size:15px;color:#2B91AF">javax.servlet.http.HttpSessionActivationListener</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;
+</span><span lang="EN-US" style="font-size:15px;color:#60FF60">import </span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#2B91AF">javax.servlet.http.HttpSessionBindingEvent</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br></span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#60FF60">import </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">javax.servlet.http.HttpSessionBindingListener</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br></span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#60FF60">import </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">javax.servlet.http.HttpSessionEvent</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br></span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#60FF60">import </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">java.io.Serializable</span><span lang="EN-US"
+                                                                                                     style="font-size:15px;color:#D8D8D8">;<br></span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">public class </span><span lang="EN-US"
+                                                                                              style="font-size:15px;color:#2B91AF">User </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">implements </span><span lang="EN-US"
+                                                                                            style="font-size:15px;color:#2B91AF">HttpSessionActivationListener</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                   style="font-size:15px;color:#2B91AF">Serializable </span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">private </span><span lang="EN-US"
+                                                                                                         style="font-size:15px;color:#2B91AF">String </span><span
+                lang="EN-US" style="font-size:15px;color:#CFBFAD">username</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">;<br>&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">private </span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#2B91AF">String </span><span
+                lang="EN-US" style="font-size:15px;color:#CFBFAD">password</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public </span><span lang="EN-US"
+                                                                                                        style="font-size:15px;color:#BED6FF">User</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">() {<br>&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public </span><span lang="EN-US"
+                                                                                                        style="font-size:15px;color:#BED6FF">User</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                  style="font-size:15px;color:#2B91AF">String </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">username</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">, </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">String </span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#BFA4A4">password</span><span
+                lang="EN-US"
+                style="font-size:15px;color:#D8D8D8">) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">this</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">.</span><span
+                lang="EN-US" style="font-size:15px;color:#CFBFAD">username </span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">= </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">username</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">this</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">.</span><span
+                lang="EN-US" style="font-size:15px;color:#CFBFAD">password </span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">= </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">password</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">;<br>&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public </span><span lang="EN-US"
+                                                                                                        style="font-size:15px;color:#2B91AF">String </span><span
+                lang="EN-US" style="font-size:15px;color:white">getUsername</span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">return </span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#CFBFAD">username</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br>&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">setUsername</span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">String </span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#BFA4A4">username</span><span
+                lang="EN-US"
+                style="font-size:15px;color:#D8D8D8">) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">this</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">.</span><span
+                lang="EN-US" style="font-size:15px;color:#CFBFAD">username </span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">= </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">username</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">;<br>&nbsp;&nbsp;&nbsp; }<br><br>&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">public </span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#2B91AF">String </span><span
+                lang="EN-US" style="font-size:15px;color:white">getPassword</span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">return </span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#CFBFAD">password</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br>&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">setPassword</span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">String </span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#BFA4A4">password</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#60FF60">this</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                  style="font-size:15px;color:#CFBFAD">password </span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">= </span><span lang="EN-US"
+                                                                                   style="font-size:15px;color:#BFA4A4">password</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                style="font-size:15px;color:#757575">@Override<br>&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span lang="EN-US"
+                                                                                             style="font-size:15px;color:white">sessionWillPassivate</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                  style="font-size:15px;color:#2B91AF">HttpSessionEvent </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">httpSessionEvent</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;color:#D8D8D8">) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">System</span><span lang="EN-US"
+                                                                                       style="font-size:15px;color:#D8D8D8">.</span><b><i><span
+                lang="EN-US" style="font-size:15px;color:#660E7A">out</span></i></b><span lang="EN-US"
+                                                                                            style="font-size:15px;color:#D8D8D8">.</span><span
+                lang="EN-US" style="font-size:15px;color:white">println</span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;color:#FFA0A0">"</span><span style="font-size:
+15px;color:#FFA0A0">要钝化了<span lang="EN-US">........"</span></span><span lang="EN-US"
+                                                                          style="font-size:15px;color:#D8D8D8">);<br>&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                style="font-size:15px;color:#757575">@Override<br>&nbsp;&nbsp;&nbsp; </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span lang="EN-US"
+                                                                                             style="font-size:15px;color:white">sessionDidActivate</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                  style="font-size:15px;color:#2B91AF">HttpSessionEvent </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">httpSessionEvent</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;color:#D8D8D8">) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                  style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                  style="font-size:15px;color:#FFA0A0">"</span><span
+                style="font-size:
+15px;color:#FFA0A0">又活过来了！！！<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                      style="font-size:15px;color:#D8D8D8">);<br>&nbsp;&nbsp;&nbsp; }<br>
+}</span></pre>
+        <p>我们可以看到改接口要求对象实现两个方法，其中sessionWillPassivate是对象被钝化时执行的，sessionDidActivate是对象被活化时执行的。也就是说页面在执行<em>session.setAttribute("user",user)</em>的时候会执行sessionWillPassivate方法，执行<em>session.getAttribute("user")</em>的时候会执行sessionDidActivate方法。
+        </p>
+        <p>千万注意要同时实现可序列化接口（Serializable）否则无法成功钝化活化。</p>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

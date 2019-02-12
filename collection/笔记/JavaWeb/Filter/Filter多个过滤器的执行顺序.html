@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter多个过滤器的执行顺序</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>Filter多个过滤器的执行顺序</h1>
+        <div id="info">
+            <span id="time">2018-11-23</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <h2>当有多个过滤器能同时匹配到同一个servlet上他们的执行顺序是怎样的？</h2>
+        <p>
+            我们来测试一下，先看一下测试代码
+        </p>
+        <h3>测试用的AServlet代码</h3>
+        <div align="left" style="background: black;"><span lang="EN-US"
+                                                           style="font-size:15px;font-family:宋体;color:#60FF60">package </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">cn.loubth.web</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US"
+             style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.ServletException</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.annotation.</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#757575">WebServlet</span><span lang="EN-US"
+                                                                                                        style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US"
+             style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.http.HttpServlet</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US"
+             style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.http.HttpServletRequest</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US"
+             style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.http.HttpServletResponse</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">java.io.IOException</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">public
+class </span><span lang="EN-US" style="font-size:15px;font-family:宋体;
+color:#2B91AF">AServlet </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#60FF60">extends </span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#2B91AF">HttpServlet </span><span lang="EN-US"
+                                                            style="font-size:15px;font-family:宋体;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">protected void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">doPost</span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:
+15px;font-family:宋体;color:#2B91AF">HttpServletRequest </span><span lang="EN-US"
+                                                                   style="font-size:15px;font-family:宋体;color:#BFA4A4">request</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                                style="font-size:15px;font-family:宋体;color:#2B91AF">HttpServletResponse
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#BFA4A4">response</span><span lang="EN-US"
+                                                                                                   style="font-size:15px;font-family:宋体;color:#D8D8D8">) </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">throws </span><span lang="EN-US"
+                                                                                                     style="font-size:15px;font-family:宋体;color:#2B91AF">ServletException</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                                style="font-size:15px;font-family:宋体;color:#2B91AF">IOException </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">protected void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">doGet</span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#2B91AF">HttpServletRequest </span><span lang="EN-US"
+                                                              style="font-size:15px;font-family:宋体;color:#BFA4A4">request</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                                style="font-size:15px;font-family:宋体;color:#2B91AF">HttpServletResponse
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#BFA4A4">response</span><span lang="EN-US"
+                                                                                                   style="font-size:15px;font-family:宋体;color:#D8D8D8">) </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">throws </span><span lang="EN-US"
+                                                                                                     style="font-size:15px;font-family:宋体;color:#2B91AF">ServletException</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                                style="font-size:15px;font-family:宋体;color:#2B91AF">IOException </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                     style="font-size:15px;font-family:宋体;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                               style="font-size:15px;font-family:宋体;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                               style="font-size:15px;font-family:宋体;color:#FFA0A0">"AServlet........"</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></div>
+        <p>那么我们开始看过滤器的代码</p>
+        <h3>首先是AFilter</h3>
+        <div style="background:black"><span lang="EN-US" style="font-size:15px;
+color:#60FF60">package </span><span lang="EN-US" style="font-size:15px;
+color:#2B91AF">cn.loubth.web</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">;<br>
+<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;color:#60FF60">import </span><span lang="EN-US"
+                                                                                   style="font-size:15px;color:#2B91AF">javax.servlet.</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">*;<br>
+</span><span lang="EN-US" style="font-size:15px;color:#60FF60">import </span><span lang="EN-US"
+                                                                                   style="font-size:15px;color:#2B91AF">java.io.IOException</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;color:#60FF60">public class </span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#2B91AF">AFilter </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">implements </span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#2B91AF">Filter </span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">init</span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">FilterConfig </span><span lang="EN-US"
+                                                                                            style="font-size:15px;color:#BFA4A4">filterConfig</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#60FF60">throws </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">ServletException </span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"AFilter</span><span
+                style="font-size:15px;color:#FFA0A0">初始化<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">doFilter</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">ServletRequest </span><span lang="EN-US"
+                                                                                              style="font-size:15px;color:#BFA4A4">servletRequest</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#2B91AF">ServletResponse </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">servletResponse</span><span lang="EN-US"
+                                                                                              style="font-size:15px;color:#D8D8D8">, </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">FilterChain </span><span lang="EN-US"
+                                                                                           style="font-size:15px;color:#BFA4A4">filterChain</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#60FF60">throws </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">IOException</span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">, </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">ServletException </span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"AFilter</span><span
+                style="font-size:15px;color:#FFA0A0">拦截你<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#757575">//</span><span style="font-size:15px;
+color:#757575">放行<span lang="EN-US"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15px;color:#BFA4A4">filterChain</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">doFilter</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#BFA4A4">servletRequest</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">,</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#BFA4A4">servletResponse</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"AFilter</span><span
+                style="font-size:15px;color:#FFA0A0">放行成功！！！<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                    style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">destroy</span><span lang="EN-US"
+                                                                                    style="font-size:15px;color:#D8D8D8">() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"AFilter</span><span
+                style="font-size:15px;color:#FFA0A0">销毁<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                               style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></div>
+        <h3>其次是BFilter</h3>
+        <div style="background:black"><span lang="EN-US" style="font-size:15px;
+color:#60FF60">package </span><span lang="EN-US" style="font-size:15px;
+color:#2B91AF">cn.loubth.web</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">;<br>
+<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;color:#60FF60">import </span><span lang="EN-US"
+                                                                                   style="font-size:15px;color:#2B91AF">javax.servlet.</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">*;<br>
+</span><span lang="EN-US" style="font-size:15px;color:#60FF60">import </span><span lang="EN-US"
+                                                                                   style="font-size:15px;color:#2B91AF">java.io.IOException</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;color:#60FF60">public class </span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#2B91AF">BFilter </span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">implements </span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#2B91AF">Filter </span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">{<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">init</span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">FilterConfig </span><span lang="EN-US"
+                                                                                            style="font-size:15px;color:#BFA4A4">filterConfig</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#60FF60">throws </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">ServletException </span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"BFilter</span><span
+                style="font-size:15px;color:#FFA0A0">初始化<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">doFilter</span><span lang="EN-US"
+                                                                                     style="font-size:15px;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">ServletRequest </span><span lang="EN-US"
+                                                                                              style="font-size:15px;color:#BFA4A4">servletRequest</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">, </span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#2B91AF">ServletResponse </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">servletResponse</span><span lang="EN-US"
+                                                                                              style="font-size:15px;color:#D8D8D8">, </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">FilterChain </span><span lang="EN-US"
+                                                                                           style="font-size:15px;color:#BFA4A4">filterChain</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">) </span><span lang="EN-US"
+                                                                                 style="font-size:15px;color:#60FF60">throws </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">IOException</span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#D8D8D8">, </span><span
+                lang="EN-US" style="font-size:15px;color:#2B91AF">ServletException </span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"BFilter</span><span
+                style="font-size:15px;color:#FFA0A0">拦截你<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#757575">//</span><span style="font-size:15px;
+color:#757575">放行<span lang="EN-US"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15px;color:#BFA4A4">filterChain</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">doFilter</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#BFA4A4">servletRequest</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">,</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#BFA4A4">servletResponse</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"BFilter</span><span
+                style="font-size:15px;color:#FFA0A0">放行成功！！！<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                                    style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#60FF60">public void </span><span
+                lang="EN-US" style="font-size:15px;color:white">destroy</span><span lang="EN-US"
+                                                                                    style="font-size:15px;color:#D8D8D8">() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                style="font-size:15px;color:#FFA0A0">"BFilter</span><span
+                style="font-size:15px;color:#FFA0A0">销毁<span lang="EN-US">"</span></span><span lang="EN-US"
+                                                                                               style="font-size:15px;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></div>
+        <h3>配置文件web.xml</h3>
+        <div style="background:black"><i><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&lt;?</span></i><span lang="EN-US" style="font-size:15px;
+color:#BFA4A4">xml version</span><span lang="EN-US" style="font-size:15px;
+color:#FFA0A0">="1.0" </span><span lang="EN-US" style="font-size:15px;
+color:#BFA4A4">encoding</span><span lang="EN-US" style="font-size:15px;
+color:#FFA0A0">="UTF-8"</span><i><span lang="EN-US" style="font-size:
+15px;color:#D8D8D8">?&gt;<br>
+</span></i><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&lt;</span><span lang="EN-US"
+                                                                                    style="font-size:15px;color:#60FF60">web-app </span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">version</span><span lang="EN-US"
+                                                                                      style="font-size:15px;color:#FFA0A0">="2.4"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                              style="font-size:15px;color:#BFA4A4">xmlns</span><span
+                lang="EN-US" style="font-size:15px;color:#FFA0A0">="http://java.sun.com/xml/ns/j2ee"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                              style="font-size:15px;color:#BFA4A4">xmlns:</span><span
+                lang="EN-US" style="font-size:15px;color:#CFBFAD">xsi</span><span lang="EN-US"
+                                                                                  style="font-size:15px;color:#FFA0A0">="http://www.w3.org/2001/XMLSchema-instance"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                              style="font-size:15px;color:#CFBFAD">xsi</span><span
+                lang="EN-US" style="font-size:15px;color:#BFA4A4">:schemaLocation</span><span lang="EN-US"
+                                                                                              style="font-size:15px;color:#FFA0A0">="http://java.sun.com/xml/ns/j2ee<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"</span><span lang="EN-US"
+                                                                                                        style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AServlet&lt;/</span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#60FF60">servlet-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-class</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;cn.loubth.web.AServlet&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">servlet-class</span><span lang="EN-US"
+                                                                                            style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AServlet&lt;/</span><span lang="EN-US"
+                                                                                                style="font-size:15px;color:#60FF60">servlet-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;/AServlet&lt;/</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;color:#60FF60">url-pattern</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US"
+                                                                                               style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;cn.loubth.web.AFilter&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span lang="EN-US"
+                                                                                           style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US"
+                                                                                               style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;/*&lt;/</span><span lang="EN-US"
+                                                                                          style="font-size:15px;color:#60FF60">url-pattern</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;BFilter&lt;/</span><span lang="EN-US"
+                                                                                               style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;cn.loubth.web.BFilter&lt;/</span><span
+                lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span lang="EN-US"
+                                                                                           style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;BFilter&lt;/</span><span lang="EN-US"
+                                                                                               style="font-size:15px;color:#60FF60">filter-name</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;/AServlet&lt;/</span><span lang="EN-US"
+                                                                                                 style="font-size:15px;color:#60FF60">url-pattern</span><span
+                lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">web-app</span><span lang="EN-US"
+                                                                                        style="font-size:15px;color:#D8D8D8">&gt;</span>
+        </div>
+
+        <p>
+            我们看到AFilter可以拦截所有资源，BFilter专门拦截AServlet，此时我们访问AServlet得到结果：
+        </p>
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width: 100%; border-collapse: collapse; border-spacing: 0px; width: 1000px; font-size: 13px; color: rgb(51, 51, 51); background: none ; border-radius: 0px ; border-width: 0px ; border-style: initial ; border-color: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 1px 0px ; outline: 0px ; overflow: visible ; padding: 0px ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; box-sizing: content-box ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; min-height: auto ;"><tbody style="border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><tr style="margin: 0px ; padding: 0px ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><td class="gutter" style="margin: 0px ; padding: 0px ; border-radius: 0px ; background: none ; border-width: 0px ; border-style: initial ; border-color: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; color: rgb(56, 86, 111) ;"><div class="line number1 index0 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">1</div><div class="line number2 index1 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">2</div><div class="line number3 index2 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">3</div><div class="line number4 index3 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">4</div><div class="line number5 index4 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">5</div></td><td class="code" style="width: 970px; margin: 0px ; padding: 0px ; border-radius: 0px ; background: none ; border-width: 0px ; border-style: initial ; border-color: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><div class="container" style="width: auto ; margin: 0px ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; padding: 0px ; position: relative ; right: auto ; top: auto ; vertical-align: baseline ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><div class="line number1 index0 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">AFilter拦截你</code></div><div class="line number2 index1 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">BFilter拦截你</code></div><div class="line number3 index2 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">AServlet........</code></div><div class="line number4 index3 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">BFilter放行成功！！！</code></div><div class="line number5 index4 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">AFilter放行成功！！！</code></div></div></td></tr></tbody></table>
+        <p>
+            我们换一下web.xml配置文件中两个过滤器的位置
+        </p>
+        <div style="background:black"><i><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&lt;?</span></i><span lang="EN-US" style="font-size:15px;
+color:#BFA4A4">xml version</span><span lang="EN-US" style="font-size:15px;
+color:#FFA0A0">="1.0" </span><span lang="EN-US" style="font-size:15px;
+color:#BFA4A4">encoding</span><span lang="EN-US" style="font-size:15px;
+color:#FFA0A0">="UTF-8"</span><i><span lang="EN-US" style="font-size:
+15px;color:#D8D8D8">?&gt;<br>
+</span></i><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">web-app </span><span lang="EN-US" style="font-size:15px;color:#BFA4A4">version</span><span lang="EN-US" style="font-size:15px;color:#FFA0A0">="2.4"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#BFA4A4">xmlns</span><span lang="EN-US" style="font-size:15px;color:#FFA0A0">="http://java.sun.com/xml/ns/j2ee"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#BFA4A4">xmlns:</span><span lang="EN-US" style="font-size:15px;color:#CFBFAD">xsi</span><span lang="EN-US" style="font-size:15px;color:#FFA0A0">="http://www.w3.org/2001/XMLSchema-instance"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;color:#CFBFAD">xsi</span><span lang="EN-US" style="font-size:15px;color:#BFA4A4">:schemaLocation</span><span lang="EN-US" style="font-size:15px;color:#FFA0A0">="http://java.sun.com/xml/ns/j2ee<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AServlet&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-class</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;cn.loubth.web.AServlet&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-class</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AServlet&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">servlet-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;/AServlet&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">servlet-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;BFilter&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;cn.loubth.web.BFilter&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;BFilter&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;/AServlet&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;cn.loubth.web.AFilter&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-class</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;/*&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">filter-mapping</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;<br>
+<br>
+<br>
+&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">web-app</span><span lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;</span></div>
+
+        <p>
+            这次我们访问AServlet得到结果：
+        </p>
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width: 100%; border-collapse: collapse; border-spacing: 0px; width: 1000px; font-size: 13px; color: rgb(51, 51, 51); background: none ; border-radius: 0px ; border-width: 0px ; border-style: initial ; border-color: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 1px 0px ; outline: 0px ; overflow: visible ; padding: 0px ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; box-sizing: content-box ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; min-height: auto ;"><tbody style="border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><tr style="margin: 0px ; padding: 0px ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><td class="gutter" style="margin: 0px ; padding: 0px ; border-radius: 0px ; background: none ; border-width: 0px ; border-style: initial ; border-color: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; color: rgb(56, 86, 111) ;"><div class="line number1 index0 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">1</div><div class="line number2 index1 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">2</div><div class="line number3 index2 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">3</div><div class="line number4 index3 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">4</div><div class="line number5 index4 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border-width: 0px 3px 0px 0px ; border-top-style: initial ; border-right-style: solid ; border-bottom-style: initial ; border-left-style: initial ; border-top-color: initial ; border-right-color: rgb(67, 90, 95) ; border-bottom-color: initial ; border-left-color: initial ; border-image: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 0.5em 0px 1em ; position: static ; right: auto ; text-align: right ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;">5</div></td><td class="code" style="width: 970px; margin: 0px ; padding: 0px ; border-radius: 0px ; background: none ; border-width: 0px ; border-style: initial ; border-color: initial ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><div class="container" style="width: auto ; margin: 0px ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; outline: 0px ; overflow: visible ; padding: 0px ; position: relative ; right: auto ; top: auto ; vertical-align: baseline ; box-sizing: content-box ; font-size: 1em ; min-height: auto ;"><div class="line number1 index0 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">BFilter拦截你</code></div><div class="line number2 index1 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">AFilter拦截你</code></div><div class="line number3 index2 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">AServlet........</code></div><div class="line number4 index3 alt1" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">AFilter放行成功！！！</code></div><div class="line number5 index4 alt2" style="border-radius: 0px ; background: none rgb(34, 34, 34) ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; padding: 0px 1em ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; font-size: 1em ; min-height: auto ; white-space: pre ;"><code class="java plain" style="padding: 0px ; font-family: Consolas, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, Courier, monospace ; font-size: 1em ; color: lime ; border-radius: 0px ; background: none ; border: 0px ; bottom: auto ; float: none ; height: auto ; left: auto ; line-height: 1.1em ; margin: 0px ; outline: 0px ; overflow: visible ; position: static ; right: auto ; top: auto ; vertical-align: baseline ; width: auto ; box-sizing: content-box ; min-height: auto ;">BFilter放行成功！！！</code></div></div></td></tr></tbody></table>
+        <p>
+            我们得出结论，<em>过滤器的执行顺序和url-pattern标签匹配的精确程度无关，只和他们的filter-mapping标签在web.xml文件中的顺序有关，靠上的配置的先执行。</em>
+        </p>
+        <h2>拓展</h2>
+        <p>
+            对于FilterChain的doFilter方法，他的作用是执行目标资源或执行下一个过滤器！如果有下一个过滤器就执行下一个过滤器，没有就执行目标资源！
+        </p>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

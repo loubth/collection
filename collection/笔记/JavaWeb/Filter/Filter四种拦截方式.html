@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter四种拦截方式</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>Filter四种拦截方式</h1>
+        <div id="info">
+            <span id="time">2018-11-23</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+
+        <h3>如何实现这四种拦截方式？</h3>
+        <p>
+            我们可以在web.xml如下标签中配置拦截方式
+        </p>
+        <p align="left" style="background: black;"><span lang="EN-US"
+                                                         style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">&lt;</span><span
+                lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#60FF60">filter-mapping</span><span
+                lang="EN-US" style="font-size:15.0pt;font-family:宋体;color:#D8D8D8">&gt;</span></p>
+
+        <h3>具体怎么配置呢？</h3>
+        <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span
+                lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;/*&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">url-pattern</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">&lt;!--</span><span
+                style="font-size:15.0pt;color:#757575">默认方式，拦请求<span lang="EN-US">--&gt;<br>
+&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;REQUEST&lt;/</span><span
+                lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">&lt;!--</span><span
+                style="font-size:15.0pt;color:#757575">拦转发<span lang="EN-US">--&gt;<br>
+&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;FORWARD&lt;/</span><span
+                lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">&lt;!--</span><span
+                style="font-size:15.0pt;color:#757575">拦包含<span lang="EN-US">--&gt;<br>
+&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;INCLUDE&lt;/</span><span
+                lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">&lt;!--</span><span
+                style="font-size:15.0pt;color:#757575">拦错误<span lang="EN-US">--&gt;<br>
+&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;ERROR&lt;/</span><span
+                lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span lang="EN-US"
+                                                                                                 style="font-size:15.0pt;color:#D8D8D8">&gt;</span>
+        </div>
+
+        <h3>四种拦截方式啥意思啊？</h3>
+        <ol>
+            <li>拦请求
+            <pre style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;REQUEST&lt;/</span><span
+                    lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                               style="font-size:15.0pt;color:#D8D8D8">&gt;</span></pre>
+                <p>
+                    这种拦截方式就是默认的拦截方式，当你在浏览器中请求到这个过滤器拦截的资源时就会被拦截下来
+                </p>
+            </li>
+            <li>拦转发
+            <pre style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;FORWARD&lt;/</span><span
+                    lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                               style="font-size:15.0pt;color:#D8D8D8">&gt;</span></pre>
+                <p>
+                    这种拦截方式是专门拦截如下这种转发请求的代码
+                </p>
+                <pre style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#BFA4A4">request</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">.</span><span lang="EN-US" style="font-size:15.0pt;color:white">getRequestDispatcher</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#FFA0A0">"/xxx"</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">).</span><span lang="EN-US"
+                                                                                           style="font-size:15.0pt;color:white">forward</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#BFA4A4">request</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">,</span><span lang="EN-US"
+                                                                                          style="font-size:15.0pt;color:#BFA4A4">response</span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">);</span></pre>
+            </li>
+            <li>拦包含
+            <pre style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;INCLUDE&lt;/</span><span
+                    lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                               style="font-size:15.0pt;color:#D8D8D8">&gt;</span></pre>
+                <p>
+                    这种拦截方式是专门拦截包含页面 <br>
+                    例如在jsp中通过<strong>&lt;jsp:include page="xxx.jsp" /&gt;</strong>，嵌入进来的页面
+                </p>
+                <pre style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#CFBFAD">jsp</span><span lang="EN-US"
+                                                                                                    style="font-size:15.0pt;color:#60FF60">:include </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#BFA4A4">page</span><span lang="EN-US"
+                                                                                             style="font-size:15.0pt;color:#FFA0A0">="xxx.jsp" </span><span
+                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">/&gt;</span></pre>
+            </li>
+            <li>拦错误
+            <pre style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;ERROR&lt;/</span><span
+                    lang="EN-US" style="font-size:15.0pt;color:#60FF60">dispatcher</span><span lang="EN-US"
+                                                                                               style="font-size:15.0pt;color:#D8D8D8">&gt;</span></pre>
+                <p>
+                    这种拦截方式专门拦截错误页面，例如web.xml中配置的500错误页面
+                </p>
+                <p style="background:black"><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">error-page</span><span lang="EN-US"
+                                                                                                           style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">error-code</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;500&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">error-code</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">location</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;/500.jsp&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
+color:#60FF60">location</span><span lang="EN-US" style="font-size:15.0pt;
+color:#D8D8D8">&gt;<br>
+&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">error-page</span><span lang="EN-US"
+                                                                                             style="font-size:15.0pt;color:#D8D8D8">&gt; </span>
+                </p>
+            </li>
+        </ol>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

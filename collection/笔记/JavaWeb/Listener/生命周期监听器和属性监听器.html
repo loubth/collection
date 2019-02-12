@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生命周期监听器和属性监听器</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>生命周期监听器和属性监听器</h1>
+        <div id="info">
+            <span id="time">2018-11-29</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <h3>ServletContext</h3>
+        <p><em>生命周期监听</em>：ServletContextListener，它有两个方法，一个出生时调用，一个死亡时调用。</p>
+        <ul>
+            <li>contextInitialized(ServletContextEvent servletContextEvent) <strong>创建ServletContext时调用</strong></li>
+            <li>contextDestroyed(ServletContextEvent servletContextEvent) <strong>销毁ServletContext时调用</strong></li>
+        </ul>
+        <p><em>属性监听</em>：ServletContextAttributeListener它有三个方法，一个在添加属性时调用，一个在替换属性时调用，最后一个在移除属性时调用。</p>
+        <ul>
+            <li>attributeAdded(ServletContextAttributeEvent scab) <strong>添加属性时调用</strong></li>
+            <li>attributeReplaced(ServletContextAttributeEvent scab) <strong>替换属性时调用</strong></li>
+            <li>attributeRemoved(ServletContextAttributeEvent scab) <strong>移除属性时调用</strong></li>
+        </ul>
+        <hr>
+        <h3>HttpSession</h3>
+        <p><em>生命周期监听</em>：HttpSessionListener，它有两个方法，一个出生时调用，一个死亡时调用。</p>
+        <ul>
+            <li>sessionCreated(HttpSessionEvent httpSessionEvent) <strong>创建HttpSession时调用</strong></li>
+            <li>sessionDestroyed(HttpSessionEvent httpSessionEvent) <strong>销毁HttpSession时调用</strong></li>
+        </ul>
+        <p><em>属性监听</em>：HttpSessionAttributeListener它有三个方法，一个在添加属性时调用，一个在替换属性时调用，最后一个在移除属性时调用。</p>
+        <ul>
+            <li>attributeAdded(HttpSessionBindingEvent se) <strong>添加属性时调用</strong></li>
+            <li>attributeReplaced(HttpSessionBindingEvent se) <strong>替换属性时调用</strong></li>
+            <li>attributeRemovedHttpSessionBindingEvent se) <strong>移除属性时调用</strong></li>
+        </ul>
+        <hr>
+        <h3>ServletRequest</h3>
+        <p><em>生命周期监听</em>：ServletRequestListener，它有两个方法，一个出生时调用，一个死亡时调用。</p>
+        <ul>
+            <li>requestInitialized(ServletRequestEvent servletRequestEvent) <strong>创建ServletRequest时调用</strong></li>
+            <li>requestDestroyed(ServletRequestEvent servletRequestEvent) <strong>销毁ServletRequest时调用</strong></li>
+        </ul>
+        <p><em>属性监听</em>：ServletRequestAttributeListener它有三个方法，一个在添加属性时调用，一个在替换属性时调用，最后一个在移除属性时调用。</p>
+        <ul>
+            <li>attributeAdded(ServletRequestAttributeEvent srae) <strong>添加属性时调用</strong></li>
+            <li>attributeReplaced(ServletRequestAttributeEvent srae) <strong>替换属性时调用</strong></li>
+            <li>attributeRemoved(ServletRequestAttributeEvent srae) <strong>移除属性时调用</strong></li>
+        </ul>
+        <hr>
+        <h2>开始做个“生命周期监听：ServletContextListener”的小例子</h2>
+        <p>创建一个类实现ServletContextListener接口</p>
+        <p align="left" style="background: black;"><span lang="EN-US"
+                                                         style="font-size:15px;font-family:宋体;color:#60FF60">package </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">cn.loubth.web</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US"
+             style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.ServletContextEvent</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">import
+</span><span lang="EN-US"
+             style="font-size:15px;font-family:宋体;color:#2B91AF">javax.servlet.ServletContextListener</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">;<br>
+<br>
+</span><span lang="EN-US" style="font-size:15px;font-family:宋体;color:#60FF60">public
+class </span><span lang="EN-US" style="font-size:15px;font-family:宋体;
+color:#2B91AF">TestListener </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:#60FF60">implements </span><span lang="EN-US"
+                                                      style="font-size:15px;font-family:宋体;color:#2B91AF">ServletContextListener </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">{<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">contextInitialized</span><span lang="EN-US"
+                                                           style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">ServletContextEvent </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#BFA4A4">servletContextEvent</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                     style="font-size:15px;font-family:宋体;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                               style="font-size:15px;font-family:宋体;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                               style="font-size:15px;font-family:宋体;color:#FFA0A0">"ServletContext</span><span
+                style="font-size:15px;font-family:宋体;color:#FFA0A0">今天诞生！<span lang="EN-US">"</span></span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#757575">@Override<br>
+&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15px;font-family:
+宋体;color:#60FF60">public void </span><span lang="EN-US" style="font-size:15px;
+font-family:宋体;color:white">contextDestroyed</span><span lang="EN-US"
+                                                         style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#2B91AF">ServletContextEvent </span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#BFA4A4">servletContextEvent</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US"
+                                                        style="font-size:15px;font-family:宋体;color:#2B91AF">System</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><b><i><span lang="EN-US"
+                                                                                                     style="font-size:15px;font-family:宋体;color:#660E7A">out</span></i></b><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">.</span><span lang="EN-US"
+                                                                                               style="font-size:15px;font-family:宋体;color:white">println</span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">(</span><span lang="EN-US"
+                                                                                               style="font-size:15px;font-family:宋体;color:#FFA0A0">"ServletContext</span><span
+                style="font-size:15px;font-family:宋体;color:#FFA0A0">结束了他的一生！<span lang="EN-US">"</span></span><span
+                lang="EN-US" style="font-size:15px;font-family:宋体;color:#D8D8D8">);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</span></p>
+        <p>接下来要配置web.xml配置文件<br>在web-app标签下配置</p>
+<pre style="background:black"><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15px;color:#60FF60">listener</span><span lang="EN-US"
+                                                                                                       style="font-size:15px;color:#D8D8D8">&gt;
+&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15px;
+color:#60FF60">listener-class</span><span lang="EN-US" style="font-size:15px;
+color:#D8D8D8">&gt;cn.loubth.web.TestListener&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">listener-class</span><span
+        lang="EN-US" style="font-size:15px;color:#D8D8D8">&gt;
+&lt;/</span><span lang="EN-US" style="font-size:15px;color:#60FF60">listener</span><span lang="EN-US"
+                                                                                         style="font-size:15px;color:#D8D8D8">&gt;</span></pre>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
