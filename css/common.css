@@ -9,6 +9,11 @@ body, a, blockquote {
     word-break: break-all;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 900;
+    color:#000000;
+}
+
 input, img {
     vertical-align: middle;
     border: 0 none;
@@ -57,7 +62,7 @@ header {
 header h1 {
     text-align: center;
     margin: 25px auto 0;
-    font-weight: bold;
+    font-weight: 900;
     font-size: 40px;
     line-height: normal;
     font-family: Arial, 华文行楷;
@@ -76,8 +81,11 @@ header #info #time {
 }
 
 .content {
-    padding: 10px;
+    margin: 10px;
     border-bottom: 1px solid #E4D0D0;
+    max-width: 888px;
+    overflow: hidden;
+    word-break: break-all;
 }
 
 .content img, embed {
@@ -96,8 +104,9 @@ header #info #time {
     border: 0px;
 }
 
-.content pre {
+.content pre,.content code {
     white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .content blockquote {
@@ -111,7 +120,7 @@ header #info #time {
 
 em {
     color: rgb(164, 34, 16);
-    font-weight: bolder;
+    font-weight: 900;
     font-style: normal;
 }
 
@@ -123,4 +132,16 @@ strong {
 
 footer {
     height: 100px;
+}
+
+.atLeft{
+    text-align: left;
+}
+
+.atRight{
+    text-align: right;
+}
+
+.atCenter{
+    text-align: center;
 }

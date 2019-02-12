@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java内部类中使用局部变量必须是final</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>Java内部类中使用局部变量必须是final</h1>
+        <div id="info">
+            <span id="time">2018-08-17</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <blockquote>
+            在java中， 方法的内部类可以访问方法中的局部变量，但必须用final修饰才能访问。
+        </blockquote>
+        <h3>原因：</h3>
+        <ol>
+            <li>当方法被调用运行完毕之后，局部变量就已消亡了。但内部类对象可能还存在， 直到没有被引用时才会消亡。此时就会出现一种情况，就是内部类要访问一个不存在的局部变量。
+            </li>
+            <li>
+                解决这一问题的办法就是使用final修饰局部变量，通过将final局部变量"复制"一份,复制品直接作为方法内部类中的数据成员，这事方法内部类访问的其实是这个局部变量的复制品！而且，由于被final修饰的变量赋值后不能再修改，所以就保证了复制品与原始变量的一致。
+            </li>
+            <li>原因二的功能能实现的原因是：Java采用了一种copy local
+                variable(复制局部变量)的方式来实现，也就是说把定义为final的局部变量拷贝过来用，而引用的也可以拿过来用，只是不能重新赋值。从而造成了可以access local
+                variable(访问局部变量)的假象，而这个时候由于不能重新赋值，所以一般不会造成不可预料的事情发生。
+            </li>
+            <li>使用final修饰符不仅会保持对象的引用不会改变, 而且编译器还会持续维护这个对象在回调方法中的生命周期. 所以这才是final变量和final参数的根本意义.​</li>
+        </ol>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

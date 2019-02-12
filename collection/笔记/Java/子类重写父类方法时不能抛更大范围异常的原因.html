@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>子类重写父类方法时不能抛更大范围异常的原因</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>子类重写父类方法时不能抛更大范围异常的原因</h1>
+        <div id="info">
+            <span id="time">2018-08-07</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <p>比如父类中有多个方法，其中有个方法A抛出异常，而方法B调用了A方法，并对A的异常进行了处理</p>
+        <p>现在子类继承父类，并覆盖了A方法，但是没有覆盖B方法，假如子类在覆盖A时再抛出其他异常</p>
+        <p>注意此时子类可以使用A方法和B方法，假设现在使用B方法，B方法会调用A方法，而A方法被覆盖，调用的就是被覆盖后的A方法，问题来了：<em>B方法对A方法抛出的异常会进行处理的，但是A被覆盖后，产生的新异常不属于父类中A抛出异常或其子类的话，B就处理不了，处理不了就会报错！！！！！</em></p>
+        <p>所以。。。。。。。。。。。。。</p>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
