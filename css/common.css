@@ -9,11 +9,6 @@ body, a, blockquote {
     word-break: break-all;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 900;
-    color:#000000;
-}
-
 input, img {
     vertical-align: middle;
     border: 0 none;
@@ -83,7 +78,7 @@ header #info #time {
 .content {
     margin: 10px;
     border-bottom: 1px solid #E4D0D0;
-    max-width: 888px;
+    max-width: 100%;
     overflow: hidden;
     word-break: break-all;
 }
@@ -104,7 +99,7 @@ header #info #time {
     border: 0px;
 }
 
-.content pre,.content code {
+.content pre, .content code {
     white-space: pre-wrap;
     word-break: break-all;
 }
@@ -134,14 +129,14 @@ footer {
     height: 100px;
 }
 
-.atLeft{
+.atLeft {
     text-align: left;
 }
 
-.atRight{
+.atRight {
     text-align: right;
 }
 
-.atCenter{
+.atCenter {
     text-align: center;
 }

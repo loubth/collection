@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>格式字符串语法</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            word-break: normal;
+        }
+
+        th, td {
+            border: 1px solid black;
+            vertical-align: middle;
+            word-break: normal;
+        }
+        th, td ,table code{
+            word-break: normal!important;
+        }
+        td:nth-child(1),td:nth-last-child(2){
+            white-space: nowrap;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>格式字符串语法</h1>
+        <div id="info">
+            <span id="time">2018-08-07</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+
+        <h4><a name="syntax" href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#syntax"
+               target="_blank"> 格式字符串语法 </a></h4>
+        <p> 产生格式化输出的每个方法都需要<em>格式字符串</em> 和<em>参数列表</em>。格式字符串是一个 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/String.html" title="java.lang 中的类"><code>String</code></a>，它可以包含固定文本以及一个或多个嵌入的<em>格式说明符</em>。请考虑以下示例：
+        </p>
+        <blockquote>
+   <pre>   Calendar c = ...;
+   String s = String.format("Duke's Birthday: %1$tm %1$te,%1$tY", c); </pre>
+        </blockquote>
+        此格式字符串是
+        <tt>format</tt> 方法的第一个参数。它包含三个格式说明符 "
+        <tt>%1$tm</tt>"、"
+        <tt>%1$te</tt>" 和 "
+        <tt>%1$tY</tt>"，它们指出应该如何处理参数以及在文本的什么地方插入它们。格式字符串的其余部分是包括
+        <tt>"Dukes Birthday: "</tt> 和其他任何空格或标点符号的固定文本。 参数列表由传递给位于格式字符串之后的方法的所有参数组成。在上述示例中，参数列表的大小为 1，由对象
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Calendar.html" title="java.util 中的类"><code>Calendar</code></a>
+        <tt>c</tt> 组成。
+        <ul>
+            <li> 常规类型、字符类型和数值类型的格式说明符的语法如下：
+                <blockquote>
+     <pre>   %[argument_index$][flags][width][.precision]conversion
+   %   [参数索引$]   [标志]  [宽度]   [.精度]     转换</pre>
+                </blockquote>
+                <p> 可选的 <em>argument_index</em> 是一个十进制整数，用于表明参数在参数列表中的位置。第一个参数由 "<tt>1$</tt>" 引用，第二个参数由 "<tt>2$</tt>"
+                    引用，依此类推。 </p>
+                <p> 可选 <em>flags</em> 是修改输出格式的字符集。有效标志集取决于转换类型。 </p>
+                <p> 可选 <em>width</em> 是一个非负十进制整数，表明要向输出中写入的最少字符数。 </p>
+                <p> 可选 <em>precision</em> 是一个非负十进制整数，通常用来限制字符数。特定行为取决于转换类型。 </p>
+                <p> 所需 <em>conversion</em> 是一个表明应该如何格式化参数的字符。给定参数的有效转换集取决于参数的数据类型。 </p></li>
+            <li> 用来表示日期和时间类型的格式说明符的语法如下：
+                <blockquote>
+     <pre>   %[argument_index$][flags][width]conversion
+   %   [参数索引$]   [标志]  [宽度]   转换</pre>
+                </blockquote>
+                <p> 可选的 <em>argument_index</em>、<em>flags</em> 和 <em>width</em> 的定义同上。 </p>
+                <p> 所需的 <em>conversion</em> 是一个由两字符组成的序列。第一个字符是 <tt>'t'</tt> 或 <tt>'T'</tt>。第二个字符表明所使用的格式。这些字符类似于但不完全等同于那些由
+                    GNU <tt>date</tt> 和 POSIX <tt>strftime(3c)</tt> 定义的字符。 </p></li>
+            <li> 与参数不对应的格式说明符的语法如下：
+                <blockquote>
+     <pre>   %[flags][width]conversion
+   %[标志]  [宽度]   转换</pre>
+                </blockquote>
+                <p> 可选 <em>flags</em> 和 <em>width</em> 的定义同上。 </p>
+                <p> 所需的 <em>conversion</em> 是一个表明要在输出中所插内容的字符。 </p></li>
+        </ul>
+        <h4> 转换 </h4>
+        <p> 转换可分为以下几类： </p>
+        <ol>
+            <li><b>常规</b> - 可应用于任何参数类型</li>
+            <li><b>字符</b> - 可应用于表示 Unicode 字符的基本类型：<tt>char</tt>、<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Character.html"
+                    title="java.lang 中的类"><code>Character</code></a>、<tt>byte</tt>、<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Byte.html"
+                    title="java.lang 中的类"><code>Byte</code></a>、<tt>short</tt> 和 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Short.html"
+                    title="java.lang 中的类"><code>Short</code></a>。当 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Character.html#isValidCodePoint(int)"><code>Character.isValidCodePoint(int)</code></a>
+                返回 <tt>true</tt> 时，可将此转换应用于 <tt>int</tt> 和 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html"
+                        title="java.lang 中的类"><code>Integer</code></a> 类型
+            </li>
+            <li><b>数值</b>
+                <ol>
+                    <li><b>整数</b> - 可应用于 Java 的整数类型：<tt>byte</tt>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Byte.html"
+                            title="java.lang 中的类"><code>Byte</code></a>、<tt>short</tt>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Short.html"
+                            title="java.lang 中的类"><code>Short</code></a>、<tt>int</tt>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html"
+                            title="java.lang 中的类"><code>Integer</code></a>、<tt>long</tt>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html"
+                            title="java.lang 中的类"><code>Long</code></a> 和 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigInteger.html"
+                            title="java.math 中的类"><code>BigInteger</code></a></li>
+                    <li><b>浮点</b> - 可用于 Java 的浮点类型：<tt>float</tt>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html"
+                            title="java.lang 中的类"><code>Float</code></a>、<tt>double</tt>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html"
+                            title="java.lang 中的类"><code>Double</code></a> 和 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html"
+                            title="java.math 中的类"><code>BigDecimal</code></a></li>
+                </ol>
+            </li>
+            <li><b>日期/时间</b> - 可应用于 Java 的、能够对日期或时间进行编码的类型：<tt>long</tt>、<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html"
+                    title="java.lang 中的类"><code>Long</code></a>、<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Calendar.html" title="java.util 中的类"><code>Calendar</code></a>
+                和 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Date.html"
+                     title="java.util 中的类"><code>Date</code></a>。
+            </li>
+            <li><b>百分比</b> - 产生字面值 <tt>'%'</tt> (<tt>'\u0025'</tt>)</li>
+            <li><b>行分隔符</b> - 产生特定于平台的行分隔符</li>
+        </ol>
+        <p> 下表总结了受支持的转换。由大写字符（如
+            <tt>'B'</tt>、<tt>'H'</tt>、<tt>'S'</tt>、<tt>'C'</tt>、<tt>'X'</tt>、<tt>'E'</tt>、<tt>'G'</tt>、<tt>'A'</tt> 和
+            <tt>'T'</tt>）表示的转换与由相应的小写字符的转换等同，根据流行的 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Locale.html"
+                    title="java.util 中的类"><code>Locale</code></a> 规则将结果转换为大写形式除外。后者等同于 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a>
+            的以下调用 </p>
+        <pre>    out.toUpperCase() </pre>
+        <table cellpadding="5" summary="genConv">
+            <tbody>
+            <tr>
+                <th valign="bottom"> 转换</th>
+                <th valign="bottom"> 参数类别</th>
+                <th valign="bottom"> 说明</th>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'b'</tt>, <tt>'B'</tt></td>
+                <td valign="top"> 常规</td>
+                <td> 如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>false</tt>"。如果 <em>arg</em> 是一个 <tt>boolean</tt> 值或 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Boolean.html"
+                        title="java.lang 中的类"><code>Boolean</code></a>，则结果为 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/String.html#valueOf(boolean)"><code>String.valueOf()</code></a>
+                    返回的字符串。否则结果为 "true"。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'h'</tt>, <tt>'H'</tt></td>
+                <td valign="top"> 常规</td>
+                <td> 如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>null</tt>"。否则，结果为调用 <tt>Integer.toHexString(arg.hashCode())</tt>
+                    得到的结果。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'s'</tt>, <tt>'S'</tt></td>
+                <td valign="top"> 常规</td>
+                <td> 如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>null</tt>"。如果 <em>arg</em> 实现 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formattable.html"
+                        title="java.util 中的接口"><code>Formattable</code></a>，则调用 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formattable.html#formatTo(java.util.Formatter,%20int,%20int,%20int)"><code>arg.formatTo</code></a>。否则，结果为调用
+                    <tt>arg.toString()</tt> 得到的结果。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'c'</tt>, <tt>'C'</tt></td>
+                <td valign="top"> 字符</td>
+                <td> 结果是一个 Unicode 字符</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'d'</tt></td>
+                <td valign="top"> 整数</td>
+                <td> 结果被格式化为十进制整数</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'o'</tt></td>
+                <td valign="top"> 整数</td>
+                <td> 结果被格式化为八进制整数</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'x'</tt>, <tt>'X'</tt></td>
+                <td valign="top"> 整数</td>
+                <td> 结果被格式化为十六进制整数</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'e'</tt>, <tt>'E'</tt></td>
+                <td valign="top"> 浮点</td>
+                <td> 结果被格式化为用计算机科学记数法表示的十进制数</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'f'</tt></td>
+                <td valign="top"> 浮点</td>
+                <td> 结果被格式化为十进制数</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'g'</tt>, <tt>'G'</tt></td>
+                <td valign="top"> 浮点</td>
+                <td> 根据精度和舍入运算后的值，使用计算机科学记数形式或十进制格式对结果进行格式化。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'a'</tt>, <tt>'A'</tt></td>
+                <td valign="top"> 浮点</td>
+                <td> 结果被格式化为带有效位数和指数的十六进制浮点数</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'t'</tt>, <tt>'T'</tt></td>
+                <td valign="top"> 日期/时间</td>
+                <td> 日期和时间转换字符的前缀。请参阅<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dt">日期/时间转换</a>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'%'</tt></td>
+                <td valign="top"> 百分比</td>
+                <td> 结果为字面值 <tt>'%'</tt> (<tt>'\u0025'</tt>)</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'n'</tt></td>
+                <td valign="top"> 行分隔符</td>
+                <td> 结果为特定于平台的行分隔符</td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 任何未明确定义为转换的字符都是非法字符，并且都被保留，以供将来扩展使用。 </p>
+        <h4><a name="dt"> 日期/时间转换</a></h4>
+        <p> 以下日期和时间转换的后缀字符是为 <tt>'t'</tt> 和 <tt>'T'</tt> 转换定义的。这些类型相似于但不完全等同于那些由 GNU <tt>date</tt> 和 POSIX <tt>strftime(3c)</tt>
+            定义的类型。提供其他转换类型是为了访问特定于 Java 的功能（如将 <tt>'L'</tt> 用作秒中的毫秒）。 </p>
+        <p> 以下转换字符用来格式化时间： </p>
+        <table cellpadding="5" summary="time">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'H'</tt></td>
+                <td> 24 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>00 - 23</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'I'</tt></td>
+                <td> 12 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>01 - 12</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'k'</tt></td>
+                <td> 24 小时制的小时，即 <tt>0 - 23</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'l'</tt></td>
+                <td> 12 小时制的小时，即 <tt>1 - 12</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'M'</tt></td>
+                <td> 小时中的分钟，被格式化为必要时带前导零的两位数，即 <tt>00 - 59</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'S'</tt></td>
+                <td> 分钟中的秒，被格式化为必要时带前导零的两位数，即 <tt>00 - 60</tt> （"<tt>60</tt>" 是支持闰秒所需的一个特殊值）。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'L'</tt></td>
+                <td> 秒中的毫秒，被格式化为必要时带前导零的三位数，即 <tt>000 - 999</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'N'</tt></td>
+                <td> 秒中的毫微秒，被格式化为必要时带前导零的九位数，即 <tt>000000000 - 999999999</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'p'</tt></td>
+                <td> 特定于语言环境的 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getAmPmStrings()">上午或下午</a>
+                    标记以小写形式表示，例如 "<tt>am</tt>" 或 "<tt>pm</tt>"。使用转换前缀 <tt>'T'</tt> 可以强行将此输出转换为大写形式。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'z'</tt></td>
+                <td> 相对于 GMT 的 <a href="http://www.ietf.org/rfc/rfc0822.txt">RFC&nbsp;822</a> 格式的数字时区偏移量，例如
+                    <tt>-0800</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'Z'</tt></td>
+                <td> 表示时区缩写形式的字符串。Formatter 的语言环境将取代参数的语言环境（如果有）。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'s'</tt></td>
+                <td> 自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的秒数，即 <tt>Long.MIN_VALUE/1000</tt> 与 <tt>Long.MAX_VALUE/1000</tt>
+                    之间的差值。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'Q'</tt></td>
+                <td> 自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的毫秒数，即 <tt>Long.MIN_VALUE</tt> 与 <tt>Long.MAX_VALUE</tt>
+                    之间的差值。
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 以下转换字符用来格式化日期： </p>
+        <table cellpadding="5" summary="date">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'B'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getMonths()">月份全称</a>，例如
+                    <tt>"January"</tt> 和 <tt>"February"</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'b'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getShortMonths()">月份简称</a>，例如
+                    <tt>"Jan"</tt> 和 <tt>"Feb"</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'h'</tt></td>
+                <td> 与 <tt>'b'</tt> 相同。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'A'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getWeekdays()">星期几</a>全称，例如
+                    <tt>"Sunday"</tt> 和 <tt>"Monday"</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'a'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getShortWeekdays()">星期几</a>简称，例如
+                    <tt>"Sun"</tt> 和 <tt>"Mon"</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'C'</tt></td>
+                <td> 除以 <tt>100</tt> 的四位数表示的年份，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'Y'</tt></td>
+                <td> 年份，被格式化为必要时带前导零的四位数（至少），例如，<tt>0092</tt> 等于格里高利历的 <tt>92</tt> CE。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'y'</tt></td>
+                <td> 年份的最后两位数，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'j'</tt></td>
+                <td> 一年中的天数，被格式化为必要时带前导零的三位数，例如，对于格里高利历是 <tt>001 - 366</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'m'</tt></td>
+                <td> 月份，被格式化为必要时带前导零的两位数，即 <tt>01 - 13</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'d'</tt></td>
+                <td> 一个月中的天数，被格式化为必要时带前导零两位数，即 <tt>01 - 31</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'e'</tt></td>
+                <td> 一个月中的天数，被格式化为两位数，即 <tt>1 - 31</tt>。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 以下转换字符用于格式化常见的日期/时间组合。 </p>
+        <table cellpadding="5" summary="composites">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'R'</tt></td>
+                <td> 24 小时制的时间，被格式化为 <tt>"%tH:%tM"</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'T'</tt></td>
+                <td> 24 小时制的时间，被格式化为 <tt>"%tH:%tM:%tS"</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'r'</tt></td>
+                <td> 12 小时制的时间，被格式化为 <tt>"%tI:%tM:%tS %Tp"</tt>。上午或下午标记 (<tt>'%Tp'</tt>) 的位置可能与语言环境有关。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'D'</tt></td>
+                <td> 日期，被格式化为 <tt>"%tm/%td/%ty"</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'F'</tt></td>
+                <td><a href="http://www.w3.org/TR/NOTE-datetime">ISO&nbsp;8601</a> 格式的完整日期，被格式化为 <tt>"%tY-%tm-%td"</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'c'</tt></td>
+                <td> 日期和时间，被格式化为 <tt>"%ta %tb %td %tT %tZ %tY"</tt>，例如 <tt>"Sun Jul 20 16:17:00 EDT 1969"</tt>。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 任何未明确定义为转换的字符都是非法字符，并且都被保留，以供将来扩展使用。 </p>
+        <h4> 标志</h4>
+        <p> 下表总结了受支持的标志。<em>y</em> 表示该标志受指示参数类型支持。 </p>
+        <table cellpadding="5" summary="genConv">
+            <tbody>
+            <tr>
+                <th valign="bottom"> 标志</th>
+                <th valign="bottom"> 常规</th>
+                <th valign="bottom"> 字符</th>
+                <th valign="bottom"> 整数</th>
+                <th valign="bottom"> 浮点</th>
+                <th valign="bottom"> 日期/时间</th>
+                <th valign="bottom"> 说明</th>
+            </tr>
+            <tr>
+                <td> '-'</td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> y</td>
+                <td> 结果将是左对齐的。</td>
+            </tr>
+            <tr>
+                <td> '#'</td>
+                <td align="center" valign="top"> y<sup>1</sup></td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> y<sup>3</sup></td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> -</td>
+                <td> 结果应该使用依赖于转换类型的替换形式</td>
+            </tr>
+            <tr>
+                <td> '+'</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> y<sup>4</sup></td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> -</td>
+                <td> 结果总是包括一个符号</td>
+            </tr>
+            <tr>
+                <td> '&nbsp;&nbsp;'</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> y<sup>4</sup></td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> -</td>
+                <td> 对于正值，结果中将包括一个前导空格</td>
+            </tr>
+            <tr>
+                <td> '0'</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> y</td>
+                <td align="center" valign="top"> -</td>
+                <td> 结果将用零来填充</td>
+            </tr>
+            <tr>
+                <td> ','</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> y<sup>2</sup></td>
+                <td align="center" valign="top"> y<sup>5</sup></td>
+                <td align="center" valign="top"> -</td>
+                <td> 结果将包括特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormatSymbols.html#getGroupingSeparator()">组分隔符</a>
+                </td>
+            </tr>
+            <tr>
+                <td> '('</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> -</td>
+                <td align="center" valign="top"> y<sup>4</sup></td>
+                <td align="center" valign="top"> y<sup>5</sup></td>
+                <td align="center"> -</td>
+                <td> 结果将是用圆括号括起来的负数</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><sup>1</sup> 取决于 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formattable.html"
+                               title="java.util 中的接口"><code>Formattable</code></a> 的定义。 </p>
+        <p><sup>2</sup> 只适用于 <tt>'d'</tt> 转换。 </p>
+        <p><sup>3</sup> 只适用于 <tt>'o'</tt>、<tt>'x'</tt> 和 <tt>'X'</tt> 转换。 </p>
+        <p><sup>4</sup> 对 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigInteger.html"
+                             title="java.math 中的类"><code>BigInteger</code></a> 应用 <tt>'d'</tt>、<tt>'o'</tt>、<tt>'x'</tt>
+            和 <tt>'X'</tt> 转换时，或者对 <tt>byte</tt> 及 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Byte.html"
+                    title="java.lang 中的类"><code>Byte</code></a>、<tt>short</tt> 及 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Short.html"
+                    title="java.lang 中的类"><code>Short</code></a>、<tt>int</tt> 及 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html"
+                    title="java.lang 中的类"><code>Integer</code></a>、<tt>long</tt> 及 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html"
+                    title="java.lang 中的类"><code>Long</code></a> 分别应用 <tt>'d'</tt> 转换时适用。 </p>
+        <p><sup>5</sup> 只适用于 <tt>'e'</tt>、<tt>'E'</tt>、<tt>'f'</tt>、<tt>'g'</tt> 和 <tt>'G'</tt> 转换。 </p>
+        <p> 任何未显式定义为标志的字符都是非法字符，并且都被保留，以供扩展使用。 </p>
+        <h4> 宽度 </h4>
+        <p> 宽度是将向输出中写入的最少字符数。对于行分隔符转换，不适用宽度，如果提供宽度，则会抛出异常。 </p>
+        <h4> 精度 </h4>
+        <p> 对于常规参数类型，精度是将向输出中写入的最多字符数。 </p>
+        <p> 对于浮点转换 <tt>'e'</tt>、<tt>'E'</tt> 和 <tt>'f'</tt>，精度是小数点分隔符后的位数。如果转换是 <tt>'g'</tt> 或 <tt>'G'</tt>，那么精度是舍入计算后所得数值的所有位数。如果转换是
+            <tt>'a'</tt> 或 <tt>'A'</tt>，则不必指定精度。 </p>
+        <p> 对于字符、整数和日期/时间参数类型转换，以及百分比和行分隔符转换，精度是不适用的；如果提供精度，则会抛出异常。 </p>
+        <h4> 参数索引 </h4>
+        <p> 参数索引是一个十进制整数，用于表明参数在参数列表中的位置。第一个参数由 "<tt>1$</tt>" 引用，第二个参数由 "<tt>2$</tt>" 引用，依此类推。 </p>
+        <p> 根据位置引用参数的另一种方法是使用 <tt>'&lt;'</tt> (<tt>'\u003c'</tt>) 标志，这将会重用以前格式说明符的参数。例如，以下两条语句产生的字符相同： </p>
+        <blockquote>
+   <pre>   Calendar c = ...;
+   String s1 = String.format("Duke's Birthday: %1$tm %1$te,%1$tY", c);
+
+   String s2 = String.format("Duke's Birthday: %1$tm %&lt;te,%&lt;tY", c);</pre>
+        </blockquote>
+        <hr>
+        <h3><a name="detail"> 详细信息 </a></h3>
+        <p> 这一部分将提供格式化行为规范方面的细节，其中包括条件和异常、受支持的数据类型、本地化以及标志、转换和数据类型之间的交互。有关格式化概念的概述，请参阅<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#summary">摘要</a>。 </p>
+        <p>任何未明确定义为转换、日期/时间转换前缀或标志的字符都是非法字符，并且这些字符都被保留，以供未来扩展使用。在格式字符串中使用这样的字符会导致抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/UnknownFormatConversionException.html"
+                title="java.util 中的类"><code>UnknownFormatConversionException</code></a> 或 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/UnknownFormatFlagsException.html"
+                title="java.util 中的类"><code>UnknownFormatFlagsException</code></a>。 </p>
+        <p> 如果格式说明符包含带有无效值或不受支持的其他值的宽度或精度，则将分别抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatWidthException.html"
+                title="java.util 中的类"><code>IllegalFormatWidthException</code></a> 或 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatPrecisionException.html"
+                title="java.util 中的类"><code>IllegalFormatPrecisionException</code></a>。 </p>
+        <p> 如果格式说明符包含不适用于对应参数的转换字符，则将抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatConversionException.html"
+                title="java.util 中的类"><code>IllegalFormatConversionException</code></a>。 </p>
+        <p> 所有指定异常都可能被 <tt>Formatter</tt> 的任何 <tt>format</tt> 方法以及任何 <tt>format</tt> 的便捷方法抛出，比如 <code>String#format(String,Object...)String.format</code>
+            和 <code>java.io.PrintStream#printf(String,Object...)PrintStream.printf</code>。 String.format} and <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/io/PrintStream.html#printf(java.lang.String,%20java.lang.Object...)"><code>PrintStream.printf</code></a>.
+        </p>
+        <p> 由大写字符（如
+            <tt>'B'</tt>、<tt>'H'</tt>、<tt>'S'</tt>、<tt>'C'</tt>、<tt>'X'</tt>、<tt>'E'</tt>、<tt>'G'</tt>、<tt>'A'</tt> 和
+            <tt>'T'</tt>）表示的转换与那些相应的小写字符表示的转换相同，根据流行的 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Locale.html"
+                    title="java.util 中的类"><code>Locale</code></a> 规则将结果转换成大写形式除外。结果等同于 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a>
+            的以下调用 </p>
+        <pre>    out.toUpperCase() </pre>
+        <h4><a name="dgen"> 常规 </a></h4>
+        <p> 以下常规转换可应用于任何参数类型： </p>
+        <table cellpadding="5" summary="dgConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'b'</tt></td>
+                <td valign="top"><tt>'\u0062'</tt></td>
+                <td> 将生成 "<tt>true</tt>" 或 "<tt>false</tt>"，由 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Boolean.html#toString(boolean)"><code>Boolean.toString(boolean)</code></a>
+                    返回。 <p> 如果参数为 <tt>null</tt>，则结果为 "<tt>false</tt>"。如果参数是一个 <tt>boolean</tt> 值或 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Boolean.html"
+                            title="java.lang 中的类"><code>Boolean</code></a>，那么结果是由 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/String.html#valueOf(boolean)"><code>String.valueOf()</code></a>
+                        返回的字符串。否则结果为 "<tt>true</tt>"。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'B'</tt></td>
+                <td valign="top"><tt>'\u0042'</tt></td>
+                <td><tt>'b'</tt> 的大写形式。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'h'</tt></td>
+                <td valign="top"><tt>'\u0068'</tt></td>
+                <td> 生成一个表示对象的哈希码值的字符串。 <p> 如果参数 <em>arg</em> 为 <tt>null</tt>，则结果为 "<tt>null</tt>"。否则，结果为调用 <tt>Integer.toHexString(arg.hashCode())</tt>
+                    得到的结果。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'H'</tt></td>
+                <td valign="top"><tt>'\u0048'</tt></td>
+                <td><tt>'h'</tt> 的大写形式。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'s'</tt></td>
+                <td valign="top"><tt>'\u0073'</tt></td>
+                <td> 生成一个字符串。 <p> 如果参数为 <tt>null</tt>，则结果为 "<tt>null</tt>"。如果参数实现了 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formattable.html"
+                        title="java.util 中的接口"><code>Formattable</code></a>，则调用其 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formattable.html#formatTo(java.util.Formatter,%20int,%20int,%20int)"><code>formatTo</code></a>
+                    方法。否则，结果为调用参数的 <tt>toString()</tt> 方法得到的结果。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，且参数不是 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formattable.html"
+                            title="java.util 中的接口"><code>Formattable</code></a>，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'S'</tt></td>
+                <td valign="top"><tt>'\u0053'</tt></td>
+                <td><tt>'s'</tt> 的大写形式。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 以下 <a name="dFlags"> 标志 </a> 应用于常规转换： </p>
+        <table cellpadding="5" summary="dFlags">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'-'</tt></td>
+                <td valign="top"><tt>'\u002d'</tt></td>
+                <td> 将输出左对齐。根据需要在转换值结尾处添加空格 (<tt>'\u0020'</tt>)，以满足字段的最小宽度要求。如果没有提供宽度，则将抛出 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/MissingFormatWidthException.html"
+                        title="java.util 中的类"><code>MissingFormatWidthException</code></a>。如果没有给出此标志，则输出将是右对齐的。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'#'</tt></td>
+                <td valign="top"><tt>'\u0023'</tt></td>
+                <td> 要求输出使用替换形式。此形式的定义通过转换指定。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a name="genWidth"> 宽度 </a> 是将向输出中写入的最少字符数。如果转换值的长度小于宽度，则用 <tt>'&nbsp;&nbsp;'</tt> (<tt>\u0020'</tt>)
+            填充输出，直到字符总数等于宽度为止。默认情况下，是在左边进行填充。如果给出 <tt>'-'</tt> 标志，则在右边进行填充。如果没有指定宽度，则没有最小宽度。 </p>
+        <p> 精度是将向输出中写入的最多字符数。精度的应用要先于宽度，因此，即使宽度大于精度，输出也将被截取为 <tt>precision</tt> 字符。如果没有指定精度，则对字符数没有明确限制。 </p>
+        <h4><a name="dchar"> 字符 </a></h4> 此转换可应用于
+        <tt>char</tt> 和
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Character.html" title="java.lang 中的类"><code>Character</code></a>。它还可应用于类型
+        <tt>byte</tt>、
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Byte.html"
+           title="java.lang 中的类"><code>Byte</code></a>、
+        <tt>short</tt> 和
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Short.html"
+           title="java.lang 中的类"><code>Short</code></a>、
+        <tt>int</tt> 和
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html" title="java.lang 中的类"><code>Integer</code></a>。当
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Character.html#isValidCodePoint(int)"><code>Character.isValidCodePoint(int)</code></a>
+        返回
+        <tt>true</tt> 时，此转换也可应用于
+        <tt>int</tt> 和
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html" title="java.lang 中的类"><code>Integer</code></a>。如果返回
+        <tt>false</tt>，则将抛出
+        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatCodePointException.html"
+           title="java.util 中的类"><code>IllegalFormatCodePointException</code></a>。
+        <table cellpadding="5" summary="charConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'c'</tt></td>
+                <td valign="top"><tt>'\u0063'</tt></td>
+                <td> 将参数格式化为 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Character.html#unicode">Unicode
+                    Character Representation</a> 中描述的 Unicode 字符。在该参数表示增补字符的情况下，它可能是多个 16 位 <tt>char</tt>。 <p> 如果给出 <tt>'#'</tt>
+                    标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'C'</tt></td>
+                <td valign="top"><tt>'\u0043'</tt></td>
+                <td><tt>'c'</tt> 的大写形式。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><tt>'-'</tt> 标志是为应用<a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dFlags">常规转换</a>而定义的。如果给出
+            <tt>'#'</tt> 标志，则将抛出 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                    title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p>
+        <p> 宽度是为了实现<a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#genWidth">常规转换</a>而定义的。
+        </p>
+        <p> 精度不适用。如果指定精度，则将抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatPrecisionException.html"
+                title="java.util 中的类"><code>IllegalFormatPrecisionException</code></a>。 </p>
+        <h4><a name="dnum"> 数值 </a></h4>
+        <p> 数值转换分为以下几类： </p>
+        <ol>
+            <li><a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dnint"><b>Byte、Short、Integer
+                和 Long</b></a></li>
+            <li>
+                <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dnbint"><b>BigInteger</b></a>
+            </li>
+            <li><a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dndec"><b>Float 和
+                Double</b></a></li>
+            <li>
+                <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dndec"><b>BigDecimal</b></a>
+            </li>
+        </ol>
+        <p> 将根据以下算法对数值类型进行格式化： </p>
+        <p><b><a name="l10n algorithm">数字本地化算法</a></b></p>
+        <p> 在获得数字的整数部分、小数部分和指数（适用于数据类型）之后，将应用以下转换： </p>
+        <ol>
+            <li> 将字符串中的每个数字字符 <em>d</em> 都替换为特定于语言环境的数字，该数字是相对于当前语言环境的<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormatSymbols.html#getZeroDigit()">零数字</a>
+                <em>z</em> 来计算的；即 <em>d&nbsp;-&nbsp;</em> <tt>'0'</tt> <em>&nbsp;+&nbsp;z</em>。
+            </li>
+            <li> 如果存在小数点分隔符，则用特定于语言环境的<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormatSymbols.html#getDecimalSeparator()">小数点分隔符</a>替换。
+            </li>
+            <li> 如果给出 <tt>','</tt> (<tt>'\u002c'</tt>) <a name="l10n group">flag</a> 标志，则插入特定于语言环境的<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormatSymbols.html#getGroupingSeparator()">组分隔符</a>，这是通过从最低位到最高位浏览字符串的整数部分并不时插入该语言环境<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormat.html#getGroupingSize()">组大小</a>定义的分隔符来实现的。
+            </li>
+            <li> 如果给出 <tt>'0'</tt> 标志，则在符号字符（如果有的话）之后、第一个非零数字前插入特定于语言环境的<a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormatSymbols.html#getZeroDigit()">零数字</a>，直到字符串长度等于所要求的字段宽度。
+            </li>
+            <li> 如果该值为负，并且给出了 <tt>'('</tt> 标志，那么预先考虑 <tt>'('</tt> (<tt>'\u0028'</tt>)，并追加一个 <tt>')'</tt>
+                (<tt>'\u0029'</tt>)。
+            </li>
+            <li> 如果该值为负（或者为浮点负零），并且没有给出 <tt>'('</tt> 标志，那么预先考虑 <tt>'-'</tt> (<tt>'\u002d'</tt>)。</li>
+            <li> 如果给出 <tt>'+'</tt> 标志，并且该值为正或零（或者为浮点正零），那么将预先考虑 <tt>'+'</tt> (<tt>'\u002b'</tt>)。</li>
+        </ol>
+        <p> 如果该值为 NaN 或正无穷大，则分别输出文本字符串 "NaN" 或 "Infinity"。如果该值为负无穷大，那么输出将是 "(Infinity)"；否则如果给出 <tt>'('</tt> 标志，那么输出将是
+            "-Infinity"。这些值都没有被本地化。 </p>
+        <p><a name="dnint"><b> Byte、Short、Integer 和 Long </b></a></p>
+        <p> 以下转换可应用于 <tt>byte</tt>、<a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Byte.html"
+                                      title="java.lang 中的类"><code>Byte</code></a>、<tt>short</tt>、<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Short.html" title="java.lang 中的类"><code>Short</code></a>、<tt>int</tt>、<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html"
+                title="java.lang 中的类"><code>Integer</code></a>、<tt>long</tt> 和 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html" title="java.lang 中的类"><code>Long</code></a>。
+        </p>
+        <table cellpadding="5" summary="IntConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'d'</tt></td>
+                <td valign="top"><tt>'\u0054'</tt></td>
+                <td> 将参数格式化为十进制整数。应用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 如果给出 <tt>'0'</tt> 标志，并且值为负，则在符号后填充零。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'o'</tt></td>
+                <td valign="top"><tt>'\u006f'</tt></td>
+                <td> 将参数格式化为以 8 为基数的整数。不应用本地化。 <p> 如果 <em>x</em> 为负，那么结果将是通过将 2<sup>n</sup> 添加到值中产生的一个无符号值，其中 <tt>n</tt>
+                    是在适当时候由类 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Byte.html#SIZE">Byte</a>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Short.html#SIZE">Short</a>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html#SIZE">Integer</a>
+                    或 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html#SIZE">Long</a> 中的静态
+                    <tt>SIZE</tt> 字段返回的类型中的位数。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，则输出将始终以基数指示符 <tt>'0'</tt> 开始。 </p>
+                    <p> 如果给出 <tt>'0'</tt> 标志，则使用前导零填充输出，这些零被填充到以下任意指示符号后面的字段宽度中。 </p>
+                    <p> 如果给出 <tt>'('</tt>、<tt>'+'</tt>、'&nbsp;&nbsp;' 或 <tt>'、'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'x'</tt></td>
+                <td valign="top"><tt>'\u0078'</tt></td>
+                <td> 将参数格式化为以 16 为基数的整数。不应用本地化。 <p> 如果 <em>x</em> 为负，那么结果将为把 2<sup>n</sup> 添加到值中产生的一个无符号值，其中 <tt>n</tt>
+                    是在适当时候，由类 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Byte.html#SIZE">Byte</a>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Short.html#SIZE">Short</a>、<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html#SIZE">Integer</a>
+                    或 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html#SIZE">Long</a> 中的静态
+                    <tt>SIZE</tt> 字段返回的类型中的位数。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，则输出将始终以基数指示符 <tt>'0x'</tt> 开始。 </p>
+                    <p> 如果给出 <tt>'0'</tt> 标志，则使用前导零填充输出，这些零被填充到基数指示符或符号（如果存在）后面的字段宽度中。 </p>
+                    <p> 如果给出 <tt>'('</tt>、<tt>'&nbsp;&nbsp;'</tt>、<tt>'+'</tt> 或 <tt>'、'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'X'</tt></td>
+                <td valign="top"><tt>'\u0058'</tt></td>
+                <td><tt>'x'</tt> 的大写形式。将表示数字的整个字符串转换为<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/String.html#toUpperCase(java.util.Locale)">大写</a>，其中包括
+                    <tt>'x'</tt> （如果有的话） 和所有十六进制数字 <tt>'a'</tt> - <tt>'f'</tt> (<tt>'\u0061'</tt> - <tt>'\u0066'</tt>)。
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 如果该转换是 <tt>'o'</tt>、<tt>'x'</tt> 或 <tt>'X'</tt> 转换，并且给出了 <tt>'#'</tt> 和 <tt>'0'</tt> 标志，那么结果将包含基数指示符（对于八进制是
+            <tt>'0'</tt>，对于十六进制是 <tt>'0'</tt> 或 <tt>"0x"</tt>）、一定数量的零（基于宽度）和该值。 </p>
+        <p> 如果没有给出 <tt>'-'</tt> 标志，则在符号前填充空格。 </p>
+        <p> 以下 <a name="intFlags"> 标志 </a> 应用于数值整数转换： </p>
+        <table cellpadding="5" summary="intFlags">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'+'</tt></td>
+                <td valign="top"><tt>'\u002b'</tt></td>
+                <td> 要求所有正数的输出都包含一个正号。如果没有给出此标志，则只有负值包含符号。 <p> 如果同时给出了 <tt>'+'</tt> 和 <tt>'&nbsp;&nbsp;'</tt> 标志，则将抛出 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatFlagsException.html"
+                        title="java.util 中的类"><code>IllegalFormatFlagsException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'&nbsp;&nbsp;'</tt></td>
+                <td valign="top"><tt>'\u0020'</tt></td>
+                <td> 对于非负值的输出，要求包括单个额外空格 (<tt>'\u0020'</tt>)。 <p> 如果同时给出了 <tt>'+'</tt> 和 <tt>'&nbsp;&nbsp;'</tt> 标志，则将抛出
+                    <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatFlagsException.html"
+                       title="java.util 中的类"><code>IllegalFormatFlagsException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'0'</tt></td>
+                <td valign="top"><tt>'\u0030'</tt></td>
+                <td> 要求将前导<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormatSymbols.html#getZeroDigit()">零</a>填充到输出中，这些零被填充到以下任意符号或基数指示符之后，以达到最小字段宽度，转换
+                    NaN 或无穷大时除外。如果没有提供宽度，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/MissingFormatWidthException.html"
+                            title="java.util 中的类"><code>MissingFormatWidthException</code></a>。 <p> 如果同时给出 <tt>'-'</tt>
+                        和 <tt>'0'</tt> 标志，则将抛出 <a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatFlagsException.html"
+                                title="java.util 中的类"><code>IllegalFormatFlagsException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>','</tt></td>
+                <td valign="top"><tt>'\u002c'</tt></td>
+                <td> 要求输出包括在本地化算法的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20group">“群”一节</a>中描述的特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DecimalFormatSymbols.html#getGroupingSeparator()">组分隔符</a>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'('</tt></td>
+                <td valign="top"><tt>'\u0028'</tt></td>
+                <td> 要求输出预先考虑 <tt>'('</tt> (<tt>'\u0028'</tt>)，并将 <tt>')'</tt> (<tt>'\u0029'</tt>) 追加到负值中。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>如果没有给出 <a name="intdFlags"> 标志 </a>，则默认格式设置如下： </p>
+        <ul>
+            <li><tt>width</tt> 中的输出是右对齐的</li>
+            <li> 负数以 <tt>'-'</tt> (<tt>'\u002d'</tt>) 开始</li>
+            <li> 正数和零不包括符号或额外的前导空格</li>
+            <li> 不包括组分隔符</li>
+        </ul>
+        <p> The <a name="intWidth"> 宽度 </a> 是将向输出中写入的最少字符数。这包括所有符号、数字、组分隔符、基数指示符和圆括号。如果转换值的长度小于宽度，则用空格(<tt>'\u0020'</tt>)
+            填充输出，直到字符总数等于宽度。默认情况下，在左边进行填补。如果给出 <tt>'-'</tt> 标志，则在右边进行填补。如果没有指定宽度，则没有最小宽度。 </p>
+        <p> 精度不适用。如果指定精度，则将抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatPrecisionException.html"
+                title="java.util 中的类"><code>IllegalFormatPrecisionException</code></a>。 </p>
+        <p><a name="dnbint"><b> BigInteger </b></a></p>
+        <p> 以下转换可应用于 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigInteger.html"
+                        title="java.math 中的类"><code>BigInteger</code></a>。 </p>
+        <table cellpadding="5" summary="BIntConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'d'</tt></td>
+                <td valign="top"><tt>'\u0054'</tt></td>
+                <td> 要求将输出格式化为十进制整数。应用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 如果给出 <tt>'#'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'o'</tt></td>
+                <td valign="top"><tt>'\u006f'</tt></td>
+                <td> 要求将输出格式化为以 8 为基数的整数。不应用本地化。 <p> 如果 <em>x</em> 为负，那么结果将是以 <tt>'-'</tt> (<tt>'\u002d'</tt>)
+                    开始的有符号值。允许对这种类型使用有符号输出，因为它不同于基本类型，在没有假定显式数据类型大小的情况下，不可能创建无符号的等效值。 </p>
+                    <p> 如果 <em>x</em> 为正数或零，且给出了 <tt>'+'</tt> 标志，那么结果是以 <tt>'+'</tt> (<tt>'\u002b'</tt>) 开始的。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，那么输出将始终以 <tt>'0'</tt> 前缀开始。 </p>
+                    <p> 如果给出 <tt>'0'</tt> 标志，那么将使用前导零填充输出，这些零被填充到指示符后的字段宽度中。 </p>
+                    <p> 如果给出 <tt>','</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'x'</tt></td>
+                <td valign="top"><tt>'\u0078'</tt></td>
+                <td> 要求将输出格式化为以 16 为基数的整数。不应用本地化。 <p> 如果 <em>x</em> 为负，那么结果是以 <tt>'-'</tt> (<tt>'_apos;</tt>)
+                    开始的有符号值。此类型允许使用有符号输出，因为与基本类型不同，如果不假定明确的数据类型大小，则不可能创建无符号的等效数。 </p>
+                    <p> 如果 <em>x</em> 为正数或零，且给出了 <tt>'+'</tt> 标志，那么结果以 <tt>'+'</tt> (<tt>'\u002b'</tt>) 开始。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，那么输出将始终以基数指示符 <tt>'0x'</tt> 开始。 </p>
+                    <p> 如果给出 <tt>'0'</tt> 标志，那么将使用前导零填充输出，这些零被填充到基数指示符或符号（如果存在）后面的字段宽度中。 </p>
+                    <p> 如果给出 <tt>','</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'X'</tt></td>
+                <td valign="top"><tt>'\u0058'</tt></td>
+                <td><tt>'x'</tt> 的大写形式。将表示数字的整个字符串转换为<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/String.html#toUpperCase(java.util.Locale)">大写</a>，其中包括
+                    <tt>'x'</tt>（如果有的话）和所有十六进制数字 <tt>'a'</tt> - <tt>'f'</tt> (<tt>'\u0061'</tt> - <tt>'\u0066'</tt>)。
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 如果该转换是 <tt>'o'</tt>、<tt>'x'</tt> 或 <tt>'X'</tt>，并且给出了 <tt>'#'</tt> 和 <tt>'0'</tt> 标志，那么结果将包含基数指示符（对于八进制是
+            <tt>'0'</tt>，对于十六进制是 <tt>'0'</tt> 或 <tt>"0x"</tt>）、一定数量的零（基于宽度）和该值。 </p>
+        <p> 如果给出 <tt>'0'</tt> 标志，并且值为负，则在符号后填充零。 </p>
+        <p> 如果没有给出 <tt>'-'</tt> 标志，则在符号前填充空格。 </p>
+        <p> 应用为 Byte、Short、Integer 和 Long 定义的所有<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#intFlags">标志</a>。没有给出标志时的<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#intdFlags">默认行为</a>与
+            Byte、Short、Integer 和 Long 的行为相同。 </p>
+        <p><a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#intWidth">宽度</a>的规范与为
+            Byte、Short、Integer 和 Long 定义的规范相同。 </p>
+        <p> 精度不适用。如果指定精度，则将抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatPrecisionException.html"
+                title="java.util 中的类"><code>IllegalFormatPrecisionException</code></a>。 </p>
+        <p><a name="dndec"><b> Float 和 Double</b></a></p>
+        <p> 以下转换可应用于 <tt>float</tt>、<a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html"
+                                       title="java.lang 中的类"><code>Float</code></a>、<tt>double</tt> 和 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html" title="java.lang 中的类"><code>Double</code></a>。
+        </p>
+        <table cellpadding="5" summary="floatConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'e'</tt></td>
+                <td valign="top"><tt>'\u0065'</tt></td>
+                <td> 要求使用<a name="scientific">科学记数法</a>来格式化输出。应用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 数值 <em>m</em> 的格式取决它的值。 </p>
+                    <p> 如果 <em>m</em> 是 NaN 或无穷大，则分别输出文本字符串 "NaN" 或 "Infinity"。这些值都没有被本地化。 </p>
+                    <p> 如果 <em>m</em> 是正零或负零，则指数将是 <tt>"+00"</tt>。 </p>
+                    <p> 否则，结果是表示变量的符号和大小（绝对值）的字符串。符号的格式在<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>中已经描述。数值
+                        <em>m</em> 的格式取决它的值。 </p>
+                    <p> 让 <em>n</em> 成为满足 10<sup><em>n</em></sup> &lt;= <em>m</em> &lt; 10<sup><em>n</em>+1</sup>
+                        的唯一整数；让
+                        <em>a</em> 成为 <em>m</em> 和 10<sup><em>n</em></sup> 的精确算术商数值，且满足 1 &lt;= <em>a</em> &lt;
+                        10。然后将该数值解释为 <em>a</em>
+                        的整数部分，因为是一个小数位数，所以后面跟着小数点分隔符，再后面是表示 <em>a</em> 的小数部分的小数位数，后跟指数符号 <tt>'e'</tt> (<tt>'\u0065'</tt>)，这之后是指数符号，后跟十进制整数形式表示的
+                        <em>n</em>，它由方法 <a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html#toString(long,%20int)"><code>Long.toString(long,
+                            int)</code></a> 产生，并用零填充，使其至少包括两个位数。 </p>
+                    <p> 在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度小于将出现在分别由 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html#toString(float)"><code>Float.toString(float)</code></a>
+                        或
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html#toString(double)"><code>Double.toString(double)</code></a>
+                        返回的字符串中的小数点之后的位数，则使用<a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请在适当时候使用
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html#toString(float)"><code>Float.toString(float)</code></a>
+                        或
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html#toString(double)"><code>Double.toString(double)</code></a>。
+                    </p>
+                    <p>如果给出 <tt>','</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'E'</tt></td>
+                <td valign="top"><tt>'\u0045'</tt></td>
+                <td><tt>'e'</tt> 的大写形式。指数符号将是 <tt>'E'</tt> (<tt>'\u0045'</tt>)。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'g'</tt></td>
+                <td valign="top"><tt>'\u0067'</tt></td>
+                <td> 要求将输出格式化为下面描述的常规科学记数形式。应用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 在对精度进行舍入运算后，所得数值 <em>m</em> 的格式取决于它的值。 </p>
+                    <p> 如果 <em>m</em> 大于等于 10<sup>-4</sup> 但小于 10<sup>精度</sup>，则以<em><a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#decimal">十进制形式</a></em>
+                        表示它。 </p>
+                    <p> 如果 <em>m</em> 小于 10<sup>-4</sup> 或者大于等于 10<sup>精度</sup>，则以<em><a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#scientific">计算机科学记数法</a></em>
+                        表示它。 </p>
+                    <p><em>m</em> 中的总有效位数等于其精度。如果没有指定精度，则其默认值为 <tt>6</tt>。如果精度为 <tt>0</tt>，则该值将为 <tt>1</tt>。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'G'</tt></td>
+                <td valign="top"><tt>'\u0047'</tt></td>
+                <td><tt>'g'</tt> 的大写形式。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'f'</tt></td>
+                <td valign="top"><tt>'\u0066'</tt></td>
+                <td> 要求使用<a name="decimal">十进制形式</a>来格式化输出。使用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 结果是表示参数的符号和大小（绝对值）的字符串。符号的格式在<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>中已经描述。数值
+                        <em>m</em> 的格式取决它的值。 </p>
+                    <p> 如果 <em>m</em> 是 NaN 或无穷大，则将分别输出文本字符串 "NaN" 或 "Infinity"。这些值都没有被本地化。 </p>
+                    <p> 将数值格式化为 <em>m</em> 的整数部分（不带前导零），后跟小数点分隔符，再后面是表示 <em>m</em> 的小数部分的一个或多个十进制数字。 </p>
+                    <p> 在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果该精度小于将要出现在分别由 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html#toString(float)"><code>Float.toString(float)</code></a>
+                        或
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html#toString(double)"><code>Double.toString(double)</code></a>
+                        返回的字符串中的小数点之后的位数，则使用<a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请在适当时候使用
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html#toString(float)"><code>Float.toString(float)</code></a>
+                        或
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html#toString(double)"><code>Double.toString(double)</code></a>。
+                    </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'a'</tt></td>
+                <td valign="top"><tt>'\u0061'</tt></td>
+                <td> 要求将输出格式化为十六进制指数形式。不应用本地化。 <p> 结果是表示参数 <em>x</em> 的符号和大小（绝对值）的字符串。 </p>
+                    <p> 如果 <em>x</em> 为负值或负零值，那么结果将以 <tt>'-'</tt> (<tt>'\u002d'</tt>) 开始。 </p>
+                    <p> 如果 <em>x</em> 为正值或正零值，且给出了 <tt>'+'</tt> 标志，那么结果将以 <tt>'+'</tt> (<tt>'\u002b'</tt>) 开始。 </p>
+                    <p> 数值 <em>m</em> 的格式取决它的值。 </p>
+                    <ul>
+                        <li> 如果该值是 NaN 或无穷大，则将分别输出文本字符串 "NaN" 或 "Infinity"。</li>
+                        <li> 如果 <em>m</em> 等于零，则用字符串 <tt>"0x0.0p0"</tt> 表示它。</li>
+                        <li> 如果 <em>m</em> 是具有标准化表现形式的 <tt>double</tt> 值，则用子字符串来表示有效位数和指数字段。有效位数是用字符串 <tt>"0x1."</tt>
+                            表示的，后跟该有效位数小数部分的十六进制表示形式。指数用 <tt>'p'</tt> (<tt>'\u0070'</tt>) 表示，后跟无偏指数的十进制字符串，该值是对指数值调用 <a
+                                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Integer.html#toString(int)"><code>Integer.toString</code></a>
+                            所产生的。
+                        </li>
+                        <li> 如果 <em>m</em> 是具有低正常表现形式的 <tt>double</tt> 值，则用字符 <tt>"0x0."</tt>
+                            表示有效位数，后跟该有效位数小数部分的十六进制表示。用
+                            <tt>'p-1022'</tt> 表示指数。注意，在低正常有效位数中，至少必须有一个非零数字。
+                        </li>
+                    </ul>
+                    <p> 如果给出 <tt>'('</tt> 或 <tt>','</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'A'</tt></td>
+                <td valign="top"><tt>'\u0041'</tt></td>
+                <td><tt>'a'</tt> 的大写形式。表示数字的整个字符串将被转换为大写形式，其中包括 <tt>'x'</tt> (<tt>'\u0078'</tt>) 和 <tt>'p'</tt> (<tt>'\u0070'</tt>
+                    以及所有的十六进制数字 <tt>'a'</tt> - <tt>'f'</tt> (<tt>'\u0061'</tt> - <tt>'\u0066'</tt>)。
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 应用为 Byte、Short、Integer 和 Long 定义的所有<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#intFlags">标志</a>。 </p>
+        <p> 如果给出 <tt>'#'</tt> 标志，则将始终存在小数点分隔符。 </p>
+        <p>如果没有给出 <a name="floatdFlags"> 标志 </a> 则默认格式设置如下： </p>
+        <ul>
+            <li><tt>width</tt> 中的输出是右对齐的。</li>
+            <li> 负数以 <tt>'-'</tt> 开头</li>
+            <li> 正数和正零不包括符号或额外的前导空格</li>
+            <li> 不包括组分隔符</li>
+            <li> 小数点分隔符只在后面有数字时才出现</li>
+        </ul>
+        <p> The <a name="floatDWidth"> 宽度 </a> 是将向输出中写入的最少字符数。这包括可应用的所有符号、数字、组分隔符、小数点分隔符、指数符号、基数指示符、圆括号和表示无穷大和 NaN
+            的字符串。如果转换值的长度小于宽度，则用空格(<tt>'\u0020'</tt>) 填充输出，直到字符总数等于宽度。默认情况下，在左边进行填充。如果给出 <tt>'-'</tt>
+            标志，则在右边进行填充。如果没有指定宽度，则没有最小宽度。 </p>
+        <p>如果 <a name="floatDPrec"> 转换 </a> 是 <tt>'e'</tt>、<tt>'E'</tt> 或 <tt>'f'</tt>，则精度是小数点分隔符后的位数。如果没有指定精度，则假定精度为
+            <tt>6</tt>。 </p>
+        <p> 如果转换是 <tt>'g'</tt> 或 <tt>'G'</tt> 转换，那么精度就是舍入运算后所得数值的总有效位数。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度为 <tt>0</tt>，则该值将为
+            <tt>1</tt>。 </p>
+        <p> 如果转换是 <tt>'a'</tt> 或 <tt>'A'</tt> 转换，则精度是小数点分隔符后十六进制数字的位数。如果没有提供精度，则将输出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html#toHexString(double)"><code>Double.toHexString(double)</code></a>
+            返回的所有数字。 </p>
+        <p><a name="dndec"><b> BigDecimal </b></a></p>
+        <p> 以下转换可应用于 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html"
+                        title="java.math 中的类"><code>BigDecimal</code></a>。 </p>
+        <table cellpadding="5" summary="floatConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'e'</tt></td>
+                <td valign="top"><tt>'\u0065'</tt></td>
+                <td> 要求使用<a name="scientific">计算机科学记数法</a>对输出进行格式化。应用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 数值 <em>m</em> 的格式取决于它的值。 </p>
+                    <p> 如果 <em>m</em> 为正零或负零，则指数将为 <tt>"+00"</tt>。 </p>
+                    <p> 否则，结果是表示参数的符号和大小（绝对值）的字符串。符号的格式在<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>中已经描述。数值
+                        <em>m</em> 的格式取决于它的值。 </p>
+                    <p> 让 <em>n</em> 成为满足 10<sup><em>n</em></sup> &lt;= <em>m</em> &lt; 10<sup><em>n</em>+1</sup>
+                        的唯一整数；让
+                        <em>a</em> 成为 <em>m</em> 和 10<sup><em>n</em></sup> 的精确算术商数值，且满足 1 &lt;= <em>a</em> &lt;
+                        10。然后将该数值解释为 <em>a</em>
+                        的整数部分，因为是一个小数位数，所以后面跟着小数点分隔符，再后面是表示 <em>a</em> 的小数部分的小数位数，后跟指数符号 <tt>'e'</tt> (<tt>'\u0065'</tt>)，这之后是指数符号，后跟十进制整数形式表示的
+                        <em>n</em>，它由方法 <a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html#toString(long,%20int)"><code>Long.toString(long,
+                            int)</code></a> 产生，并用零填充，使其至少包括两个位数。 </p>
+                    <p> 在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度小于将出现在分别由 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html#toString(float)"><code>Float.toString(float)</code></a>
+                        或
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html#toString(double)"><code>Double.toString(double)</code></a>
+                        返回的字符串中的小数点之后的位数，则使用<a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请使用
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html#toString()"><code>BigDecimal.toString()</code></a>。
+                    </p>
+                    <p> 如果给出 <tt>','</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'E'</tt></td>
+                <td valign="top"><tt>'\u0045'</tt></td>
+                <td><tt>'e'</tt> 的大写形式。指数符号将是 <tt>'E'</tt> (<tt>'\u0045'</tt>)。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'g'</tt></td>
+                <td valign="top"><tt>'\u0067'</tt></td>
+                <td> 要求将输出格式化为下面描述的常规科学记数形式。应用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 在对精度进行舍入运算后，所得数值 <em>m</em> 的格式取决于它的值。 </p>
+                    <p> 如果 <em>m</em> 大于等于 10<sup>-4</sup> 但小于 10<sup>精度</sup>，则以<em><a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#decimal">十进制形式</a></em>
+                        表示它。 </p>
+                    <p> 如果 <em>m</em> 小于 10<sup>-4</sup> 或者大于等于 10<sup>精度</sup>，则以<em><a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#scientific">计算机科学记数法</a></em>
+                        表示它。 </p>
+                    <p><em>m</em> 中的总的有效位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度为 <tt>0</tt>，则该值将为 <tt>1</tt>。 </p>
+                    <p> 如果给出 <tt>'#'</tt> 标志，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                            title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'G'</tt></td>
+                <td valign="top"><tt>'\u0047'</tt></td>
+                <td><tt>'g'</tt> 的大写形式。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'f'</tt></td>
+                <td valign="top"><tt>'\u0066'</tt></td>
+                <td> 要求使用<a name="decimal">十进制形式</a>来格式化输出。应用<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>。
+                    <p> 结果是表示参数的符号和大小（绝对值）的字符串。符号的格式在<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#l10n%20algorithm">本地化算法</a>中已经描述。数值
+                        <em>m</em> 的格式取决于它的值。 </p>
+                    <p> 将该数值格式化为 <em>m</em> 的整数部分（不带前导零），后跟小数点分隔符，再后面是表示 <em>m</em> 的小数部分的一个或多个十进制数字。 </p>
+                    <p> 在结果中，<em>m</em> 或 <em>a</em> 的小数部分的位数等于精度。如果没有指定精度，则默认值为 <tt>6</tt>。如果精度小于将出现在分别由 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Float.html#toString(float)"><code>Float.toString(float)</code></a>
+                        或
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Double.html#toString(double)"><code>Double.toString(double)</code></a>
+                        返回的字符串中的小数点之后的位数，则使用<a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html#ROUND_HALF_UP">四舍五入算法</a>对该值进行舍入运算。否则，可能通过追加零来达到所需精度。要获得该值的规范表示形式，请使用
+                        <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/math/BigDecimal.html#toString()"><code>BigDecimal.toString()</code></a>。
+                    </p></td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 应用为 Byte、Short、Integer 和 Long 定义的所有<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#intFlags">标志</a>。 </p>
+        <p> 如果给出 <tt>'#'</tt> 标志，则将始终存在小数点分隔符。 </p>
+        <p> 没有给出标志时的<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#floatdFlags">默认行为</a>与
+            Float 和 Double 的行为相同。 </p>
+        <p><a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#floatDWidth">宽度</a>和<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#floatDPrec">精度</a>的规范与为
+            Float 和 Double 定义的规范相同。 </p>
+        <h4><a name="ddt"> 日期/时间 </a></h4>
+        <p> 此转换可应用于 <tt>long</tt>、<a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/Long.html"
+                                     title="java.lang 中的类"><code>Long</code></a>、<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Calendar.html"
+                title="java.util 中的类"><code>Calendar</code></a> 和 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Date.html" title="java.util 中的类"><code>Date</code></a>。
+        </p>
+        <table cellpadding="5" summary="DTConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'t'</tt></td>
+                <td valign="top"><tt>'\u0074'</tt></td>
+                <td> 日期和时间转换字符的前缀。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'T'</tt></td>
+                <td valign="top"><tt>'\u0054'</tt></td>
+                <td><tt>'t'</tt> 的大写形式。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 以下日期和时间转换字符后缀是为 <tt>'t'</tt> 和 <tt>'T'</tt> 转换定义的。这些类型类似于但不完全等同于 GNU <tt>date</tt> 和 POSIX
+            <tt>strftime(3c)</tt> 定义的那些类型。提供其他转换类型是为了访问特定于 Java 的功能（例如，<tt>'L'</tt> 用于秒中的毫秒）。 </p>
+        <p> 以下转换字符用来格式化时间： </p>
+        <table cellpadding="5" summary="time">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'H'</tt></td>
+                <td valign="top"><tt>'\u0048'</tt></td>
+                <td> 24 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>00 - 23</tt>。<tt>00</tt> 对应午夜。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'I'</tt></td>
+                <td valign="top"><tt>'\u0049'</tt></td>
+                <td> 12 小时制的小时，被格式化为必要时带前导零的两位数，即 <tt>01 - 12</tt>。<tt>01</tt> 对应于 1 点钟（上午或下午）。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'k'</tt></td>
+                <td valign="top"><tt>'\u006b'</tt></td>
+                <td> 24 小时制的小时，即 <tt>0 - 23</tt>。<tt>0</tt> 对应于午夜。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'l'</tt></td>
+                <td valign="top"><tt>'\u006c'</tt></td>
+                <td> 12 小时制的小时，即 <tt>1 - 12</tt>。<tt>1</tt> 对应于上午或下午的一点钟。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'M'</tt></td>
+                <td valign="top"><tt>'\u004d'</tt></td>
+                <td> 小时中的分钟，被格式化为必要时带前导零的两位数，即 <tt>00 - 59</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'S'</tt></td>
+                <td valign="top"><tt>'\u0053'</tt></td>
+                <td> 分钟中的秒，被格式化为必要时带前导零的两位数，即 <tt>00 - 60</tt>（"<tt>60</tt>" 是支持闰秒所需的一个特殊值）。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'L'</tt></td>
+                <td valign="top"><tt>'\u004c'</tt></td>
+                <td> 秒中的毫秒，被格式化为必要时带前导零的三位数，即 <tt>000 - 999</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'N'</tt></td>
+                <td valign="top"><tt>'\u004e'</tt></td>
+                <td> 秒中的毫微秒，被格式化为必要时带前导零的九位数，即 <tt>000000000 - 999999999</tt>。此值的精度受底层操作系统或硬件解析的限制。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'p'</tt></td>
+                <td valign="top"><tt>'\u0070'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getAmPmStrings()">上午或下午</a>标记以小写形式表示，例如
+                    "<tt>am</tt>" 或 "<tt>pm</tt>"。使用转换前缀 <tt>'T'</tt> 可以强行将此输出转换为大写形式。（注意，<tt>'p'</tt> 产生的输出是小写的。而 GNU
+                    <tt>date</tt> 和 POSIX <tt>strftime(3c)</tt> 产生的输出是大写的。）
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'z'</tt></td>
+                <td valign="top"><tt>'\u007a'</tt></td>
+                <td> 相对于 GMT 的 <a href="http://www.ietf.org/rfc/rfc0822.txt">RFC&nbsp;822</a> 格式的数字时区偏移量，例如
+                    <tt>-0800</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'Z'</tt></td>
+                <td valign="top"><tt>'\u005a'</tt></td>
+                <td> 表示时区的缩写形式的字符串。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'s'</tt></td>
+                <td valign="top"><tt>'\u0073'</tt></td>
+                <td> 自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的秒数，也就是 <tt>Long.MIN_VALUE/1000</tt> 与 <tt>Long.MAX_VALUE/1000</tt>
+                    之间的差值。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'Q'</tt></td>
+                <td valign="top"><tt>'\u004f'</tt></td>
+                <td> 自协调世界时 (UTC) 1970 年 1 月 1 日 <tt>00:00:00</tt> 至现在所经过的毫秒数，即 <tt>Long.MIN_VALUE</tt> 与 <tt>Long.MAX_VALUE</tt>
+                    之间的差值。此值的精度受底层操作系统或硬件解析的限制。
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 以下转换字符用来格式化日期： </p>
+        <table cellpadding="5" summary="date">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'B'</tt></td>
+                <td valign="top"><tt>'\u0042'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getMonths()">完整月份名称</a>，例如
+                    <tt>"January"</tt> 和 <tt>"February"</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'b'</tt></td>
+                <td valign="top"><tt>'\u0062'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getShortMonths()">月份简称</a>，例如
+                    <tt>"Jan"</tt> 和 <tt>"Feb"</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'h'</tt></td>
+                <td valign="top"><tt>'\u0068'</tt></td>
+                <td> 与 <tt>'b'</tt> 相同。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'A'</tt></td>
+                <td valign="top"><tt>'\u0041'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getWeekdays()">星期几</a>的全称，例如
+                    <tt>"Sunday"</tt> 和 <tt>"Monday"</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'a'</tt></td>
+                <td valign="top"><tt>'\u0061'</tt></td>
+                <td> 特定于语言环境的<a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/text/DateFormatSymbols.html#getShortWeekdays()">星期几</a>的简称，例如
+                    <tt>"Sun"</tt> 和 <tt>"Mon"</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'C'</tt></td>
+                <td valign="top"><tt>'\u0043'</tt></td>
+                <td> 除以 <tt>100</tt> 的四位数表示的年份，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'Y'</tt></td>
+                <td valign="top"><tt>'\u0059'</tt></td>
+                <td> 年份，被格式化为必要时带前导零的四位数（至少），例如 <tt>0092</tt> 等于格里高利历的 <tt>92</tt> CE。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'y'</tt></td>
+                <td valign="top"><tt>'\u0079'</tt></td>
+                <td> 年份的最后两位数，被格式化为必要时带前导零的两位数，即 <tt>00 - 99</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'j'</tt></td>
+                <td valign="top"><tt>'\u006a'</tt></td>
+                <td> 一年中的天数，被格式化为必要时带前导零的三位数，例如，对于格里高利历是 <tt>001 - 366</tt>。<tt>001</tt> 对应于一年中的第一天。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'m'</tt></td>
+                <td valign="top"><tt>'\u006d'</tt></td>
+                <td> 月份，被格式化为必要时带前导零的两位数，即 <tt>01 - 13</tt>，其中 "<tt>01</tt>" 是一年的第一个月，("<tt>13</tt>" 是支持阴历所需的一个特殊值）。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'d'</tt></td>
+                <td valign="top"><tt>'\u0064'</tt></td>
+                <td> 一个月中的天数，被格式化为必要时带前导零的两位数，即 <tt>01 - 31</tt>，其中 "<tt>01</tt>" 是一个月的第一天。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'e'</tt></td>
+                <td valign="top"><tt>'\u0065'</tt></td>
+                <td> 一个月中的天数，被格式化为两位数，即 <tt>1 - 31</tt>，其中 "<tt>1</tt>" 是一个月中的第一天。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 以下转换字符用于格式化常见的日期/时间组合。 </p>
+        <table cellpadding="5" summary="composites">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'R'</tt></td>
+                <td valign="top"><tt>'\u0052'</tt></td>
+                <td> 24 小时制的时间，被格式化为 <tt>"%tH:%tM"</tt></td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'T'</tt></td>
+                <td valign="top"><tt>'\u0054'</tt></td>
+                <td> 24 小时制的时间，被格式化为 <tt>"%tH:%tM:%tS"</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'r'</tt></td>
+                <td valign="top"><tt>'\u0072'</tt></td>
+                <td> 12 小时制的时间，被格式化为 <tt>"%tI:%tM:%tS %Tp"</tt>。上午或下午标记 (<tt>'%Tp'</tt>) 的位置可能与地区有关。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'D'</tt></td>
+                <td valign="top"><tt>'\u0044'</tt></td>
+                <td> 日期，被格式化为 <tt>"%tm/%td/%ty"</tt>。</td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'F'</tt></td>
+                <td valign="top"><tt>'\u0046'</tt></td>
+                <td><a href="http://www.w3.org/TR/NOTE-datetime">ISO&nbsp;8601</a> 格式的完整日期，被格式化为 <tt>"%tY-%tm-%td"</tt>。
+                </td>
+            </tr>
+            <tr>
+                <td valign="top"><tt>'c'</tt></td>
+                <td valign="top"><tt>'\u0063'</tt></td>
+                <td> 日期和时间，被格式化为 <tt>"%ta %tb %td %tT %tZ %tY"</tt>，例如 <tt>"Sun Jul 20 16:17:00 EDT 1969"</tt>。</td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 应用为<a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dFlags">常规转换</a>而定义的
+            <tt>'-'</tt> 标志。如果给出 <tt>'#'</tt> 标志，则将抛出 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                    title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p>
+        <p><a name="dtWidth"> 宽度 </a> 是将向输出中写入的最少字符数。如果转换值的长度小于 <tt>width</tt>，则用空格(<tt>'\u0020'</tt>)
+            来填充输出，直到总字符数等于宽度。默认情况下，在左边进行填充。如果给出 <tt>'-'</tt> 标志，则在右边进行填充。如果没有指定宽度，则没有最小宽度。 </p>
+        <p> 精度不适用。如果指定了精度，则将抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatPrecisionException.html"
+                title="java.util 中的类"><code>IllegalFormatPrecisionException</code></a>。 </p>
+        <h4><a name="dper"> 百分比 </a></h4>
+        <p> 该转换不对应于任何参数。 </p>
+        <table cellpadding="5" summary="DTConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'%'</tt></td>
+                <td> 结果是一个字面值 <tt>'%'</tt> (<tt>'\u0025'</tt>) <p><a name="dtWidth"> 宽度 </a> 是将向输出中写入的最少字符数，包括
+                    <tt>'%'</tt>。如果转换值的长度小于 <tt>width</tt>，则用空格 (<tt>'\u0020'</tt>)
+                    来填充输出，直到总字符数等于宽度。在左边进行填充。如果没有指定宽度，则只输出 <tt>'%'</tt>。 </p>
+                    <p> 应用为<a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Formatter.html#dFlags">常规转换</a>而定义的
+                        <tt>'-'</tt> 标志。如果提供其他任何标志，则将抛出 <a
+                                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/FormatFlagsConversionMismatchException.html"
+                                title="java.util 中的类"><code>FormatFlagsConversionMismatchException</code></a>。 </p>
+                    <p> 精度不适用。如果指定精度，则将抛出 <a
+                            href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatPrecisionException.html"
+                            title="java.util 中的类"><code>IllegalFormatPrecisionException</code></a>。 </p></td>
+            </tr>
+            </tbody>
+        </table>
+        <h4><a name="dls"> 行分隔符 </a></h4>
+        <p> 该转换不对应于任何参数。 </p>
+        <table cellpadding="5" summary="DTConv">
+            <tbody>
+            <tr>
+                <td valign="top"><tt>'n'</tt></td>
+                <td> 由 <a
+                        href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/System.html#getProperty(java.lang.String)"><code>System.getProperty("line.separator")</code></a>
+                    返回的特定于平台的行分隔符。
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p> 标志、宽度和精度都不可用。如果提供这三者，则会分别抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatFlagsException.html"
+                title="java.util 中的类"><code>IllegalFormatFlagsException</code></a>、<a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatWidthException.html"
+                title="java.util 中的类"><code>IllegalFormatWidthException</code></a> 和 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/IllegalFormatPrecisionException.html"
+                title="java.util 中的类"><code>IllegalFormatPrecisionException</code></a>。 </p>
+        <h4><a name="dpos"> 参数索引 </a></h4>
+        <p> 格式说明符可以通过三种方式引用参数： </p>
+        <ul>
+            <li><em>显式索引</em> 是在格式说明符中包含参数索引时使用。参数索引是一个十进制整数，用于指示参数在参数列表中的位置。第一个参数由 "<tt>1$</tt>" 引用，第二个参数由 "<tt>2$</tt>"
+                引用，依此类推。可以多次引用任何一个参数。 <p> 例如： </p>
+                <blockquote>
+     <pre>   formatter.format("%4$s %3$s %2$s %1$s %4$s %3$s %2$s %1$s",
+                    "a", "b", "c", "d")
+   // -&gt; "d c b a d c b a"</pre>
+                </blockquote>
+            </li>
+            <li><em>相对索引</em> 是在格式说明符中包含 <tt>'&lt;'</tt> (<tt>'\u003c'</tt>) 标志时使用，该标志将导致重用以前格式说明符的参数。如果不存在以前的参数，则抛出 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/MissingFormatArgumentException.html"
+                    title="java.util 中的类"><code>MissingFormatArgumentException</code></a>。
+                <blockquote>
+     <pre>    formatter.format("%s %s %&lt;s %&lt;s", "a", "b", "c", "d")
+   // -&gt; "b a a b"
+    // "c" and "d" are ignored because they are not referenced</pre>
+                </blockquote>
+            </li>
+            <li><em>普通索引</em> 在格式说明符中既不包含参数索引也不包含 <tt>'&lt;'</tt>
+                标志时使用。每个使用普通索引的格式说明符都分配了一个连续隐式索引，分配在独立于显式索引或相对索引使用的参数列表中。
+                <blockquote>
+     <pre>   formatter.format("%s %s %s %s", "a", "b", "c", "d")
+   // -&gt; "a b c d"</pre>
+                </blockquote>
+            </li>
+        </ul>
+        <p> 可能有一个使用所有索引形式的格式字符串，例如： </p>
+        <blockquote>
+   <pre>   formatter.format("%2$s %s %&lt;s %s", "a", "b", "c", "d")
+   // -&gt; "b a a b"
+   // "c" and "d" are ignored because they are not referenced</pre>
+        </blockquote>
+        <p> 参数的最大数量受到 <a href="http://java.sun.com/docs/books/vmspec/">Java Machine Specification</a> 定义的 Java 数组
+            的最大维数的限制。如果参数索引与可用参数不对应，则抛出 <a
+                    href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/MissingFormatArgumentException.html"
+                    title="java.util 中的类"><code>MissingFormatArgumentException</code></a>。 </p>
+        <p> 如果参数多于格式说明符，则忽略额外的参数。 </p>
+        <p> 除非另行指定，否则向此类中的任何方法或构造方法传递 <tt>null</tt> 参数都将抛出 <a
+                href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/NullPointerException.html"
+                title="java.lang 中的类"><code>NullPointerException</code></a>。 </p>
+        <p></p>
+        <p></p>
+
+
+        <p><font>版权所有 2007 Sun Microsystems, Inc. 保留所有权利。 请遵守<a
+                href="http://java.sun.com/javase/6/docs/legal/license.html">许可证条款</a>。另请参阅<a
+                href="http://java.sun.com/docs/redist.html">文档重新分发政策</a>。</font></p>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

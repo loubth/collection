@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>访问权限修饰符</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>访问权限修饰符</h1>
+        <div id="info">
+            <span id="time">2018-08-07</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <a href="http://jingyan.baidu.com/article/bad08e1e8e9a9b09c851219f.html" target="_blank">参考</a>
+        <h3>
+            public private protected和默认（友好型）的区别（同一个包下就是朋友）
+        </h3>
+        <blockquote>
+            Java中对类以及类中的成员变量和成员方法通过访问控制符（access specifier）进行区分控制。刚开始学Java语言的同学可能对<em>public、privat、protected</em>以及<em>默认（一般称包访问权限）</em>的区别不是很清楚，尤其是protected和默认的区别。本篇经验就来说说这个事儿。
+        </blockquote>
+
+        <ol>
+            <li>public是都能访问</li>
+            <li>protected是只要本包内就能访问，包括本包内的子类和普通类，另外别的包内的子类也能访问，但是别的包的普通类不能访问</li>
+            <li>默认（包访问权限）是只有本包内才能访问，包括本包内的子类和普通类</li>
+            <li>private是只有本类中才能访问（即使本包下的子类也不能访问）</li>
+        </ol>
+        <img src="/collection/image/2018/8/20180807_5.jpg" alt="">
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
