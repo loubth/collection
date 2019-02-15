@@ -60,7 +60,7 @@ header h1 {
     font-weight: 900;
     font-size: 40px;
     line-height: normal;
-    font-family: Arial, 华文行楷;
+    font-family: Georgia, 华文行楷;
     color: #1a1a1a;
 }
 
@@ -76,16 +76,18 @@ header #info #time {
 }
 
 .content {
-     margin: 10px;
-     border-bottom: 1px solid #E4D0D0;
-     max-width: 100%;
-     overflow: hidden;
-     word-break: break-all;
- }
-.content dl dt{
+    margin: 10px;
+    border-bottom: 1px solid #E4D0D0;
+    max-width: 100%;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.content dl dt {
     font-weight: 900;
     font-size: 1.17em;
 }
+
 .content img, embed {
     display: block;
     margin: 1em auto;

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jdbc程序编写步骤和原理</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>jdbc程序编写步骤和原理</h1>
+        <div id="info">
+            <span id="time">2018-09-06</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <p>
+            首先要加载数据库相应的驱动，以mysql为例
+        </p>
+        <p>
+            下载mysql的java驱动，例如 <a href="https://dev.mysql.com/doc/index-connectors.html" target="_blank">mysql-connector-java-8.0.1</a>
+        </p>
+
+        <p>
+            这就是mysql的驱动，把它放到项目当中建立依赖，就可以使用相关API操作mysql数据库了
+        </p>
+
+        <h3>先来一个简单的使用示例（并不规范）</h3>
+        <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#60ff60;">public static void </span><span style="color:#ffffff;">main</span>(<span style="color:#2b91af;">String</span>[] <span style="color:#bfa4a4;">args</span>) <span style="color:#60ff60;">throws </span><span style="color:#2b91af;">ClassNotFoundException</span>, <span style="color:#2b91af;">SQLException </span>{<br>    <span style="color:#757575;">// 1.注册驱动<br></span><span style="color:#757575;">    </span><span style="color:#2b91af;">Class</span>.<span style="color:#757575;">forName</span>(<span style="color:#ffa0a0;">"com.mysql.jdbc.Driver"</span>);<span style="color:#757575;">// 推荐方式<br></span><span style="color:#757575;"><br></span><span style="color:#757575;">    // 2.建立连接<br></span><span style="color:#757575;">    </span><span style="color:#2b91af;">String </span>url = <span style="color:#ffa0a0;">"jdbc:mysql://localhost:3306/jdbc"</span>;<br>    <span style="color:#2b91af;">String </span>user = <span style="color:#ffa0a0;">"root"</span>;<br>    <span style="color:#2b91af;">String </span>password = <span style="color:#ffa0a0;">""</span>;<br>    <span style="color:#2b91af;">Connection </span>conn = <span style="color:#2b91af;">DriverManager</span>.<span style="color:#757575;">getConnection</span>(url, user, password);<br><br>    <span style="color:#757575;">// 3.创建语句<br></span><span style="color:#757575;">    </span><span style="color:#2b91af;">Statement </span>st = conn.<span style="color:#ffffff;">createStatement</span>();<br><br>    <span style="color:#757575;">// 4.执行语句<br></span><span style="color:#757575;">    </span><span style="color:#2b91af;">ResultSet </span>rs = st.<span style="color:#ffffff;">executeQuery</span>(<span style="color:#ffa0a0;">"select </span><span style="color:#ff80ff;">*</span><span style="color:#ffa0a0;"> from user"</span>);<br><br>    <span style="color:#757575;">// 5.处理结果<br></span><span style="color:#757575;">    </span><span style="color:#60ff60;">while </span>(rs.<span style="color:#ffffff;">next</span>()) {<br>        <span style="color:#2b91af;">System</span>.<span style="color:#660e7a;font-weight:bold;font-style:italic;">out</span>.<span style="color:#ffffff;">println</span>(rs.<span style="color:#ffffff;">getObject</span>(<span style="color:#ffa0a0;">1</span>) + <span style="color:#ffa0a0;">"\t" </span>+ rs.<span style="color:#ffffff;">getObject</span>(<span style="color:#ffa0a0;">2</span>) + <span style="color:#ffa0a0;">"\t"<br></span><span style="color:#ffa0a0;">                </span>+ rs.<span style="color:#ffffff;">getObject</span>(<span style="color:#ffa0a0;">3</span>) + <span style="color:#ffa0a0;">"\t" </span>+ rs.<span style="color:#ffffff;">getObject</span>(<span style="color:#ffa0a0;">4</span>));<br>    }<br><br>    <span style="color:#757575;">// 6.释放资源<br></span><span style="color:#757575;">    </span>rs.<span style="color:#ffffff;">close</span>();<br>    st.<span style="color:#ffffff;">close</span>();<br>    conn.<span style="color:#ffffff;">close</span>();<br><br>}</pre>
+        <hr>
+        <h2>从现在开始正式介绍如何使用jdbc</h2>
+        <ol>
+            <li>
+                <h3>注册驱动（介绍三种方式）</h3>
+                <p>
+                    由于只有先通过DriverManager注册驱动，才能获得数据库连接，所以第一步要先注册驱动
+                </p>
+                <p>
+                    注册驱动的关键就是
+                </p>
+                <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#2b91af;">DriverManager</span>.<span style="color:#757575;">registerDriver</span>(所使用的数据库对应的驱动类);</pre>
+                <ol style="list-style: lower-alpha">
+                    <li><strong>推荐方式</strong>
+                        <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#2b91af;">Class</span>.<span style="color:#757575;">forName</span>(<span style="color:#ffa0a0;">"com.mysql.jdbc.Driver"</span>);</pre>
+                        <p>
+                            这种方式为什么能注册驱动呢？因为这行代码表示类加载器加载com.mysql.jdbc.Driver这个类，而加载这个了这类就要执行这个类的静态代码块，我们看这个类的静态代码块就会一目了然
+                        </p>
+                        <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#60ff60;">public class </span>Driver <span style="color:#60ff60;">extends </span>NonRegisteringDriver <span style="color:#60ff60;">implements </span>java.sql.Driver {<br>    <span style="color:#60ff60;">public </span>Driver() <span style="color:#60ff60;">throws </span>SQLException {<br>    }<br><br>    <span style="color:#60ff60;">static </span>{<br>        <span style="color:#60ff60;">try </span>{<br>            DriverManager.registerDriver(<span style="color:#60ff60;">new </span>Driver());<br>        } <span style="color:#60ff60;">catch </span>(SQLException var1) {<br>            <span style="color:#60ff60;">throw new </span>RuntimeException(<span style="color:#ffa0a0;">"Can't register driver!"</span>);<br>        }<br>    }<br>}</pre>
+                        <p>我们可以看到静态代码块中执行了注册驱动的代码</p>
+                    </li>
+                    <li>DriverManager.registerDriver方式
+                        <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#2b91af;">DriverManager</span>.<span style="color:#757575;">registerDriver</span>(<span style="color:#60ff60;">new </span><span style="color:#2b91af;">com.mysql.jdbc.</span><span style="color:#ffffff;">Driver</span>());</pre>
+                        <p>
+                            这段代码其实注册了两次驱动，registerDriver方法本身就是注册驱动的关键代码，而方法中new的新对象又是Driver对象，Driver类一旦加载其静态代码块又注册一次驱动。因此产生了垃圾驱动，所以不推荐使用这种方式。（而且其实仅仅new出对象也注册了驱动，不需要使用registerDriver方法）
+                        </p>
+                    </li>
+                    <li>System.setProperty方式
+                        <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#2b91af;">System</span>.<span style="color:#757575;">setProperty</span>(<span style="color:#ffa0a0;">"jdbc.drivers"</span>, <span style="color:#ffa0a0;">"com.mysql.jdbc.Driver"</span>);</pre>
+                        <p>
+                            这种方式为什么能像第一种方式一样注册驱动呢？因为DriverManager类会初始化，而在初始化的过程中会查询系统属性，如下
+                        </p>
+                        <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#60ff60;">private static void </span><span style="color:#ffffff;">loadInitialDrivers</span>() {<br>    <span style="color:#2b91af;">String </span>drivers;<br>    <span style="color:#60ff60;">try </span>{<br>        drivers = <span style="color:#2b91af;">AccessController</span>.<span style="color:#757575;">doPrivileged</span>(<span style="color:#60ff60;">new </span><span style="color:#2b91af;">PrivilegedAction</span>&lt;<span style="color:#2b91af;">String</span>&gt;() {<br>            <span style="color:#60ff60;">public </span><span style="color:#2b91af;">String </span><span style="color:#ffffff;">run</span>() {<br>                <span style="color:#60ff60;">return </span><span style="color:#2b91af;">System</span>.<span style="color:#757575;">getProperty</span>(<span style="color:#ffa0a0;">"jdbc.drivers"</span>);<br>            }<br>        });<br>    } <span style="color:#60ff60;">catch </span>(<span style="color:#2b91af;">Exception </span><span style="color:#bfa4a4;">ex</span>) {<br>        drivers = <span style="color:#60ff60;">null</span>;<br>    }<br>    <span style="color:#757575;">//...<br></span>}</pre>
+                        <p>这种方式可以同时注册多个驱动，只需要在setProperty方法的第二个参数中添加就好，多个驱动之间用<em>冒号</em>隔开</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h3>建立连接</h3>
+                <p>需要<em>数据库url，用户名和密码</em>才能建立连接</p>
+                <p>示例<p>
+                <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#2b91af;">String </span>url=<span style="color:#ffa0a0;">"jdbc:mysql://localhost:3306/tdb?useSSL=false"</span>;<br><span style="color:#2b91af;">String </span>userName=<span style="color:#ffa0a0;">"loubth"</span>;<br><span style="color:#2b91af;">String </span>password=<span style="color:#ffa0a0;">"loubth"</span>;<br><span style="color:#2b91af;">Connection </span>conn= <span style="color:#2b91af;">DriverManager</span>.<span style="color:#757575;">getConnection</span>(url,userName,password);</pre>
+                <p>
+                    注意url中localhost是默认主机名，3306是默认端口，如果你也是使用默认主机名和端口的话可以省略这部分让url写成 <br><strong>String url = "jdbc:mysql:///jdbc";</strong>（注意后面的jdbc是数据库名字不是非要写jdbc）
+                </p>
+                <p>url格式</p>
+                <em>JDBC:子协议://主机名:端口/数据库名?属性名=属性值&...</em>
+
+            </li>
+            <li>
+                <h3>创建语句</h3>
+                <p>示例<p>
+                <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#2b91af;">Statement </span>statement=conn.<span style="color:#ffffff;">createStatement</span>();</pre>
+                <p>
+                    Statement 对象用来承接sql语句
+                </p>
+
+            </li>
+            <li>
+                <h3>执行语句</h3>
+                <p>示例<p>
+                <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#2b91af;">ResultSet </span>resultSet=statement.<span style="color:#ffffff;">executeQuery</span>(<span style="color:#ffa0a0;">"SELECT </span><span style="color:#ff80ff;">*</span><span style="color:#ffa0a0;"> FROM tt"</span>);</pre>
+                <p>调用executeQuery方法执行sql语句获得结果集</p>
+            </li>
+            <li>
+                <h3>处理结果</h3>
+                <p>示例<p>
+                <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;"><span style="color:#60ff60;">while</span>(resultSet.<span style="color:#ffffff;">next</span>()){<br>    <span style="color:#2b91af;">System</span>.<span style="color:#660e7a;font-weight:bold;font-style:italic;">out</span>.<span style="color:#ffffff;">println</span>(resultSet.<span style="color:#ffffff;">getObject</span>(<span style="color:#ffa0a0;">1</span>)+<span style="color:#ffa0a0;">":"</span>+resultSet.<span style="color:#ffffff;">getObject</span>(<span style="color:#ffa0a0;">2</span>));<br>}</pre>
+                <p>rs.next()代表移动到结果集的下一条记录</p>
+                <p>rs.getObject(1)获得第一项</p>
+            </li>
+            <li>
+                <h3>释放资源</h3>
+                <p>从后往前依次释放资源（数据库连接要尽量晚建立早释放，减小数据库压力）</p>
+                <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:12.0pt;">resultSet.<span style="color:#ffffff;">close</span>();<br>statement.<span style="color:#ffffff;">close</span>();<br>conn.<span style="color:#ffffff;">close</span>();</pre>
+            </li>
+        </ol>
+
+
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

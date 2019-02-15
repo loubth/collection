@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>顺序栈</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>顺序栈</h1>
+        <div id="info">
+            <span id="time">2018-08-11</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <pre style="margin:0;background:#23241F"><span class="hljs-preprocessor"><span lang="EN-US"
+                                                                                       style="color:#F8F8F2">#</span></span><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">include</span></span><span
+                class="hljs-preprocessor"><span lang="EN-US"
+                                                style="color:#F8F8F2">&lt;stdio.h&gt;</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-preprocessor"><span lang="EN-US"
+                                                                                       style="color:#F8F8F2">#</span></span><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">include</span></span><span
+                class="hljs-preprocessor"><span lang="EN-US"
+                                                style="color:#F8F8F2">&lt;stdlib.h&gt;</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-preprocessor"><span lang="EN-US"
+                                                                                       style="color:#F8F8F2">#</span></span><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">define</span></span><span
+                class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2"> STACK_INIT_SIZE 100<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">存储空间初始分配量 </span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><span class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2">#</span></span><span
+            class="hljs-keyword"><span lang="EN-US" style="color:#F92672">define</span></span><span
+            class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2"> STACKINCREMENT 10<span
+            style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
+            class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span
+            style="color:#75715E">存储空间分配增量 </span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><span class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2">#</span></span><span
+            class="hljs-keyword"><span lang="EN-US" style="color:#F92672">define</span></span><span
+            class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2"> OVERFLOW 0<span
+            style="mso-spacerun:yes">&nbsp; </span></span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-preprocessor"><span lang="EN-US"
+                                                                                       style="color:#F8F8F2">#</span></span><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">define</span></span><span
+                class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2"> ERROR 0</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><span class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2">#</span></span><span
+            class="hljs-keyword"><span lang="EN-US" style="color:#F92672">define</span></span><span
+            class="hljs-preprocessor"><span lang="EN-US" style="color:#F8F8F2"> OK 1</span></span><code><span
+            lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre><pre
+            style="margin:0;background:#23241F"><span class="hljs-keyword"><span lang="EN-US" style="color:#F92672">typedef</span></span><code><span
+            lang="EN-US" style="color:#F8F8F2"> </span></code><span class="hljs-keyword"><span lang="EN-US"
+                                                                                               style="color:#F92672">int</span></span><code><span
+            lang="EN-US" style="color:
+#F8F8F2"> Status;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-keyword"><span lang="EN-US" style="color:#F92672">typedef</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"> </span></code><span class="hljs-keyword"><span lang="EN-US"
+                                                                                                   style="color:#F92672">int</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"> SElemType;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-keyword"><span lang="EN-US" style="color:#F92672">typedef</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"> </span></code><span class="hljs-keyword"><span lang="EN-US"
+                                                                                                   style="color:#F92672">struct</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>SElemType *base;<span
+            style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+            class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">在栈构造之前和销毁之后，<span
+            lang="EN-US">base</span>为<span lang="EN-US">NULL </span></span></span><code><span lang="EN-US"
+                                                                                              style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;</span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;</span>SElemType *top;<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span
+                style="color:#75715E">栈顶指针 </span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+            style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></code><span class="hljs-keyword"><span
+            lang="EN-US" style="color:#F92672">int</span></span><code><span lang="EN-US" style="color:#F8F8F2"> stacksize;<span
+            style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+            class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">当前已分配的存储空间，以元素为单位 </span></span><code><span
+            lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2">}SqStack;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">栈顶初始化<span
+                lang="EN-US">------------------------------------</span></span></span><code><span lang="EN-US"
+                                                                                                  style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">InitStack</span></span><span
+                class="hljs-params"><span lang="EN-US" style="color:#F8F8F2">(SqStack &amp;S)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">构造一个空栈 </span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span>S.base=(SElemType *)</span></code><span
+            class="hljs-builtin"><span lang="EN-US" style="color:#E6DB74">malloc</span></span><code><span lang="EN-US"
+                                                                                                          style="color:#F8F8F2">(STACK_INIT_SIZE*</span></code><span
+            class="hljs-keyword"><span lang="EN-US" style="color:#F92672">sizeof</span></span><code><span lang="EN-US"
+                                                                                                          style="color:#F8F8F2">(SElemType));<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US" style="color:#F8F8F2">(!S.base){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-builtin"><span lang="EN-US" style="color:#E6DB74">exit</span></span><code><span lang="EN-US"
+                                                                                                            style="color:#F8F8F2">(OVERFLOW);<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">存储分配失败</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>S.top =S.base;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>S.stacksize=STACK_INIT_SIZE;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US" style="color:#F8F8F2"> OK;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2">} <o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">得到栈顶元素<span lang="EN-US">------------------------------------</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">GetTop</span></span><span
+                class="hljs-params"><span lang="EN-US"
+                                          style="color:#F8F8F2">(SqStack S,SElemType &amp;e)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">若栈不空，则用<span
+                lang="EN-US">e</span>返回<span lang="EN-US">S</span>的栈顶元素，并返回<span lang="EN-US">OK</span>，否则返回<span
+                lang="EN-US">ERROR </span></span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.top==S.base){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">return</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"> ERROR;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>e=*(S.top-</span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">1</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US" style="color:#F8F8F2"> OK;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2">} <o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">压栈<span
+                lang="EN-US">------------------------------------</span></span></span><code><span lang="EN-US"
+                                                                                                  style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">Push</span></span><span class="hljs-params"><span
+                lang="EN-US" style="color:#F8F8F2">(SqStack &amp;S,SElemType e)</span></span><code><span lang="EN-US"
+                                                                                                         style="color:#F8F8F2">{<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span
+                style="color:#75715E">插入元素<span lang="EN-US">e</span>为新的栈顶元素 </span></span><code><span lang="EN-US"
+                                                                                                       style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.top-S.base&gt;=S.stacksize){<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">栈满，追加存储空间 </span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>S.base=(SElemType *)realloc(S.base,(S.stacksize+STACKINCREMENT)*</span></code><span
+            class="hljs-keyword"><span lang="EN-US" style="color:#F92672">sizeof</span></span><code><span lang="EN-US"
+                                                                                                          style="color:#F8F8F2">(SElemType));<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US"
+                                                                                                          style="color:#F8F8F2">(!S.base){<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">存储分配失败 </span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></code><span
+            class="hljs-builtin"><span lang="EN-US" style="color:#E6DB74">exit</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">(OVERFLOW);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>S.top=S.base+S.stacksize;<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">最后一个元素的下一个元素的位置</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>S.stacksize+=STACKINCREMENT;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>*S.top++=e;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US" style="color:#F8F8F2"> OK;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2">}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">弹栈<span
+                lang="EN-US">------------------------------------</span></span></span><code><span lang="EN-US"
+                                                                                                  style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">Pop</span></span><span
+                class="hljs-params"><span lang="EN-US"
+                                          style="color:#F8F8F2">(SqStack &amp;S,SElemType &amp;e)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">若栈不空，则删除<span
+                lang="EN-US">S</span>的栈顶元素，用<span lang="EN-US">e</span>返回其值，并返回<span lang="EN-US">OK</span>，否则返回<span
+                lang="EN-US">ERROR</span></span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.top==S.base){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">return</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"> ERROR;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>} <o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span>e=*--S.top;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US" style="color:#F8F8F2"> OK;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2">}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">毁栈<span
+                lang="EN-US">------------------------------------</span></span></span><code><span lang="EN-US"
+                                                                                                  style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">DestroyStack</span></span><span
+                class="hljs-params"><span lang="EN-US" style="color:#F8F8F2">(SqStack &amp;S)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">free</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.base);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">free</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.top);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>S.base=NULL;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n</span><span style="color:#E6DB74">栈已被成功摧毁！<span
+                lang="EN-US">\n\n"</span></span></span><code><span lang="EN-US" style="color:#F8F8F2">);<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span
+            class="hljs-keyword"><span lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US"
+                                                                                                          style="color:#F8F8F2"> OK;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2">}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">清空栈<span
+                lang="EN-US">------------------------------------</span></span></span><code><span lang="EN-US"
+                                                                                                  style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">ClearStack</span></span><span
+                class="hljs-params"><span lang="EN-US" style="color:#F8F8F2">(SqStack &amp;S)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>S.top=S.base;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US" style="color:#F8F8F2"> OK;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2">}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">确认栈是否为空<span lang="EN-US">-----------------------------------</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">StackEmpty</span></span><span
+                class="hljs-params"><span lang="EN-US" style="color:#F8F8F2">(SqStack S)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.base==S.top){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2"> </span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">1</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2"> </span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">0</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2">} <o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">计算栈的长度<span lang="EN-US">------------------------------------</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-keyword"><span lang="EN-US"
+                                                                                  style="color:#66D9EF">int</span></span><span
+                class="hljs-function"><span lang="EN-US" style="color:#F92672"> </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">StackLength</span></span><span
+                class="hljs-params"><span lang="EN-US" style="color:#F8F8F2">(SqStack S)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.base==S.top){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2"> </span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">0</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US" style="color:#F8F8F2"> S.top-S.base;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2">}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//------------------------</span><span
+                style="color:#75715E">遍历栈<span
+                lang="EN-US">------------------------------------</span></span></span><code><span lang="EN-US"
+                                                                                                  style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-function"><span lang="EN-US" style="color:#F92672">Status </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">StackTraverse</span></span><span
+                class="hljs-params"><span lang="EN-US" style="color:#F8F8F2">(SqStack S)</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">{</span></code><span class="hljs-comment"><span lang="EN-US"
+                                                                                                   style="color:#75715E">//</span><span
+                style="color:#75715E">从栈底到栈顶的方向</span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n</span><span style="color:#E6DB74">此时栈内情况为：<span
+                lang="EN-US">\n"</span></span></span><code><span lang="EN-US" style="color:#F8F8F2">);<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span
+            class="hljs-keyword"><span lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US"
+                                                                                                      style="color:#F8F8F2">(S.top==S.base){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2"> </span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">0</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">while</span></span><code><span lang="EN-US" style="color:#F8F8F2">(S.base &lt;S.top ){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"%d\t"</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">,*(S.base++));<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n"</span></span><code><span lang="EN-US"
+                                                                                                           style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2"> </span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">1</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2">}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//----------------------------------</span><span
+                style="color:#75715E">主函数<span lang="EN-US">---------------------------------------</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-keyword"><span lang="EN-US"
+                                                                                  style="color:#66D9EF">int</span></span><span
+                class="hljs-function"><span lang="EN-US" style="color:#F92672"> </span></span><span
+                class="hljs-title"><span lang="EN-US" style="color:#A6E22E">main</span></span><span class="hljs-params"><span
+                lang="EN-US" style="color:#F8F8F2">()</span></span><code><span lang="EN-US" style="color:#F8F8F2">{<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>SqStack S;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n---------------------</span><span
+                style="color:#E6DB74">初始化栈并通过<span lang="EN-US">“</span>压栈<span lang="EN-US">”</span>添加十个元素<span
+                lang="EN-US">--------------------------\n"</span></span></span><code><span lang="EN-US"
+                                                                                           style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>InitStack(S);<span style="mso-spacerun:yes">&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span
+                style="color:#75715E">初始化栈</span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">for</span></span><code><span lang="EN-US"
+                                                                                style="color:#F8F8F2">(</span></code><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">int</span></span><code><span lang="EN-US"
+                                                                                                           style="color:#F8F8F2"> i=</span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">0</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;i&lt;</span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">10</span></span><code><span lang="EN-US"
+                                                                                                         style="color:#F8F8F2">;i++){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Push(S,i);<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-comment"><span
+                lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">添加<span lang="EN-US">10</span>个元素</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span>StackTraverse(S);<span style="mso-spacerun:yes">&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span
+                style="color:#75715E">遍历一下</span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//---------------------------------------------</span></span><code><span
+            lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n---------------------</span><span
+                style="color:#E6DB74">通过<span lang="EN-US">“</span>弹栈<span lang="EN-US">”</span>删除<span
+                lang="EN-US">4</span>个元素<span lang="EN-US">--------------------------\n"</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>SElemType e;<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">for</span></span><code><span lang="EN-US"
+                                                                                style="color:#F8F8F2">(</span></code><span
+                class="hljs-keyword"><span lang="EN-US" style="color:#F92672">int</span></span><code><span lang="EN-US"
+                                                                                                           style="color:#F8F8F2"> i=</span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">0</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;i&lt;</span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">4</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;i++){<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Pop(S,e);<span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-comment"><span
+                lang="EN-US" style="color:#75715E">//</span><span style="color:#75715E">删除<span lang="EN-US">4</span>个元素</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-builtin"><span lang="EN-US" style="color:#E6DB74">printf</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">(</span></code><span class="hljs-string"><span lang="EN-US"
+                                                                                                  style="color:#E6DB74">"\n</span><span
+                style="color:#E6DB74">已删除<span lang="EN-US">%d\n"</span></span></span><code><span lang="EN-US"
+                                                                                                  style="color:#F8F8F2">,e);<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>StackTraverse(S);<span style="mso-spacerun:yes">&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span
+                style="color:#75715E">遍历一下</span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//---------------------------------------------</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n---------------------</span><span
+                style="color:#E6DB74">栈顶元素为<span
+                lang="EN-US">--------------------------\n"</span></span></span><code><span lang="EN-US"
+                                                                                           style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>GetTop(S,e);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"</span><span
+                style="color:#E6DB74">此时栈顶元素<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp; </span>%d\n"</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">,e);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//---------------------------------------------</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n---------------------</span><span
+                style="color:#E6DB74">判断栈是否为空<span lang="EN-US">--------------------------\n"</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">int</span></span><code><span lang="EN-US" style="color:#F8F8F2"> p=StackEmpty(S);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">if</span></span><code><span lang="EN-US"
+                                                                               style="color:#F8F8F2">(p==</span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">0</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">){<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+            class="hljs-builtin"><span lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                                          style="color:#F8F8F2">(</span></code><span
+            class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n</span><span style="color:#E6DB74">栈不为空<span
+            lang="EN-US">\n"</span></span></span><code><span lang="EN-US" style="color:#F8F8F2">);<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp; </span><span
+            style="mso-spacerun:yes">&nbsp;&nbsp;</span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">else</span></span><code><span lang="EN-US" style="color:#F8F8F2">{<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></code><span
+                class="hljs-builtin"><span lang="EN-US" style="color:#E6DB74">printf</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">(</span></code><span class="hljs-string"><span lang="EN-US"
+                                                                                                  style="color:#E6DB74">"\n</span><span
+                style="color:#E6DB74">栈为空<span lang="EN-US">\n"</span></span></span><code><span lang="EN-US"
+                                                                                                style="color:#F8F8F2">);<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//---------------------------------------------</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n---------------------</span><span
+                style="color:#E6DB74">获取栈的长度<span
+                lang="EN-US">--------------------------\n"</span></span></span><code><span lang="EN-US"
+                                                                                           style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n</span><span style="color:#E6DB74">栈的长度为<span
+                lang="EN-US"><span style="mso-spacerun:yes">&nbsp; </span>%d\n"</span></span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">,StackLength(S));<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//---------------------------------------------</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n---------------------</span><span
+                style="color:#E6DB74">清空栈<span
+                lang="EN-US">--------------------------\n"</span></span></span><code><span lang="EN-US"
+                                                                                           style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>ClearStack(S);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>StackTraverse(S);<span style="mso-spacerun:yes">&nbsp;&nbsp; </span></span></code><span
+                class="hljs-comment"><span lang="EN-US" style="color:#75715E">//</span><span
+                style="color:#75715E">遍历一下</span></span><code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><span class="hljs-comment"><span lang="EN-US" style="color:#75715E">//---------------------------------------------</span></span><code><span
+            lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-builtin"><span
+                lang="EN-US" style="color:#E6DB74">printf</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2">(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"\n---------------------</span><span
+                style="color:#E6DB74">摧毁栈<span
+                lang="EN-US">--------------------------\n"</span></span></span><code><span lang="EN-US"
+                                                                                           style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>DestroyStack(S);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><o:p>&nbsp;</o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span><o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;</span>system(</span></code><span
+                class="hljs-string"><span lang="EN-US" style="color:#E6DB74">"pause"</span></span><code><span
+                lang="EN-US" style="color:#F8F8F2">);<o:p></o:p></span></code></pre>
+        <pre style="margin:0;background:#23241F"><code><span lang="EN-US" style="color:#F8F8F2"><span
+                style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span></code><span class="hljs-keyword"><span
+                lang="EN-US" style="color:#F92672">return</span></span><code><span lang="EN-US"
+                                                                                   style="color:#F8F8F2"> </span></code><span
+                class="hljs-number"><span lang="EN-US" style="color:#AE81FF">0</span></span><code><span lang="EN-US"
+                                                                                                        style="color:#F8F8F2">;<o:p></o:p></span></code></pre><pre
+            style="margin:0;background:
+#23241F"><code><span lang="EN-US" style="color:#F8F8F2">} </span></code><span lang="EN-US" style="color:#F8F8F2"><o:p></o:p></span></pre>
+
+        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

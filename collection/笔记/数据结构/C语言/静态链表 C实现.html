@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>静态链表 C实现</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>静态链表 C实现</h1>
+        <div id="info">
+            <span id="time">2018-08-11</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <p>转载自：<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569" target="_blank">http://blog.csdn.net/jiuyueguang/article/details/12090569</a>
+        </p>
+        <h3>实现静态链表的方法</h3>
+        <p>
+            定义一个较大的结构数组作为备用结点空间(即存储池)。当申请结点时，每个结点应含有两个域：data域和cursor域。data域用来存放结点的数据信息，此时的cursor域不在是指针而是游标指示器，游标指示器指示其后继结点在结构数组中的相对位置(即数组下标)。
+            数组的第0个分量可以设计成表的头结点，头结点的next域指示了表中第一个结点的位置。表中当前最后一个结点的域为0，表示静态单链表的结束。我们把这种用游标指示器实现的单链表叫做静态单链表，static linked
+            list。
+        </p>
+        <p>静态单链表同样可以借助一维数组来描述。</p>
+        <p>
+            有趣的是：程序自始至终用的都是同一个数组，那怎么来区分呢？解决方案是：把这个数组逻辑分成两个部分（在下面的代码中你可以看到），一部分叫做空闲节点区域，另一部分叫非空闲节点区域（笔者这么叫，你也可以叫别的名字，但是你要想象把这个数组分成两个部分就ok了），前面说了是“逻辑”分隔，那怎么维护这个数组呢？答案是靠cursor域链接下一个节点来维护的。比如看下图（图真难画啊……），那么怎么标注非空闲链表呢？答案是自己定义一个下标来记住非空闲链表头节点下标就ok了。
+        </p>
+        <p>
+            你的头脑中要有一个场景：<em>一个数组逻辑分成两部分，他们都是通过指针来连接的，空闲链表由空闲头结点来链接起来，非空闲链表由非空闲头结点连接起来，空闲头结点就是数组下标为0的节点，由于每次申请都是从空闲头结点下一个位置申请空闲节点，所以导致非空闲头结点是数组下标为1的节点（这个你在下图或者程序中能够体会到）并且把这个下标记录下来，然后下面的工作就是维护这两个链表了</em>
+        </p>
+        <img src="/collection/image/2018/8/20180811_1.jpg" alt="">
+        <h3>静态链表的实现</h3>
+        <p>数据结构</p>
+        <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+            <div>
+                <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                    <strong>[html]</strong>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                                    rel="nofollow" title="view plain"
+                                                    style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                                    target="_blank">view
+                    plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                                      title="copy"
+                                      style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                      target="_blank">copy</a>
+                    <div style="position: absolute; left: 261px; top: 1243px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+                    <div style="position: absolute; left: 261px; top: 1243px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+
+                </div>
+            </div>
+            <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;"><span
+                            style="border:none;background-color:inherit;">#include&nbsp;</span><span
+                            style="color:rgb(153,51,0);border:none;font-weight:bold;background-color:inherit;">&lt;</span><span
+                            style="border:none;color:rgb(153,51,0);font-weight:bold;background-color:inherit;">stdio.h</span><span
+                            style="color:rgb(153,51,0);border:none;font-weight:bold;background-color:inherit;">&gt;</span><span
+                            style="border:none;background-color:inherit;">&nbsp;&nbsp;</span></span></li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">#define&nbsp;N&nbsp;100&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">typedef&nbsp;struct{&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;char&nbsp;data;&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;cur;//游标域或者指针域&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">}SList;&nbsp;&nbsp;</span></li>
+            </ol>
+        </div>
+        <p>数据结构很好理解，不在赘述。</p>
+        <p>初始化</p>
+        <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+            <div>
+                <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                    <strong>[html]</strong>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                                    rel="nofollow" title="view plain"
+                                                    style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                                    target="_blank">view
+                    plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                                      title="copy"
+                                      style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                      target="_blank">copy</a>
+                    <div style="position: absolute; left: 261px; top: 1496px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+                    <div style="position: absolute; left: 261px; top: 1496px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+
+                </div>
+            </div>
+            <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;"><span
+                            style="border:none;background-color:inherit;">void&nbsp;init_sl(SList&nbsp;slist[]){//初始化成空闲静态链表，&nbsp;&nbsp;</span></span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;i;&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;for(<span
+                            style="border:none;color:#FF0000;background-color:inherit;">i</span><span
+                            style="border:none;background-color:inherit;">=</span><span
+                            style="border:none;color:#0000FF;background-color:inherit;">0</span><span
+                            style="border:none;background-color:inherit;">;i</span><span
+                            style="color:rgb(153,51,0);border:none;font-weight:bold;background-color:inherit;">&lt;</span><span
+                            style="border:none;color:rgb(153,51,0);font-weight:bold;background-color:inherit;">N-1</span><span
+                            style="border:none;background-color:inherit;">;i++)&nbsp;&nbsp;</span></span></li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[i]<span
+                            style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                            style="border:none;background-color:inherit;">=</span><span
+                            style="border:none;color:#0000FF;background-color:inherit;">i</span><span
+                            style="border:none;background-color:inherit;">+1;&nbsp;&nbsp;</span></span></li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;slist[N-1]<span
+                            style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                            style="border:none;background-color:inherit;">=</span><span
+                            style="border:none;color:#0000FF;background-color:inherit;">0</span><span
+                            style="border:none;background-color:inherit;">;//最后一个指针域指向0&nbsp;&nbsp;</span></span></li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">}&nbsp;&nbsp;</span></li>
+            </ol>
+        </div>
+        <p>申请分配一个空闲节点</p>
+        <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+            <div>
+                <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                    <strong>[html]</strong>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                                    rel="nofollow" title="view plain"
+                                                    style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                                    target="_blank">view
+                    plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                                      title="copy"
+                                      style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                      target="_blank">copy</a>
+                    <div style="position: absolute; left: 261px; top: 1785px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+                    <div style="position: absolute; left: 261px; top: 1785px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+
+                </div>
+            </div>
+            <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;"><span
+                            style="border:none;background-color:inherit;">int&nbsp;malloc_sl(SList&nbsp;slist[]){//分配空闲节点&nbsp;&nbsp;</span></span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span
+                            style="border:none;color:#FF0000;background-color:inherit;">i</span><span
+                            style="border:none;background-color:inherit;">=</span><span
+                            style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                            style="border:none;background-color:inherit;">[0].cur;//总是取头结点之后的第一个空闲结点做分配，同时空闲链表非空，头结点做调整&nbsp;&nbsp;</span></span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(i)&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[0]<span
+                            style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                            style="border:none;background-color:inherit;">=</span><span
+                            style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                            style="border:none;background-color:inherit;">[i].cur;//空闲链表头结点调整指针域&nbsp;&nbsp;</span></span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;i;//返回申请到的空闲节点的数组下标&nbsp;&nbsp;</span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">}&nbsp;&nbsp;</span></li>
+            </ol>
+        </div>
+        <p>
+            <em>注意：这里每次申请空闲节点都是把空闲链表的第一个节点（非头节点）返回，同理在释放空闲节点到空闲链表的的时候也是把空闲节点加到空闲链表头指针的后面第一个的位置</em>
+        </p>
+        <p>
+            释放一个空闲节点到空闲链表
+        </p>
+        <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+            <div>
+                <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                    <strong>[html]</strong>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                                    rel="nofollow" title="view plain"
+                                                    style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                                    target="_blank">view
+                    plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                                      title="copy"
+                                      style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                      target="_blank">copy</a>
+                    <div style="position: absolute; left: 261px; top: 2109px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+                    <div style="position: absolute; left: 261px; top: 2109px; width: 16px; height: 16px; z-index: 0;">
+
+                    </div>
+
+                </div>
+            </div>
+            <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;"><span
+                            style="border:none;background-color:inherit;">void&nbsp;free_sl(SList&nbsp;slist[],int&nbsp;k){//将k节点回收&nbsp;&nbsp;</span></span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;slist[k]<span
+                            style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                            style="border:none;background-color:inherit;">=</span><span
+                            style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                            style="border:none;background-color:inherit;">[0].cur;//总是将回收的节点放在头结点之后&nbsp;&nbsp;</span></span>
+                </li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                    <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;slist[0]<span
+                            style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                            style="border:none;background-color:inherit;">=</span><span
+                            style="border:none;color:#0000FF;background-color:inherit;">k</span><span
+                            style="border:none;background-color:inherit;">;&nbsp;&nbsp;</span></span></li>
+                <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                    <span style="border:none;color:#000000;background-color:inherit;">}&nbsp;&nbsp;</span></li>
+            </ol>
+        </div>
+        <h3>实例：求集合运算（A-B）U（B-A）的结果</h3>
+        <div style="color: rgb(0, 0, 0);font-family:'microsoft yahei';font-size:15px;line-height:35px;">
+            <span style="font-family:SimSun;color:rgb(51,51,51);"><span style="line-height:26px;"></span></span>
+            <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+                <div>
+                    <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                        <strong>[html]</strong>&nbsp;<a
+                            href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                            title="view plain"
+                            style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                            target="_blank">view
+                        plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                          rel="nofollow" title="copy"
+                                          style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                          target="_blank">copy</a>
+                        <div style="position: absolute; left: 221px; top: 2343px; width: 16px; height: 16px; z-index: 0;">
+
+                        </div>
+                        <div style="position: absolute; left: 221px; top: 2343px; width: 16px; height: 16px; z-index: 0;">
+
+                        </div>
+
+                    </div>
+                </div>
+                <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;"><span
+                                style="border:none;background-color:inherit;">int&nbsp;difference_sl(SList&nbsp;slist[],int&nbsp;n){&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;i,m,q,p;&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;char&nbsp;tmp[2];//为避免出现scanf输入字符出现接受回车符，则采用输入字符串的形式&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;start,end;//start是哨兵，end指向最后的节点&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;init_sl(slist);//初始化&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">start</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">malloc_sl</span><span
+                                style="border:none;background-color:inherit;">(slist);//从空闲链表中取出第一个空闲节点生成链表的头结点&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;//注意区分，现在是有一个空闲链表是slist，里面都是空闲节点，每次申请malloc_sl和free_sl都是操作的是slist&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;//然后非空静态链表，即集合A的链表是由start这个下标指引一直向后走，end指向非空链表的尾节点，&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;//而且你发现start基本上都是1，因为开始的时候slist都是空闲节点，而分配又都是从头结点slist[0]之后的第一个&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;//节点，即slist[1]开始分配，所以<span
+                                style="border:none;color:#FF0000;background-color:inherit;">start</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">1</span><span
+                                style="border:none;background-color:inherit;">&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">end</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">start</span><span
+                                style="border:none;background-color:inherit;">;&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(n--)&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scanf("%s",tmp);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">i</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">malloc_sl</span><span
+                                style="border:none;background-color:inherit;">(slist);&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[i]<span
+                                style="border:none;color:#FF0000;background-color:inherit;">.data</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">tmp</span><span
+                                style="border:none;background-color:inherit;">[0];&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[end]<span
+                                style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">i</span><span
+                                style="border:none;background-color:inherit;">;&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">end</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">i</span><span
+                                style="border:none;background-color:inherit;">;//end指针后移&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;slist[end]<span
+                                style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">0</span><span
+                                style="border:none;background-color:inherit;">;//这个勿忘!尾节点的指针为空&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;//至此A集合输入完毕，然后处理B集合&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;scanf("%d",&amp;m);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(m--)&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scanf("%s",tmp);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//从A集合中扫描，如果A中存在tmp，则在A中删除(free_sl)，即A-B，如果没有则添加入A，即B-A&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">q</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">start</span><span
+                                style="border:none;background-color:inherit;">;//q是p的前驱&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">p</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                                style="border:none;background-color:inherit;">[start].cur;&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(p!=slist[end].cur&amp;&amp;slist[p].data!=tmp[0])&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">q</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">p</span><span
+                                style="border:none;background-color:inherit;">;&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">p</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                                style="border:none;background-color:inherit;">[p].cur;&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(p!=slist[end].cur)//说明在A中找到了tmp，则删除&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[q]<span
+                                style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                                style="border:none;background-color:inherit;">[p].cur;//跨过p节点&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free_sl(slist,p);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(<span
+                                style="border:none;color:#FF0000;background-color:inherit;">end</span><span
+                                style="border:none;background-color:inherit;">==p)&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">end</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">q</span><span
+                                style="border:none;background-color:inherit;">;//如果删除的是尾节点，则修改尾节点指针&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">i</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">malloc_sl</span><span
+                                style="border:none;background-color:inherit;">(slist);&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[i]<span
+                                style="border:none;color:#FF0000;background-color:inherit;">.data</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">tmp</span><span
+                                style="border:none;background-color:inherit;">[0];&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[i]<span
+                                style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                                style="border:none;background-color:inherit;">[end].cur;&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slist[end]<span
+                                style="border:none;color:#FF0000;background-color:inherit;">.cur</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">i</span><span
+                                style="border:none;background-color:inherit;">;//插在end后，end位置不变，因为end是标志集合A的结束，但是这里你也可以变化end指针，就是加上</span><span
+                                style="border:none;color:#FF0000;background-color:inherit;">end</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">i</span><span
+                                style="border:none;background-color:inherit;">即可&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;start;&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">}&nbsp;&nbsp;</span></li>
+                </ol>
+            </div>
+            <p>加上一个打印的函数</p>
+            <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+                <div>
+                    <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                        <strong>[html]</strong>&nbsp;<a
+                            href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                            title="view plain"
+                            style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                            target="_blank">view
+                        plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                          rel="nofollow" title="copy"
+                                          style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                          target="_blank">copy</a>
+                        <div style="position: absolute; left: 221px; top: 3363px; width: 16px; height: 16px; z-index: 0;">
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;"><span
+                                style="border:none;background-color:inherit;">void&nbsp;print_sl(SList&nbsp;slist[],int&nbsp;start){&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">p</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                                style="border:none;background-color:inherit;">[start].cur;&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(p)&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("%c&nbsp;",slist[p].data);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">p</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">slist</span><span
+                                style="border:none;background-color:inherit;">[p].cur;&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;printf("\n");&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">}&nbsp;&nbsp;</span></li>
+                </ol>
+            </div>
+            <p>加上一个main函数</p>
+
+            <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+                <div>
+                    <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                        <strong>[html]</strong>&nbsp;<a
+                            href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                            title="view plain"
+                            style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                            target="_blank">view
+                        plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                          rel="nofollow" title="copy"
+                                          style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                          target="_blank">copy</a>
+                        <div style="position: absolute; left: 221px; top: 3662px; width: 16px; height: 16px; z-index: 0;">
+
+                        </div>
+                        <div style="position: absolute; left: 221px; top: 3662px; width: 16px; height: 16px; z-index: 0;">
+
+                        </div>
+
+                    </div>
+                </div>
+                <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;"><span
+                                style="border:none;background-color:inherit;">int&nbsp;main(){&nbsp;&nbsp;</span></span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;n,start;&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;SList&nbsp;slist[N];&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;freopen("1.txt","r",stdin);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;//该程序是求(A-B)U(B-A)集合运算&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(scanf("%d",&amp;n)==1)&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                style="border:none;color:#FF0000;background-color:inherit;">start</span><span
+                                style="border:none;background-color:inherit;">=</span><span
+                                style="border:none;color:#0000FF;background-color:inherit;">difference_sl</span><span
+                                style="border:none;background-color:inherit;">(slist,n);&nbsp;&nbsp;</span></span></li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_sl(slist,start);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;fclose(stdin);&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;line-height:18px;background-color:rgb(248,248,248);">
+                        <span style="border:none;color:#000000;background-color:inherit;">&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;0;&nbsp;&nbsp;</span>
+                    </li>
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;">}&nbsp;&nbsp;</span></li>
+                </ol>
+            </div>
+
+            <br>
+            <h3><a name="t3"></a><a name="t4" style="color:rgb(12,137,207);" target="_blank"></a><span
+                    style="font-family:SimSun;color: rgb(0, 0, 0);"><h3 style="line-height:26px;">下载代码</h3></span>
+            </h3>
+            <p>如果你想下载这些代码和测试数据请猛戳<a href="https://download.csdn.net/download/jiuyueguang/6329103" target="_blank">【去下载静态链表的C语言实现】</a>程序对测试数据的输出是
+            </p>
+            <div style="font-family:Consolas, 'Courier New', Courier, mono, serif;font-size:12px;overflow:hidden;border-color:rgb(204,204,204);background-color:rgb(231,229,220);">
+                <div>
+                    <div style="font-size:9px;line-height:normal;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;color:#C0C0C0;border-left-width:3px;border-left-style:solid;border-left-color:rgb(108,226,108);background-color:rgb(248,248,248);">
+                        <strong>[html]</strong>&nbsp;<a
+                            href="http://blog.csdn.net/jiuyueguang/article/details/12090569#" rel="nofollow"
+                            title="view plain"
+                            style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                            target="_blank">view
+                        plain</a>&nbsp;<a href="http://blog.csdn.net/jiuyueguang/article/details/12090569#"
+                                          rel="nofollow" title="copy"
+                                          style="border: none; font-size: 9px; color: rgb(12, 137, 207); display: inline-block; width: 16px; text-indent: -2000px; background-color: inherit;"
+                                          target="_blank">copy</a>
+                        <div style="position: absolute; left: 221px; top: 4088px; width: 16px; height: 16px; z-index: 0;">
+
+                        </div>
+                        <div style="position: absolute; left: 221px; top: 4088px; width: 16px; height: 16px; z-index: 0;">
+
+                        </div>
+
+                    </div>
+                </div>
+                <ol start="1" style="border:none;color:rgb(92,92,92);background-color:rgb(255,255,255);">
+                    <li style="border-style:none none none solid;border-left-width:3px;border-left-color:rgb(108,226,108);list-style:outside;color:inherit;line-height:18px;">
+                        <span style="border:none;color:#000000;background-color:inherit;"><span
+                                style="border:none;background-color:inherit;">c&nbsp;e&nbsp;g&nbsp;d&nbsp;n&nbsp;a&nbsp;&nbsp;&nbsp;</span></span>
+                    </li>
+
+                </ol>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

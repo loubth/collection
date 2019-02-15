@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单链表操作（自制）</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article style="width:1000px;">
+    <header>
+        <h1>单链表操作（自制）</h1>
+        <div id="info">
+            <span id="time">2018-08-11</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">#</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">include</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">&lt;stdio.h&gt; <o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">#</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">include</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">&lt;stdlib.h&gt;<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">#</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">define</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> OVERFLOW 0<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">#</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">define</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> ERROR 0<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">#</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">define</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> OK<span style="mso-spacerun:yes">&nbsp; </span>1 <o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">#</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">define</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> Length 10<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">typedef</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> Status;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">typedef</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> ElemType;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">typedef</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">struct</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> LNode{<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>ElemType data;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">struct</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> LNode *next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}LNode,*LinkList;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">////////////////////////////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">打印单链表<span lang="EN-US">//////////////////////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#66D9EF;mso-font-kerning:0pt">void</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#A6E22E;mso-font-kerning:
+0pt">printAll</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(LinkList L){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">打印长度为<span lang="EN-US">n</span>的单链表 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p=L;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n"</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> i=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;p-&gt;next!=NULL;i++){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"%d\t"</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">,p-&gt;next-&gt;data);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n"</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">////////////////////////////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">建立单链表<span lang="EN-US">///////////////////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#66D9EF;mso-font-kerning:0pt">void</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#A6E22E;mso-font-kerning:
+0pt">CreateList_L</span><span lang="EN-US" style="font-size:12.0pt;font-family:
+宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(LinkList
+&amp;L,</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#66D9EF;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"> n){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">建立长度为<span lang="EN-US">n</span>的单链表 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>L=(LinkList)</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">malloc</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">sizeof</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(LNode));<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>L-&gt;next=NULL;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">先建立一个带头结点的单链表<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>之所以赋个<span lang="EN-US">NULL</span>是为了让遍历方便，否则无法判断
+什么时候该停止遍历 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> i;i&lt;n;i++){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#75715E;mso-font-kerning:0pt">//</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">头插法建立单链表
+</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>LinkList p=(LinkList)</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">malloc</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">sizeof</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">(LNode));<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p-&gt;next=L-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>L-&gt;next=p;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:0pt">单链表创建成功！<span lang="EN-US">"</span></span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">) ;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">////////////////////////////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">得到指定元素<span lang="EN-US">/////////////////////////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">ElemType </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#A6E22E;mso-font-kerning:0pt">GetElem_L</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(LinkList &amp;L,</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#66D9EF;
+mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> i){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">得到单链表的第<span lang="EN-US">i</span>个元素 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>ElemType e;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p=L;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> j=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;j!=i;j++){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>e=p-&gt;data;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">return</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> e;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">////////////////////////////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">插入元素<span lang="EN-US">//////////////////////////////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">Status </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#A6E22E;mso-font-kerning:0pt">ListInsert_L</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(LinkList &amp;L,</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#66D9EF;
+mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">
+i,ElemType e){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#75715E;mso-font-kerning:0pt">//</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">在单链表的第<span lang="EN-US">i</span>个位置插入元素<span lang="EN-US">e </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p=L;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp; </span>LinkList q=(LinkList)</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">malloc</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">sizeof</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">(LNode));<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> j=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;j!=i-</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;
+mso-font-kerning:0pt">1</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">;j++){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>} <o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>q-&gt;next=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>p-&gt;next=q;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>q-&gt;data=e;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">return</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> OK;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">////////////////////////////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">删除元素<span lang="EN-US">//////////////////////////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">Status </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#A6E22E;mso-font-kerning:0pt">ListDelete_L</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(LinkList &amp;L,</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#66D9EF;
+mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> i){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">删除单链表第<span lang="EN-US">i</span>个元素 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p=L;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> j=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;j!=i-</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;
+mso-font-kerning:0pt">1</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">;j++){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>} <o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList q=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>p-&gt;next=p-&gt;next-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">free</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(q);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">return</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> OK;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">////////////////////////////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">倒置单链表<span lang="EN-US">/////////////////////////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#66D9EF;mso-font-kerning:0pt">void</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#A6E22E;mso-font-kerning:
+0pt">ListInvert_L</span><span lang="EN-US" style="font-size:12.0pt;font-family:
+宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(LinkList
+&amp;L){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p=L,q=L;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> length;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(length=</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:
+0pt">;p-&gt;next!=NULL;length++){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#75715E;mso-font-kerning:0pt">//</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">先测一下单链表的长度</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> i=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;i&lt;length/</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;
+mso-font-kerning:0pt">2</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">;i++){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=L;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>q=q-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;
+mso-font-kerning:0pt">for</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> j=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;j&lt;length-i;j++){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">找到需要进行交换的结点</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;</span><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ElemType t=q-&gt;data;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#75715E;mso-font-kerning:0pt">//</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">进行交换
+</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>q-&gt;data=p-&gt;data;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p-&gt;data=t;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">/////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">更好的倒置方法<span lang="EN-US">////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#66D9EF;mso-font-kerning:0pt">void</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#A6E22E;mso-font-kerning:
+0pt">ReverseList</span><span lang="EN-US" style="font-size:12.0pt;font-family:
+宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(LinkList
+&amp;L){<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p, q, r;<span style="mso-spacerun:yes">&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//p</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">是当前结点<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>//q</span>是下一个结点<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>//r</span>是上一个结点 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>p = L-&gt;next;<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>q=r=NULL;<span style="mso-spacerun:yes">&nbsp;
+</span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">while</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(p)<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>{<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>q = p-&gt;next;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">备份下一个结点的地址 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>p-&gt;next = r;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">让当前结点的指针指向上一个结点<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>第一次执行本语句是将第一个结点的<span lang="EN-US">next</span>域设为<span lang="EN-US">NULL</span>方便遍历 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>r = p;<span style="mso-spacerun:yes">&nbsp;
+</span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>p = q;<span style="mso-spacerun:yes">&nbsp;
+</span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp; </span><span style="mso-spacerun:yes">&nbsp;</span>}<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>L-&gt;next=r;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">//</span><span style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">头结点指向原单链表的最后一个结点</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<span style="mso-spacerun:yes">&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">////////////////////////////////</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">合并单链表<span lang="EN-US">///////////////////////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">LinkList </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#A6E22E;mso-font-kerning:0pt">MergeList_L</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(LinkList &amp;La,LinkList &amp;Lb)</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:
+0pt">{<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">已知单链表<span lang="EN-US">La</span>和<span lang="EN-US">Lb</span>的元素按值递增排列 </span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">归并<span lang="EN-US">La</span>和<span lang="EN-US">Lb</span>得到新的单链表<span lang="EN-US">Lc</span>，<span lang="EN-US">Lc</span>的元素也按值递增排列
+</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList Lc=(LinkList)</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">malloc</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:0pt">sizeof</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">(LNode));<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p=La-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList q=Lb-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList r=Lc;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//Lc-&gt;next=NULL;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;
+mso-font-kerning:0pt">先建立一个带头结点的单链表<span lang="EN-US"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>之所以赋个<span lang="EN-US">NULL</span>是为了让遍历方便，否则无法判断
+什么时候该停止遍历 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">while</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(p&amp;&amp;q){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;
+mso-font-kerning:0pt">if</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(p-&gt;data&lt;q-&gt;data){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>r-&gt;next=p;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>r=r-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>} <o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;
+mso-font-kerning:0pt">else</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">{<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>r-&gt;next=q;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>q=q-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>r=r-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>}<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;
+</span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>r-&gt;next=p?p:q;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">因为上面的<span lang="EN-US">while</span>语句内部 总会使
+要合并的两个链表中的一个剩下一个结点（因为此时连一个链表已经遍历到了最后一个元素，其<span lang="EN-US">next</span>域为<span lang="EN-US">NULL</span>，使算法停止遍历） 所以需要这个语句来将最后一个结点链接上来 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">return</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> Lc;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#66D9EF;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#A6E22E;mso-font-kerning:
+0pt">main</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(){<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList L;<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">头指针 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">////////////////////////////////</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">建立单链表<span lang="EN-US">////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n----------------------------------</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">建立单链表<span lang="EN-US">---------------------------------------\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>CreateList_L(L,Length);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p=L;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> i=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;i&lt;Length;i++){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">自动为单链表添数 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p-&gt;next-&gt;data=i;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p=p-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>printAll(L);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">////////////////////////////////</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">获得元素<span lang="EN-US">////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n----------------------------------</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">获得第<span lang="EN-US">i</span>个元素<span lang="EN-US">---------------------------------------\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> i=</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#AE81FF;mso-font-kerning:0pt">3</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:
+0pt">; <o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:0pt">第<span lang="EN-US">%d</span>个元素是：<span lang="EN-US">%d"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">,i,GetElem_L(L,i));<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">////////////////////////////////</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">插入元素<span lang="EN-US">////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n----------------------------------</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">在单链表的第<span lang="EN-US">i</span>个位置插入元素<span lang="EN-US">e---------------------------------------\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:0pt">在第<span lang="EN-US">2</span>个位置插入<span lang="EN-US">666</span>：<span lang="EN-US">\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>ListInsert_L(L,</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;
+mso-font-kerning:0pt">2</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">,</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#AE81FF;mso-font-kerning:0pt">666</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>printAll(L);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">////////////////////////////////</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">倒置单链表<span lang="EN-US">////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n----------------------------------</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">倒置单链表<span lang="EN-US">---------------------------------------\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//ListInvert_L(L);</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>ReverseList(L); <o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>printAll(L);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">////////////////////////////////</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:0pt">删除元素<span lang="EN-US">////////////////////////////////////</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n----------------------------------</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">删除单链表第<span lang="EN-US">s</span>个元素<span lang="EN-US">---------------------------------------\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp; </span><span style="mso-spacerun:yes">&nbsp;&nbsp;</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> s=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">5</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:0pt">删除第<span lang="EN-US">%d</span>个位置的元素：<span lang="EN-US">\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">,s);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>ListDelete_L(L,s);<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>printAll(L);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n----------------------------------</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">合并单链表<span lang="EN-US">---------------------------------------\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList La,Lb;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>CreateList_L(La,Length);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p1=La;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> i=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;i&lt;Length;i++){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">自动为单链表添数 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p1-&gt;next-&gt;data=i*</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#AE81FF;mso-font-kerning:0pt">2</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:
+0pt">;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p1=p1-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:0pt">单链表<span lang="EN-US">La</span>为：<span lang="EN-US">\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>printAll(La);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>CreateList_L(Lb,Length);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList p2=Lb;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">for</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F92672;mso-font-kerning:0pt">int</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"> i=</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;i&lt;Length;i++){<span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#75715E;mso-font-kerning:
+0pt">//</span><span style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:
+宋体;color:#75715E;mso-font-kerning:0pt">自动为单链表添数 </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p2-&gt;next-&gt;data=i*</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#AE81FF;mso-font-kerning:0pt">2</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:
+0pt">+</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#AE81FF;mso-font-kerning:0pt">1</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#F8F8F2;mso-font-kerning:0pt">;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>p2=p2-&gt;next;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>}<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:
+0pt">printf</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#E6DB74;mso-font-kerning:0pt">"\n</span><span style="font-size:12.0pt;
+font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;mso-font-kerning:0pt">单链表<span lang="EN-US">Lb</span>为：<span lang="EN-US">\n"</span></span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>printAll(Lb);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>LinkList Lm=MergeList_L(La,Lb);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>printAll(Lm);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span>system(</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#E6DB74;
+mso-font-kerning:0pt">"pause"</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;
+mso-font-kerning:0pt">);<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F92672;mso-font-kerning:
+0pt">return</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt"> </span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;
+color:#AE81FF;mso-font-kerning:0pt">0</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:宋体;mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:
+0pt">;<o:p></o:p></span></div>
+
+        <div class="MsoNormal" align="left" style="text-align:left;mso-pagination:widow-orphan;
+tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+background:#23241F"><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;
+mso-bidi-font-family:宋体;color:#F8F8F2;mso-font-kerning:0pt">}<o:p></o:p></span></div>
+
+        <div class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></div>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
