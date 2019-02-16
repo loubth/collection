@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scrollWidth,clientWidth,offsetWidth的区别</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>scrollWidth,clientWidth,offsetWidth的区别</h1>
+        <div id="info">
+            <span id="time">2018-11-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+
+
+        <h3>说明：</h3>
+        <p>
+            scrollWidth：对象的实际内容的宽度，不包边线宽度，会随对象中内容超过可视区后而变大。<br>
+            clientWidth：对象内容的可视区的宽度，不包滚动条等边线，会随对象显示大小的变化而改变。<br>
+            offsetWidth：对象整体的实际宽度，包滚动条等边线，会随对象显示大小的变化而改变。
+        </p>
+        <p>该demo就在页面中放一个textarea元素，采用默认宽高显示。</p>
+
+        <h3>情况1：</h3>
+        <p>
+            元素内无内容或者内容不超过可视区，滚动不出现或不可用的情况下。
+            <br>
+            scrollWidth=clientWidth，两者皆为内容可视区的宽度。
+            <br>
+            offsetWidth为元素的实际宽度。
+        </p>
+        <img src="/collection/image/2018/11/20181115_2.png" alt="">
+        <h3>情况2：</h3>
+        <p>元素的内容超过可视区，滚动条出现和可用的情况下。</p>
+        <p>
+            scrollWidth>clientWidth。
+            <br>
+            scrollWidth为实际内容的宽度。
+            <br>
+            clientWidth是内容可视区的宽度。
+            <br>
+            offsetWidth是元素的实际宽度。
+        </p>
+        <img src="/collection/image/2018/11/20181115_3.png" alt="">
+
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

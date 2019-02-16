@@ -49,7 +49,7 @@ article {
 }
 
 header {
-    height: 120px;
+    min-height: 120px;
     overflow: hidden;
     border-bottom: 1px solid #E4D0D0;
 }

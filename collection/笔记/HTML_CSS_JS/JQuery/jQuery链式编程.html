@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery链式编程</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>jQuery链式编程</h1>
+        <div id="info">
+            <span id="time">2018-11-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+
+
+
+        <div>
+            <pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:12.0pt;"><span style="color:#f7f7f1;">&lt;!DOCTYPE </span><span style="color:#a6e22e;">html</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">html </span><span style="color:#a6e22e;">lang=</span><span style="color:#ffe792;">"en"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">head</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">  &lt;</span><span style="color:#f72671;">meta </span><span style="color:#a6e22e;">charset=</span><span style="color:#ffe792;">"UTF-8"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">  &lt;</span><span style="color:#f72671;">title</span><span style="color:#f7f7f1;">&gt;</span>title<span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">title</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">  &lt;</span><span style="color:#f72671;">script </span><span style="color:#a6e22e;">src=</span><span style="color:#ffe792;">"jquery-1.12.1.js"</span><span style="color:#f7f7f1;">&gt;&lt;/</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">  &lt;</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    </span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function </span><span style="color:#ffffff;">() {<br></span><span style="color:#ffffff;">      </span><span style="color:#736f5c;">//链式编程:对象不停的调用方法.<br></span><span style="color:#736f5c;">      //对象.方法().方法.方法().方法();<br></span><span style="color:#736f5c;"><br></span><span style="color:#736f5c;">      //对象调用方法,如果返回值还是当前这个对象，那么就可以继续的调用方法<br></span><span style="color:#736f5c;">      //经验:在jQuery中,一般情况,对象调用的方法,这个方法的意思是设置的意思,那么返回来的几乎都是当前的对象,就可以继续的链式编程了<br></span><span style="color:#736f5c;"><br></span><span style="color:#736f5c;">      </span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#btn"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">click</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function </span><span style="color:#ffffff;">() {<br></span><span style="color:#ffffff;">        </span><span style="color:#736f5c;">//获取按钮的value属性---这个方法此时是获取,返回的是value属性值<br></span><span style="color:#736f5c;">        //console.log($(this).val());<br></span><span style="color:#736f5c;">//        var obj=$(this).val("哈哈,我又变帅了");<br></span><span style="color:#736f5c;">//        console.log(obj);<br></span><span style="color:#736f5c;">        //$(this).val("哈哈").css("backgroundColor","red");<br></span><span style="color:#736f5c;"><br></span><span style="color:#736f5c;">        //var result=$(this).css("backgroundColor","red");<br></span><span style="color:#736f5c;">        //console.log(result);<br></span><span style="color:#736f5c;"><br></span><span style="color:#736f5c;">        //$(this).val("哈哈").css("backgroundColor","red").css("width","300px");<br></span><span style="color:#736f5c;">      </span><span style="color:#ffffff;">});<br></span><span style="color:#ffffff;"><br></span><span style="color:#ffffff;">    });<br></span><span style="color:#ffffff;">  </span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">head</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">body</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">input </span><span style="color:#a6e22e;">type=</span><span style="color:#ffe792;">"button" </span><span style="color:#a6e22e;">value=</span><span style="color:#ffe792;">"显示效果" </span><span style="color:#a6e22e;">id=</span><span style="color:#ffe792;">"btn"</span><span style="color:#f7f7f1;">/&gt;<br></span><span style="color:#f7f7f1;"><br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">body</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">html</span><span style="color:#f7f7f1;">&gt;</span></pre>
+        </div>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

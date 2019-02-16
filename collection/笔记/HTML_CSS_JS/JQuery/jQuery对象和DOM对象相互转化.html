@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery对象和DOM对象相互转化</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>jQuery对象和DOM对象相互转化</h1>
+        <div id="info">
+            <span id="time">2018-11-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <p>
+            DOM对象转JQuery对象------------->“<em>$(<strong>DOM对象</strong>)</em>”就是jQuery对象
+            <br>
+            JQuery对象转DOM对象------------->“<em><strong>JQuery对象</strong>[0]</em>”就是DOM对象
+        </p>
+        <p><em>举例</em>：假如有一个id值为“btn”的按钮</p>
+
+        <div>
+            <pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><pre
+                    style="font-family: 宋体; font-size: 15pt;"><span style="color:#66d9ef;">var </span><span
+                    style="color:#f72671;">btnObj = document</span><span style="color:#ffffff;">.</span><span
+                    style="color:#6ccab8;">getElementById</span><span style="color:#ffffff;">(</span><span
+                    style="color:#ffe792;">"btn"</span><span style="color:#ffffff;">);<br></span><span
+                    style="color:#f72671;">alert</span><span style="color:#ffffff;">(</span><span
+                    style="color:#f72671;">btnObj==$</span><span style="color:#ffffff;">(</span><span
+                    style="color:#f72671;">btnObj</span><span style="color:#ffffff;">)[</span><span
+                    style="color:#66d9ef;">0</span><span style="color:#ffffff;">]);</span></pre></pre>
+        </div>
+        <p>这段代码的运行结果是true，也就是说他们两个表示的是同一个“btn”的DOM对象</p>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

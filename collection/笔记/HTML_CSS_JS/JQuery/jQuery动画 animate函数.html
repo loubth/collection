@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery动画 animate函数</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>jQuery动画 animate函数</h1>
+        <div id="info">
+            <span id="time">2018-11-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+
+        <p>animate函数作用是使元素样式逐渐变为所传的参数指定的样式</p>
+        <strong>$(selector).animate({params},speed,callback);</strong>
+        <p>
+            必需的 params 参数定义形成动画的 CSS 属性。
+            <br>
+            可选的 speed 参数规定效果的时长。它可以取以下值："slow"、"fast" 或毫秒。
+            <br>
+            可选的 callback 参数是动画完成后所执行的函数名称。
+        </p>
+        <p>
+            <em>{params}</em>是对象，里面存有属性和属性值的键值对
+        </p>
+        <h3>示例如下</h3>
+        <pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><pre style="font-family: 宋体; font-size: 15pt;"><span style="color:#f7f7f1;">&lt;!DOCTYPE </span><span style="color:#a6e22e;">html</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">html </span><span style="color:#a6e22e;">lang=</span><span style="color:#ffe792;">"en"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">head</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">meta </span><span style="color:#a6e22e;">charset=</span><span style="color:#ffe792;">"UTF-8"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">title</span><span style="color:#f7f7f1;">&gt;</span>title<span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">title</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">style</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">        </span><span style="color:#f92672;">img </span>{<br>            <span style="color:#66d9ef;">position</span>: <span style="color:#f72671;">absolute</span>;<br>        }<br>    <span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">style</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">script </span><span style="color:#a6e22e;">src=</span><span style="color:#ffe792;">"jquery-1.12.1.js"</span><span style="color:#f7f7f1;">&gt;&lt;/</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;"><br></span><span style="color:#f7f7f1;">        </span><span style="color:#736f5c;">//参数1:键值对----css属性和值<br></span><span style="color:#736f5c;">        //参数2:时间---1000毫秒---1秒<br></span><span style="color:#736f5c;">        //参数3:回调函数<br></span><span style="color:#736f5c;">        </span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function </span><span style="color:#ffffff;">() {<br></span><span style="color:#ffffff;">            </span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#im"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">animate</span><span style="color:#ffffff;">({<br></span><span style="color:#ffffff;">                </span><span style="color:#ffe792;">"width"</span><span style="color:#f72671;">: </span><span style="color:#ffe792;">"300px"</span><span style="color:#ffffff;">,<br></span><span style="color:#ffffff;">                </span><span style="color:#ffe792;">"height"</span><span style="color:#f72671;">: </span><span style="color:#ffe792;">"300px"</span><span style="color:#ffffff;">,<br></span><span style="color:#ffffff;">                </span><span style="color:#ffe792;">"left"</span><span style="color:#f72671;">: </span><span style="color:#ffe792;">"100px"</span><span style="color:#ffffff;">,<br></span><span style="color:#ffffff;">                </span><span style="color:#ffe792;">"top"</span><span style="color:#f72671;">: </span><span style="color:#ffe792;">"100px"<br></span><span style="color:#ffe792;">            </span><span style="color:#ffffff;">}, </span><span style="color:#66d9ef;">3000</span><span style="color:#ffffff;">);<br></span><span style="color:#ffffff;">        });<br></span><span style="color:#ffffff;">    </span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">head</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">body</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">img </span><span style="color:#a6e22e;">src=</span><span style="color:#ffe792;">"https://i.loli.net/2018/11/04/5bdeece56d49b.png" </span><span style="color:#a6e22e;">alt=</span><span style="color:#ffe792;">"" </span><span style="color:#a6e22e;">id=</span><span style="color:#ffe792;">"im"</span><span style="color:#f7f7f1;">/&gt;<br></span><span style="color:#f7f7f1;"><br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">body</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">html</span><span style="color:#f7f7f1;">&gt;</span></pre></pre>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

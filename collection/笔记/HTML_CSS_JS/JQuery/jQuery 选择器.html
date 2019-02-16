@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery 选择器</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>jQuery 选择器</h1>
+        <div id="info">
+            <span id="time">2018-11-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+            <div>
+                <table class="reference notranslate"
+                       style="margin: 0 auto;border-width: 0px; border-style: initial; border-color: initial; padding: 0px; border-collapse: collapse; width: 833px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Noto Sans CJK SC&quot;, &quot;WenQuanYi Micro Hei&quot;, Arial, sans-serif; font-size: 12px;">
+                    <tbody style="border: 0px; margin: 0px; padding: 0px;">
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <th width="20%"
+                            style="border: 1px solid rgb(85, 85, 85); margin: 0px; padding: 3px; color: rgb(255, 255, 255); background-color: rgb(85, 85, 85); vertical-align: top; text-align: left;">
+                            选择器
+                        </th>
+                        <th width="25%"
+                            style="border: 1px solid rgb(85, 85, 85); margin: 0px; padding: 3px; color: rgb(255, 255, 255); background-color: rgb(85, 85, 85); vertical-align: top; text-align: left;">
+                            实例
+                        </th>
+                        <th width="55%"
+                            style="border: 1px solid rgb(85, 85, 85); margin: 0px; padding: 3px; color: rgb(255, 255, 255); background-color: rgb(85, 85, 85); vertical-align: top; text-align: left;">
+                            选取
+                        </th>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-all.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">*</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("*")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-id.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">#<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">id</em></a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("#lastname")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            id="lastname" 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-class.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">.<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">class</em></a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(".intro")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            class="intro" 的所有元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-multiple-classes.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">.<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">class,</em>.<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">class</em></a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(".intro,.demo")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            class 为 "intro" 或 "demo" 的所有元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-element.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;"><em
+                                    style="border: 0px; margin: 0px; padding: 0px;">element</em></a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-multiple-elements.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;"><em
+                                    style="border: 0px; margin: 0px; padding: 0px;">el1</em>,<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">el2</em>,<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">el3</em></a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("h1,div,p")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有 &lt;h1&gt;、&lt;div&gt; 和 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-first.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:first</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:first")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            第一个 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-last.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:last</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:last")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            最后一个 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-even.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:even</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("tr:even")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有偶数 &lt;tr&gt; 元素，索引值从 0 开始，第一个元素是偶数 (0)，第二个元素是奇数 (1)，以此类推。
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-odd.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:odd</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("tr:odd")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有奇数 &lt;tr&gt; 元素，索引值从 0 开始，第一个元素是偶数 (0)，第二个元素是奇数 (1)，以此类推。
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-firstchild.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:first-child</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:first-child")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的第一个子元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-firstoftype.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:first-of-type</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:first-of-type")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的第一个 &lt;p&gt; 元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-lastchild.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:last-child</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:last-child")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的最后一个子元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-lastoftype.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:last-of-type</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:last-of-type")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的最后一个 &lt;p&gt; 元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-nthchild.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:nth-child(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">n</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:nth-child(2)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的第二个子元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-nthlastchild.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:nth-last-child(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">n</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:nth-last-child(2)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的第二个子元素的所有 &lt;p&gt; 元素，从最后一个子元素开始计数
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-nthoftype.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:nth-of-type(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">n</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:nth-of-type(2)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的第二个 &lt;p&gt; 元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-nthlastoftype.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:nth-last-of-type(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">n</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:nth-last-of-type(2)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的第二个 &lt;p&gt; 元素的所有 &lt;p&gt; 元素，从最后一个子元素开始计数
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-onlychild.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:only-child</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:only-child")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的唯一子元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-onlyoftype.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:only-of-type</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:only-of-type")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            属于其父元素的特定类型的唯一子元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-parent-child.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">parent
+                                &gt; child</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("div &gt; p")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            &lt;div&gt; 元素的直接子元素的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-parent-descendant.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">parent
+                                descendant</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("div p")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            &lt;div&gt; 元素的后代的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-previous-next.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">element
+                                + next</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("div + p")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            每个 &lt;div&gt; 元素相邻的下一个 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-previous-siblings.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">element
+                                ~ siblings</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("div ~ p")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            &lt;div&gt; 元素同级的所有 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-eq.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:eq(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">index</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("ul li:eq(3)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            列表中的第四个元素（index 值从 0 开始）
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-gt.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:gt(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">no</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("ul li:gt(3)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            列举 index 大于 3 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-lt.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:lt(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">no</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("ul li:lt(3)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            列举 index 小于 3 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-not.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:not(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">selector</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("input:not(:empty)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有不为空的输入元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;"></td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-header.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:header</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":header")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有标题元素 &lt;h1&gt;, &lt;h2&gt; ...
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-animated.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:animated</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":animated")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有动画元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-focus.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:focus</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":focus")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            当前具有焦点的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-contains.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:contains(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">text</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":contains('Hello')")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有包含文本 "Hello" 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-has.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:has(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">selector</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("div:has(p)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有包含有 &lt;p&gt; 元素在其内的 &lt;div&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-empty.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:empty</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":empty")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有空元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-parent.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:parent</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":parent")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            匹配所有含有子元素或者文本的父元素。
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-hidden.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:hidden</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:hidden")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有隐藏的 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-visible.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:visible</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("table:visible")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有可见的表格
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-root.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:root</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":root")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            文档的根元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-lang.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:lang(<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">language</em>)</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("p:lang(de)")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有 lang 属性值为 "de" 的 &lt;p&gt; 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            &nbsp;</td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            &nbsp;</td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            &nbsp;</td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-attribute.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">attribute</em>]</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[href]")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 href 属性的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-attribute-equal-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">attribute</em>=<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">value</em>]</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[href='default.htm']")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 href 属性且值等于 "default.htm" 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-attribute-notequal-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">attribute</em>!=<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">value</em>]</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[href!='default.htm']")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 href 属性且值不等于 "default.htm" 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-attribute-end-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">attribute</em>$=<em
+                                    style="border: 0px; margin: 0px; padding: 0px;">value</em>]</a></td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[href$='.jpg']")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 href 属性且值以 ".jpg" 结尾的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-attribute-prefix-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<i>attribute</i>|=<i>value</i>]</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[title|='Tomorrow']")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 title 属性且值等于 'Tomorrow' 或者以 'Tomorrow' 后跟连接符作为开头的字符串
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-attribute-beginning-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<i>attribute</i>^=<i>value</i>]</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[title^='Tom']")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 title 属性且值以 "Tom" 开头的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-attribute-contains-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<i>attribute</i>~=<i>value</i>]</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[title~='hello']")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 title 属性且值包含单词 "hello" 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-attribute-contains-string-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<i>attribute*</i>=<i>value</i>]</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $("[title*='hello']")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 title 属性且值包含字符串 "hello" 的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-multipleattribute-equal-value.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">[<i>name</i>=<i>value</i>][<i>name2</i>=<i>value2</i>]</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $( "input[id][name$='man']" )
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            带有 id 属性，并且 name 属性以 man 结尾的输入框
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            &nbsp;</td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            &nbsp;</td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            &nbsp;</td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:input</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":input")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-text.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:text</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":text")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="text" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-password.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:password</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":password")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="password" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-radio.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:radio</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":radio")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="radio" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-checkbox.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:checkbox</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":checkbox")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="checkbox" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-submit.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:submit</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":submit")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="submit" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-reset.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:reset</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":reset")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="reset" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-button.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:button</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":button")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="button" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-image.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:image</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":image")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="image" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-file.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:file</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":file")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有带有 type="file" 的 input 元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-enabled.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:enabled</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":enabled")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有启用的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-disabled.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:disabled</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":disabled")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有禁用的元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-selected.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:selected</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":selected")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有选定的下拉列表元素
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/sel-input-checked.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:checked</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(":checked")
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            所有选中的复选框选项
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px; background-color: rgb(246, 244, 240);">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            .selector
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $(selector).selector
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            <span class="deprecated"
+                                  style="border: 0px; margin: 0px; padding: 0px; color: rgb(232, 0, 0); background-color: transparent;">在jQuery 1.7中已经不被赞成使用。</span>返回传给jQuery()的原始选择器
+                        </td>
+                    </tr>
+                    <tr style="border: 0px; margin: 0px; padding: 0px;">
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; min-width: 24px; line-height: 2em; vertical-align: top;">
+                            <a href="http://www.runoob.com/jquery/jq-sel-target.html"
+                               style="border: 0px; margin: 0px; padding: 0px; color: rgb(100, 133, 76); transition-duration: 0.2s; transition-property: opacity;">:target</a>
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            $( "p:target" )
+                        </td>
+                        <td style="border-style: solid; border-color: rgb(212, 212, 212); margin: 0px; padding: 7px 5px; font-size: 13px; line-height: 2em; min-width: 24px; vertical-align: top;">
+                            选择器将选中ID和URI中一个格式化的标识符相匹配的&lt;p&gt;元素
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <hr>
+            <div style="text-align: center;"><em>本文转自 </em><a
+                    href="http://www.runoob.com/jquery/jquery-ref-selectors.html" target="_blank">http://www.runoob.com/jquery/jquery-ref-selectors.html</a>
+            </div>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

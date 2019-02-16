@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery加载JS的不同的方式</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>jQuery加载JS的不同的方式</h1>
+        <div id="info">
+            <span id="time">2018-11-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <blockquote>
+            为了不用把script标签写在body标签末尾而可以写在head标签中，我们可以将想要运行的代码绑定在载入事件处理函数里，这样就可以让js代码即使写在头部也可以最后运行
+        </blockquote>
+        <pre style="background-color: rgb(39, 40, 34); color: rgb(248, 248, 242); font-family: 宋体; font-size: 15pt;"><span style="color: rgb(115, 111, 92);">//DOM中页面加载事件--------页面全部加载完毕才触发(标签,文字,图片,引入的文件)<br></span><span style="color: rgb(247, 38, 113);">window</span><span style="color: rgb(255, 255, 255);">.</span><span style="color: rgb(108, 202, 184); font-weight: bold;">onload </span><span style="color: rgb(247, 38, 113);">= </span><span style="color: rgb(102, 217, 239);">function </span><span style="color: rgb(255, 255, 255);">() {<br></span><span style="color: rgb(255, 255, 255);">    </span><span style="color: rgb(247, 38, 113);">console</span><span style="color: rgb(255, 255, 255);">.</span><span style="color: rgb(108, 202, 184);">log</span><span style="color: rgb(255, 255, 255);">(</span><span style="color: rgb(255, 231, 146);">"小苏好帅"</span><span style="color: rgb(255, 255, 255);">);<br></span><span style="color: rgb(255, 255, 255);">};</span></pre>
+        <div><pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><span style="color:#736f5c;">//与上面相对应的jQuery中第一种页面加载的事件<br></span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#f72671;">window</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">load</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function </span><span style="color:#ffffff;">() {<br></span><span style="color:#ffffff;">    </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"小苏好猥琐哦"</span><span style="color:#ffffff;">);<br></span><span style="color:#ffffff;">});</span></pre></div>
+        <p>以上两种方式效果相同，都是在页面全部加载完毕才触发(标签,文字,图片,引入的文件)</p>
+        <hr>
+        <h3>jQuery中有一种更快的加载方法</h3>
+        <div><pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><span style="color:#736f5c;">//jQuery中第二种页面加载的事件----比上面的快---页面中的基本的元素加载后就触发<br></span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#f72671;">document</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">ready</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function </span><span style="color:#ffffff;">() {<br></span><span style="color:#ffffff;">    </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"123456"</span><span style="color:#ffffff;">);<br></span><span style="color:#ffffff;">});</span></pre></div>
+        <p>这种方式有两种<em>简写形式</em></p>
+        <ol>
+            <li>
+                简写形式1
+                <div><pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><span style="color:#736f5c;">//这种方法的简写方式1<br></span><span style="color:#f72671;">jQuery</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function </span><span style="color:#ffffff;">() {<br></span><span style="color:#ffffff;">    </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"页面加载了1111"</span><span style="color:#ffffff;">);<br></span><span style="color:#ffffff;">});</span></pre></div>
+            </li>
+            <li>
+                简写形式2
+                <div><pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><span style="color:#736f5c;">//这种方法的简写方式2<br></span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function </span><span style="color:#ffffff;">() {<br></span><span style="color:#ffffff;">    </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"页面加载了2222"</span><span style="color:#ffffff;">);<br></span><span style="color:#ffffff;">});</span></pre></div>
+            </li>
+        </ol>
+        <p>我们<strong>一般采用简写形式2</strong>，因为其最简单</p>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

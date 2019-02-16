@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery操作元素的宽和高</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+    <style>
+        td{
+            padding:0 20px;
+        }
+    </style>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>jQuery操作元素的宽和高</h1>
+        <div id="info">
+            <span id="time">2018-11-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <h2>jQuery中几个关于元素宽高方法的区别</h2>
+        <h3>几个关于元素宽高的方法</h3>
+        <table>
+            <tr>
+                <td>height()：</td>
+                <td><em>内容的高度</em></td>
+                <td>带参数是设置，不带参数是获取,参数是number类型</td>
+            </tr>
+            <tr>
+                <td>width()：</td>
+                <td><em>内容的宽度</em></td>
+                <td>带参数是设置，不带参数获取,参数是number类型</td>
+            </tr>
+            <tr>
+                <td>innerHeight()：</td>
+                <td><em>内边距+内容的高度</em></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>innerWidth()：</td>
+                <td><em> 内边距+内容的宽度</em></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>outerHeight：</td>
+                <td><em>innerHeight+上下边框</em></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>outerWidth：</td>
+                <td><em>innerWidth+左右边框</em></td>
+                <td></td>
+            </tr>
+        </table>
+        <h3>案例测试：</h3>
+        <pre style="color: rgb(248, 248, 242); font-family: 宋体; background-color: rgb(39, 40, 34); font-size: 12pt;"><span style="color:#f7f7f1;">&lt;!DOCTYPE </span><span style="color:#a6e22e;">html</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">html </span><span style="color:#a6e22e;">lang=</span><span style="color:#ffe792;">"en"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">head</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">meta </span><span style="color:#a6e22e;">charset=</span><span style="color:#ffe792;">"UTF-8"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">title</span><span style="color:#f7f7f1;">&gt;</span>元素宽度与高度<span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">title</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">style </span><span style="color:#a6e22e;">type=</span><span style="color:#ffe792;">"text/css"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">        </span><span style="color:#a6e22e;">#container</span>{<br>            <span style="color:#66d9ef;">width</span>:<span style="color:#ae81ff;">200</span><span style="color:#f72671;">px</span>;<br>            <span style="color:#66d9ef;">height</span>:<span style="color:#ae81ff;">200</span><span style="color:#f72671;">px</span>;<br>            <span style="color:#66d9ef;">padding</span>:<span style="color:#ae81ff;">3</span><span style="color:#f72671;">px</span>;<br>            <span style="color:#66d9ef;">margin</span>:<span style="color:#ae81ff;">7</span><span style="color:#f72671;">px</span>;<br>            <span style="color:#66d9ef;">border</span>:<span style="color:#ae81ff;">1</span><span style="color:#f72671;">px solid red</span>;<br>        }<br>    <span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">style</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">script </span><span style="color:#a6e22e;">src=</span><span style="color:#ffe792;">"https://code.jquery.com/jquery-3.1.1.min.js"</span><span style="color:#f7f7f1;">&gt;&lt;/</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">    &lt;</span><span style="color:#f72671;">script </span><span style="color:#a6e22e;">type=</span><span style="color:#ffe792;">"text/javascript"</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">        </span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#66d9ef;">function</span><span style="color:#ffffff;">(){<br></span><span style="color:#ffffff;">            </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"width():"</span><span style="color:#f72671;">+$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#container"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">width</span><span style="color:#ffffff;">());<br></span><span style="color:#ffffff;">            </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"height():"</span><span style="color:#f72671;">+$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#container"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">height</span><span style="color:#ffffff;">());<br></span><span style="color:#ffffff;">            </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"innerWidth()"</span><span style="color:#f72671;">+$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#container"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">innerWidth</span><span style="color:#ffffff;">());<br></span><span style="color:#ffffff;">            </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"innerHeight():"</span><span style="color:#f72671;">+$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#container"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">innerHeight</span><span style="color:#ffffff;">());<br></span><span style="color:#ffffff;">            </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"outerWidth():"</span><span style="color:#f72671;">+$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#container"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">outerWidth</span><span style="color:#ffffff;">());<br></span><span style="color:#ffffff;">            </span><span style="color:#f72671;">console</span><span style="color:#ffffff;">.</span><span style="color:#6ccab8;">log</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"outerHeight():"</span><span style="color:#f72671;">+$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#container"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">outerHeight</span><span style="color:#ffffff;">());<br></span><span style="color:#ffffff;">        })<br></span><span style="color:#ffffff;">    </span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">script</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">head</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">body</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;</span><span style="color:#f72671;">div </span><span style="color:#a6e22e;">id = </span><span style="color:#ffe792;">"container"</span><span style="color:#f7f7f1;">&gt;&lt;/</span><span style="color:#f72671;">div</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">body</span><span style="color:#f7f7f1;">&gt;<br></span><span style="color:#f7f7f1;">&lt;/</span><span style="color:#f72671;">html</span><span style="color:#f7f7f1;">&gt;</span></pre>
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
