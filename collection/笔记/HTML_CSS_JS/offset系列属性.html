@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>offset系列属性</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>offset系列属性</h1>
+        <div id="info">
+            <span id="time">2018-10-03</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <p>offset系列属性有很大用处，因为在dom中 <strong>元素.style.width</strong>、<strong>元素.style.left</strong>
+            等属性只能获取行内样式的属性，对于内嵌等样式是无法获取的，但是通过offset系列属性就可以获取到</p>
+        <h3>简单概括</h3>
+        <p>
+            在父元素不是定位元素的情况下，offset系列属性是以body元素为参考系的，父元素是定位元素的情况下，offset系列属性是以父元素为参考系的
+        </p>
+        <h3><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/offsetLeft" target="_blank">
+            MDN关于这个属性的介绍
+            </a>
+        </h3>
+        <p>
+            <strong>
+                在此以HTMLElement.offsetLeft为例介绍一下这一系列属性，要介绍这一系列属性，先要介绍HTMLElement.offsetParent这个属性
+            </strong>
+        </p>
+        <p>
+            HTMLElement.offsetParent 是一个只读属性，返回一个指向最近的包含该元素的定位元素。如果没有定位的元素，则 offsetParent 为最近的 table, table cell 或根元素（标准模式下为 html；quirks 模式下为 body）。当元素的 style.display 设置为 "none" 时，offsetParent 返回 null。offsetParent 很有用，因为 offsetTop 和 offsetLeft 都是相对于其内边距边界的。
+        </p>
+        <p>
+            <strong>
+                现在介绍HTMLElement.offsetLeft 这个属性
+            </strong>
+        </p>
+
+        <p>
+            HTMLElement.offsetLeft 是一个只读属性，返回当前元素左上角相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值。
+        </p>
+        <p>
+            对块级元素来说，offsetTop、offsetLeft、offsetWidth 及 offsetHeight 描述了元素相对于 offsetParent 的边界框。
+        </p>
+        <p>
+            然而，对于可被截断到下一行的行内元素（如 span），offsetTop 和 offsetLeft 描述的是第一个边界框的位置（使用 Element.getClientRects() 来获取其宽度和高度），而 offsetWidth 和 offsetHeight 描述的是边界框的尺寸（使用 Element.getBoundingClientRect 来获取其位置）。因此，使用 offsetLeft、offsetTop、offsetWidth、offsetHeight 来对应 left、top、width 和 height 的一个盒子将不会是文本容器 span 的盒子边界。
+        </p>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

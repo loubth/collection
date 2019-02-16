@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax基础介绍</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>ajax基础介绍</h1>
+        <div id="info">
+            <span id="time">2018-10-16</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <div>
+
+<pre class="hljs" style="padding: 0.5em; margin-top: 0px; margin-bottom: 0px; overflow-x: auto; background: rgb(35, 36, 31); text-size-adjust: none; color: rgb(248, 248, 242); min-height: 500px;"><code style="padding: 0px; margin: 0px;">1. ajax是什么?
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * asynchronous javascript and xml：异步的js和xml</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 它能使用js访问服务器，而且是异步访问！</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 服务器给客户端的响应一般是整个页面，一个html完整页面！但在ajax中因为是局部刷新，那么服务器就不用再响应整个页面！而只是数据！</span>
+    &gt; text：纯文本
+    &gt; xml：大家都熟悉！！！
+    &gt; json：它是js提供的数据交互格式，它在ajax中最受欢迎！
+
+    2. 异步交互和同步交互
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 同步：</span>
+    &gt; 发一个请求，就要等待服务器的响应结束，然后才能发第二个请求！中间这段时间就是一个字“卡”
+    &gt; 刷新的是整个页面！
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 异步：</span>
+    &gt; 发一个请求后，无需等待服务器的响应，然后就可以发第二个请求！
+    &gt; 可以使用js接收服务器的响应，然后使用js来局部刷新！
+
+    3. ajax应用场景
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 百度的搜索框</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 用户注册时（校验用户名是否被注册过）</span>
+
+    4. ajax的优缺点
+    优点：
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 异步交互：增强了用户的体验！</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 性能：因为服务器无需再响应整个页面，只需要响应部份内容，所以服务器的压力减轻了！</span>
+
+    缺点：
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * ajax不能应用在所有场景！</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * ajax无端的增多了对服务器的访问次数，给服务器带来了压力！</span>
+
+    ==========================================
+    ==========================================
+
+    ajax发送异步请求（四步操作）
+
+    1. 第一步（得到XMLHttpRequest）
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * ajax其实只需要学习一个对象：XMLHttpRequest，如果掌握了它，就掌握了ajax！！！</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 得到XMLHttpRequest</span>
+    &gt; 大多数浏览器都支持：<span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> xmlHttp = new XMLHttpRequest();
+    &gt; IE6.0：<span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> xmlHttp = new ActiveXObject(<span class="hljs-string" style="color: rgb(230, 219, 116);">"Msxml2.XMLHTTP"</span>);
+    &gt; IE5.5以更早版本的IE：<span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> xmlHttp = new ActiveXObject(<span class="hljs-string" style="color: rgb(230, 219, 116);">"Microsoft.XMLHTTP"</span>);
+
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 编写创建XMLHttpRequest对象的函数</span>
+    function createXMLHttpRequest() {
+    try {
+    <span class="hljs-keyword" style="color: rgb(249, 38, 114);">return</span> new XMLHttpRequest();
+    } catch(<span class="hljs-keyword" style="color: rgb(249, 38, 114);">e</span>) {
+    try {
+    <span class="hljs-keyword" style="color: rgb(249, 38, 114);">return</span> new ActiveXObject(<span class="hljs-string" style="color: rgb(230, 219, 116);">"Msxml2.XMLHTTP"</span>);
+    } catch(<span class="hljs-keyword" style="color: rgb(249, 38, 114);">e</span>) {
+    try {
+    <span class="hljs-keyword" style="color: rgb(249, 38, 114);">return</span> new ActiveXObject(<span class="hljs-string" style="color: rgb(230, 219, 116);">"Microsoft.XMLHTTP"</span>);
+    } catch(<span class="hljs-keyword" style="color: rgb(249, 38, 114);">e</span>) {
+    alert(<span class="hljs-string" style="color: rgb(230, 219, 116);">"哥们儿，你用的是什么浏览器啊？"</span>);
+    throw <span class="hljs-keyword" style="color: rgb(249, 38, 114);">e</span>;
+    }
+    }
+    }
+    }
+
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 或者只需要</span>
+    <span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> xhr = <span class="hljs-keyword" style="color: rgb(249, 38, 114);">window</span>.XMLHttpRequest ? new XMLHttpRequest() : new  ActiveXObject('Microsoft.XMLHTTP');
+
+
+    2. 第二步（打开与服务器的连接）
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * xmlHttp.open()：用来打开与服务器的连接，它需要三个参数：</span>
+    &gt; 请求方式：可以是GET或<span class="hljs-keyword" style="color: rgb(249, 38, 114);">POST</span>
+    &gt; 请求的URL：指定服务器端资源，例如；/day23_1/AServlet
+    &gt; 请求是否为异步：如果为true表示发送异步请求，否则同步请求！
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * xmlHttp.open("GET", "/day23_1/AServlet", true);</span>
+
+    3. 第三步（发送请求）
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * xmlHttp.send(null)：如果不给可能会造成部份浏览器无法发送！</span>
+    &gt; 参数：就是请求体内容！如果是GET请求，必须给出null。
+
+    4. 第四步（）
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 在xmlHttp对象的一个事件上注册监听器：onreadystatechange</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * xmlHttp对象一共有5个状态：</span>
+    &gt; 0状态：刚创建，还没有调用<span class="hljs-keyword" style="color: rgb(249, 38, 114);">open</span>()方法;
+    &gt; 1状态：请求开始：调用了<span class="hljs-keyword" style="color: rgb(249, 38, 114);">open</span>()方法，但还没有调用send()方法
+    &gt; 2状态：调用完了send()方法了；
+    &gt; 3状态：服务器已经开始响应，但不表示响应结束了！
+    &gt; 4状态：服务器响应结束！（通常我们只关心这个状态！！！）
+
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 得到xmlHttp对象的状态：</span>
+    &gt; <span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> state = xmlHttp.readyState;<span class="hljs-comment" style="color: rgb(117, 113, 94);">//可能是0、1、2、3、4</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 得到服务器响应的状态码</span>
+    &gt; <span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> status = xmlHttp.status;<span class="hljs-comment" style="color: rgb(117, 113, 94);">//例如为200、404、500</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 得到服务器响应的内容1</span>
+    &gt; <span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> content = xmlHttp.responseText;<span class="hljs-comment" style="color: rgb(117, 113, 94);">//得到服务器的响应的文本格式的内容</span>
+    &gt; <span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> content = xmlHttp.responseXML;<span class="hljs-comment" style="color: rgb(117, 113, 94);">//得到服务器的响应的xml响应的内容，它是Document对象了！</span>
+
+    xmlHttp.onreadystatechange = function() {<span class="hljs-comment" style="color: rgb(117, 113, 94);">//xmlHttp的5种状态都会调用本方法</span>
+    <span class="hljs-keyword" style="color: rgb(249, 38, 114);">if</span>(xmlHttp.readyState == 4 &amp;&amp; xmlHttp.status == 200) {<span class="hljs-comment" style="color: rgb(117, 113, 94);">//双重判断：判断是否为4状态，而且还要判断是否为200</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">// 获取服务器的响应内容</span>
+    <span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> text = xmlHttp.responseText;
+    }
+    };
+
+    ==========================================
+    ==========================================
+
+    第二例：发送<span class="hljs-keyword" style="color: rgb(249, 38, 114);">POST</span>请求(如果发送请求时需要带有参数，一般都用<span class="hljs-keyword" style="color: rgb(249, 38, 114);">POST</span>请求)
+
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">* open：xmlHttp.open("POST" ....);</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">* 添加一步：设置Content-Type请求头：</span>
+    &gt; xmlHttp.setRequestHeader(<span class="hljs-string" style="color: rgb(230, 219, 116);">"Content-Type"</span>, <span class="hljs-string" style="color: rgb(230, 219, 116);">"application/x-www-form-urlencoded"</span>);
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">* send：xmlHttp.send("username=zhangSan&amp;password=123");//发送请求时指定请求体</span>
+
+
+    ==========================================
+    ==========================================
+
+    第三例：注册表单之校验用户是否注册！
+
+    1. 编写页面：
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * ajax3.jsp</span>
+    &gt; 给出注册表单页面
+    &gt; 给用户名文本框添加onblur事件的监听
+    &gt; 获取文本框的内容，通过ajax4步发送给服务器，得到响应结果
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * 如果为1：在文本框后显示“用户名已被注册”</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * 如果为0：什么都不做！</span>
+
+    2. 编写Servlet
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * ValidateUsernameServlet</span>
+    &gt; 获取客户端传递的用户名参数
+    &gt; 判断是否为itcast
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * 是：返回1</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * 否：返回0</span>
+
+    ==========================================
+    ==========================================
+
+    响应内容为xml数据
+
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 服务器端：</span>
+    &gt; 设置响应头：ContentType，其值为：text/xml;charset=utf-8
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 客户端：</span>
+    &gt; <span class="hljs-keyword" style="color: rgb(249, 38, 114);">var</span> doc = xmlHttp.responseXML;<span class="hljs-comment" style="color: rgb(117, 113, 94);">//得到的是Document对象！</span>
+
+    =====================
+
+    第四例：响应内容为xml数据
+
+    ==========================================
+    ==========================================
+
+    第五例：省市联动
+
+    1. 页面
+    &lt;select name=<span class="hljs-string" style="color: rgb(230, 219, 116);">"province"</span>&gt;
+    &lt;option&gt;===请选择省份===&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;select name=<span class="hljs-string" style="color: rgb(230, 219, 116);">"city"</span>&gt;
+    &lt;option&gt;===请选择城市===&lt;/option&gt;
+    &lt;/select&gt;
+
+    2. ProvinceServlet
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * ProvinceServlet：当页面加载完毕后马上请求这个Servlet！</span>
+    &gt; 它需要加载china.xml文件，把所有的省的名称使用字符串发送给客户端！
+
+    3. 页面的工作
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 获取这个字符串，使用逗号分隔，得到数组</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 循环遍历每个字符串（省份的名称），使用每个字符串创建一个&lt;option&gt;元素添加到&lt;select name="province"&gt;这个元素中</span>
+
+    4. CityServlet
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * CityServlet：当页面选择某个省时，发送请求！</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 得到省份的名称，加载china.xml文件，查询出该省份对应的元素对象！，把这个元素转换成xml字符串，发送给客户端</span>
+
+    5. 页面的工作
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 把&lt;select name="city"&gt;中的所有子元素删除，但不要删除&lt;option&gt;===请选择城市===&lt;/option&gt;</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 得到服务器的响应结果：doc！！！</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 获取所有的&lt;city&gt;子元素，循环遍历，得到&lt;city&gt;的内容</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 使用每个&lt;city&gt;的内容创建一个&lt;option&gt;元素，添加到&lt;select name="city"&gt;</span>
+
+    ==========================================
+    ==========================================
+
+    XStream
+
+    1. 什么作用
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 可以把JavaBean转换为（序列化为）xml</span>
+
+    2. XStream的jar包
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 核心JAR包：xstream-1.4.7.jar；</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 必须依赖包：xpp3_min-1.1.4c（XML Pull Parser，一款速度很快的XML解析器）；</span>
+
+    3. 使用步骤
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * XStream xstream = new XStream();</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * String xmlStr = xstream.toXML(javabean);</span>
+
+    4. 使用细节
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 别名：把类型对应的元素名修改了</span>
+    &gt; xstream.alias(<span class="hljs-string" style="color: rgb(230, 219, 116);">"china"</span>, <span class="hljs-keyword" style="color: rgb(249, 38, 114);">List</span>.<span class="hljs-keyword" style="color: rgb(249, 38, 114);">class</span>)：让<span class="hljs-keyword" style="color: rgb(249, 38, 114);">List</span>类型生成的元素名为china
+    &gt; xstream.alias(<span class="hljs-string" style="color: rgb(230, 219, 116);">"province"</span>, Province.<span class="hljs-keyword" style="color: rgb(249, 38, 114);">class</span>)：让Province类型生成的元素名为province
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 使用为属性：默认类的成员，生成的是元素的子元素！我们希望让类的成员生成元素的属性</span>
+    &gt; xstream.useAttributeFor(Province.<span class="hljs-keyword" style="color: rgb(249, 38, 114);">class</span>, <span class="hljs-string" style="color: rgb(230, 219, 116);">"name"</span>)：把Province类的名为name成员，生成&lt;province&gt;元素的name属性
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 去除Collection类型的成名：我们只需要Collection的内容，而不希望Collection本身也生成一个元素</span>
+    &gt; xstream.addImplicitCollection(Province.<span class="hljs-keyword" style="color: rgb(249, 38, 114);">class</span>, <span class="hljs-string" style="color: rgb(230, 219, 116);">"cities"</span>)：让Province类的名为cities(它是<span class="hljs-keyword" style="color: rgb(249, 38, 114);">List</span>类型的，它的内容还会生成元素)的成名不生成元素
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 去除类的指定成名，让其不生成xml元素</span>
+    &gt; xstream.omitField(City.<span class="hljs-keyword" style="color: rgb(249, 38, 114);">class</span>, <span class="hljs-string" style="color: rgb(230, 219, 116);">"description"</span>)：在生成的xml中不会出现City类的名为description的对应的元素！
+
+    ==========================================
+    ==========================================
+
+    JSON
+
+    1. json是什么
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 它是js提供的一种数据交换格式！</span>
+
+    2. json的语法
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * {}：是对象！</span>
+    &gt; 属性名必须使用双引号括起来！单引不行！！！
+    &gt; 属性值：
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * null</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * 数值</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * 字符串</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * 数组：使用[]括起来</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">      * boolean值：true和false</span>
+
+    3. 应用json
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * var person = {"name":"zhangSan", "age":18, "sex":"male"};</span>
+
+    4. json与xml比较
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">* 可读性：XML胜出</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">* 解析难度：JSON本身就是JS对象（主场作战），所以简单很多</span>
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">* 流行度：XML已经流行好多年，但在AJAX领域，JSON更受欢迎。</span>
+
+    -----------------------------------
+
+    json-lib
+
+    1. 是什么？
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 它可以把javabean转换成json串</span>
+
+    2. jar包
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * 略</span>
+
+    3. 核心类
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * JSONObject --&gt; Map</span>
+    &gt; <span class="hljs-keyword" style="color: rgb(249, 38, 114);">toString</span>();
+    &gt; JSONObject map = JSONObject.fromObject(person)：把对象转换成JSONObject对象
+    <span class="hljs-comment" style="color: rgb(117, 113, 94);">  * JSONArray --&gt; List</span>
+    &gt; <span class="hljs-keyword" style="color: rgb(249, 38, 114);">toString</span>()
+    &gt; JSONArray jsonArray = JSONObject.fromObject(<span class="hljs-keyword" style="color: rgb(249, 38, 114);">list</span>)：把<span class="hljs-keyword" style="color: rgb(249, 38, 114);">list</span>转换成JSONArray对象
+
+
+
+</code></pre>
+        </div>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

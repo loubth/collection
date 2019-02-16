@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用eval函数转换json对象的一个疑惑</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>用eval函数转换json对象的一个疑惑</h1>
+        <div id="info">
+            <span id="time">2018-10-16</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <h3>问：</h3>
+        <p>
+            用eval函数转换json对象的时候，为什么要加括号？例：var dataObj=eval("("+data+")");
+        </p>
+        <h3>答：</h3>
+        <p>
+            加上圆括号的目的是迫使eval函数在处理JavaScript代码的时候强制将括号内的表达式（expression）转化为对象，而不是作为语句（statement）来执行。举一个例子，例如对象字面量{}，如若不加外层的括号，那么eval会将大括号识别为JavaScript代码块的开始和结束标记，那么{}将会被认为是执行了一句空语句。所以下面两个执行结果是不同的：
+        </p>
+        <div><font style="font-family: &quot;PingFang SC&quot;; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0);"><br><div style="text-align: left;"><font style="background-color: rgba(0, 0, 0, 0);">alert(&nbsp; &nbsp; eval(&nbsp; &nbsp; "{}"&nbsp; &nbsp; )&nbsp; &nbsp;&nbsp;</font>)<span style="background-color: rgba(0, 0, 0, 0);">;&nbsp; &nbsp; &nbsp;// return <b>undefined</b></span></div></font></div>
+        <div style="text-align: left;"><font color="#333333" face="PingFang SC">alert(&nbsp; &nbsp; eval(&nbsp; &nbsp;"({})"&nbsp; &nbsp;)&nbsp; &nbsp; )</font><span style="background-color: rgba(0, 0, 0, 0); color: rgb(51, 51, 51); font-family: &quot;PingFang SC&quot;;">;&nbsp; &nbsp; &nbsp;// return <b>object[Object]</b></span></div>
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

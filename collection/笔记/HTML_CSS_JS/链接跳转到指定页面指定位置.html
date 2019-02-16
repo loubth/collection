@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>链接跳转到指定页面指定位置</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>链接跳转到指定页面指定位置</h1>
+        <div id="info">
+            <span id="time">2018-10-03</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <p>
+            经过我手动测试 要想跳转到指定页面指定位置，必须给要
+        </p>
+        <ol>
+            <li>
+                给想要跳转到的位置那的元素设置id属性
+            </li>
+            <li>
+                给要设置的链接最后面加上“#”再加上这个id属性的值
+            </li>
+        </ol>
+        <p>
+            如：
+        </p>
+        <p>
+            <strong>
+                <a href="https://www.baidu.com/baidu?&ie=utf-8&word=%E6%98%AF#2" target="_blank">https://www.baidu.com/baidu?&ie=utf-8&word=%E6%98%AF#2</a>就会跳转到
+            </strong>
+        </p>
+        <p>
+            <strong>https://www.baidu.com/baidu?&ie=utf-8&word=%E6%98%AF</strong>页面的id为“2”的元素所在的位置
+        </p>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

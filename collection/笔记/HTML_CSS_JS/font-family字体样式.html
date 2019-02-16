@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>font-family字体样式</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article style="width: 950px;">
+    <header>
+        <h1>font-family字体样式</h1>
+        <div id="info">
+            <span id="time">2018-10-03</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <p>要注意font属性各个值是有顺序的</p>
+        <div>font :&nbsp;<a href="https://www.baidu.com/s?wd=font-style&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" class="baidu-highlight" style="color: rgb(63, 136, 191); text-decoration: none; font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">font-style</a><span style="color: rgb(51, 51, 51); font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">&nbsp;||&nbsp;</span><a href="https://www.baidu.com/s?wd=font-variant&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" class="baidu-highlight" style="color: rgb(63, 136, 191); text-decoration: none; font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">font-variant</a><span style="color: rgb(51, 51, 51); font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">&nbsp;||&nbsp;</span><a href="https://www.baidu.com/s?wd=font-weight&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" class="baidu-highlight" style="color: rgb(63, 136, 191); text-decoration: none; font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">font-weight</a><span style="color: rgb(51, 51, 51); font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">&nbsp;||&nbsp;</span><a href="https://www.baidu.com/s?wd=font-size&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" class="baidu-highlight" style="color: rgb(63, 136, 191); text-decoration: none; font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">font-size</a><span style="color: rgb(51, 51, 51); font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">&nbsp;||&nbsp;</span><a href="https://www.baidu.com/s?wd=line-height&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" class="baidu-highlight" style="color: rgb(63, 136, 191); text-decoration: none; font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">line-height</a><span style="color: rgb(51, 51, 51); font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">&nbsp;||&nbsp;</span><a href="https://www.baidu.com/s?wd=font-family&amp;tn=SE_PcZhidaonwhc_ngpagmjz&amp;rsv_dl=gh_pc_zhidao" target="_blank" class="baidu-highlight" style="color: rgb(63, 136, 191); text-decoration: none; font-family: &quot;PingFang SC&quot;, &quot;Lantinghei SC&quot;, &quot;Microsoft YaHei&quot;, arial, 宋体, sans-serif, tahoma;">font-family</a></div>
+        <p>当然本文主要介绍<em>font-family</em>的样式</p>
+        <h3>1、首先介绍一下如何利用font-family为英文和中文字体分别设置不同的字体</h3>
+        <p>根据font-family的原则，假如客户终端不认识前面的字体，就自动切换到第二种字体，第二种不认识就切换到第三种，以此类推。假如都不能识别就调用默认字体，那么 </p>
+        <p>根据font-family的字体调用原则我们可以为英文，中文，等两种字体调用不同的字体来渲染。 </p>
+        <p>如:</p>
+        <pre>div {
+        font-family:Arial,'Times New Roman','Microsoft YaHei',SimHei;
+}
+        </pre>
+        <p>
+            Arial，’Times New Roman’这两种字体不认识中文，只认识英文，所以，这两种字体只能渲染英文数字和一些特殊符号，而页面中的中文就会自动调用第三种字体Microsoft YaHei(PS:假如存在这种字体的话)。
+        </p>
+        <p>
+            所以，在定义字体的时候把英文的字体写在前面把中文的写在后面。这样，系统就会自动按顺序依次给字用字体，如果当前字体不支持文本，自动换用列表中的下一个字体
+        </p>
+        <p>
+            经过测试，IE9、IE9兼容模式（兼容IE8）、Chrome浏览器最新版本、 Firefox浏览器最新版本支持该font-family属性； 但是某些版本的IE浏览器（IE7、IE8）无法实现该font-family属性的要求，还会暴露出一些奇怪的 bug。如在这些版本的浏览器下使用中文字体（比如微软雅黑），需要把该中文字体放到font-family属性的首位，但是会导致英文字体也会使用该中文字体渲染。即在这些浏览器（IE7、IE8）下不支持在font-family属性中为英文和中文字体分别使用不同的字体。
+        </p>
+        <h3>2、那接下来就展示一下各个font-family字体的样式吧</h3>
+
+        <a href="https://blog.csdn.net/cddcj/article/details/70739481" target="_blank">
+        <img src="/collection/image/2018/10/20181003_2.png" alt="">
+        </a>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
