@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使浏览器保存请求记录</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>使浏览器保存请求记录</h1>
+        <div id="info">
+            <span id="time">2018-12-05</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <p>今天为了查看搜狗识图的图片上传到哪去？要看浏览器请求的记录，可是搜狗识图一点击“上传”就会跳转，一跳转浏览器开发工具里网络的部分就会删除旧页面的请求记录（其中上传图片的那个请求是我需要的）而显示新页面的请求记录，这就会导致我来不及查看想要的请求记录。</p>
+        <p> 那这个问题是怎么解决的呢？经过我仔细研究（其实是百度谷歌了了半天啥也没找到后来瞎试结果竟然成功了）发现只要勾选如下选项即可让浏览器在跳转的时候不删除以前的请求记录。</p>
+
+        <img src="/collection/image/2018/12/20181205_1.png" alt="">
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

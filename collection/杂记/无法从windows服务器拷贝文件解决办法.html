@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无法从windows服务器拷贝文件解决办法</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article style="width: 900px;">
+    <header>
+        <h1>无法从windows服务器拷贝文件解决办法</h1>
+        <div id="info">
+            <span id="time">2018-12-08</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <p>首先在自己的计算机上<em>win+r</em>运行<em>mstsc</em>远程连接服务器 </p>
+        <img src="/collection/image/2018/12/201811208_1.png" alt="">
+        <p>填好服务器<em>ip</em>，点击<em>本地资源</em></p>
+        <img src="/collection/image/2018/12/201811208_2.png" alt="">
+        <p>点击<em>详细信息</em>勾选<em>驱动器</em></p>
+        <img src="/collection/image/2018/12/201811208_3.png" alt="">
+        <p>然后就可以连接服务器，这几步操作只是保证你的文件能上传到windows服务器里，并不能把服务器的文件搞到你的计算机里。</p>
+        <p>如下服务器的资源管理器里有两个计算机的磁盘，一个是服务器的一个是你计算机的，不过你只能从你计算机的磁盘往服务器里拷贝文件，反过来操作会提示没有权限。</p>
+        <img src="/collection/image/2018/12/201811208_4.png" alt="">
+        <p>那么关键问题来了，怎么解决这个问题呢？</p>
+        <p>首先打开组策略，win+r输入<em>secpol.msc</em></p>
+        <img src="/collection/image/2018/12/201811208_5.png" alt="">
+        <p>然后如下图操作<em>禁止“以管理员批准模式运行所有管理员”这个选项</em>，点击确定</p>
+        <img src="/collection/image/2018/12/201811208_6.png" alt="">
+        <p>然后<em>重启计算机</em>就OK了</p>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

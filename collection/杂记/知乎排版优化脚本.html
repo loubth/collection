@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>知乎排版优化脚本</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>知乎排版优化脚本</h1>
+        <div id="info">
+            <span id="time">2018-11-25</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <div>
+            <pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><span style="color:#736f5c;">// ==UserScript==<br></span><span style="color:#736f5c;">// @name         知乎排版优化<br></span><span style="color:#736f5c;">// @namespace    http://tampermonkey.net/<br></span><span style="color:#736f5c;">// @version      1.0<br></span><span style="color:#736f5c;">// @description  美化知乎排版<br></span><span style="color:#736f5c;">// @author       loubth<br></span><span style="color:#736f5c;">// @match        *.zhihu.com/*<br></span><span style="color:#736f5c;">// @require      http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js<br></span><span style="color:#736f5c;">// @run-at      document-start<br></span><span style="color:#736f5c;">// @grant        none<br></span><span style="color:#736f5c;"><br></span><span style="color:#736f5c;">// ==/UserScript==<br></span><span style="color:#736f5c;"><br></span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"&lt;style id='myStyle'&gt;&lt;/style&gt;"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">prependTo</span><span style="color:#ffffff;">(</span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"head"</span><span style="color:#ffffff;">)[</span><span style="color:#66d9ef;">0</span><span style="color:#ffffff;">]);<br></span><span style="color:#f72671;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#myStyle"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">html</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"[data-za-detail-view-path-module='RightSideBar'],.ContentLayout-sideColumn,.SearchSideBar{display:none!important;}.Topstory-mainColumn,.ContentLayout-mainColumn,.Question-mainColumn,.SearchMain,.SearchSections{width:1000px!important;}.Sticky.is-fixed{position:relative!important;}"</span><span style="color:#ffffff;">);<br></span></pre>
+        </div>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
