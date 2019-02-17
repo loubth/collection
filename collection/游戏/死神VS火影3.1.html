@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>死神VS火影3.1</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>死神VS火影3.1</h1>
+        <div id="info">
+            <span id="time">2018-08-09</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <img id="gameImage" src="https://pic.superbed.cn/item/5c68e0445f3e509ed9acc8fd" alt="">
+        <div class="atCenter" id="game" style="display: none;">
+            <iframe marginwidth="0" marginheight="0"
+                    src="" frameborder="0"
+                    scrolling="no" width="800" height="600">
+
+            </iframe>
+        </div>
+
+        <script>
+            var image=document.getElementById("gameImage");
+            image.onclick=function(){
+                image.style.display="none";
+                document.getElementById("game").style.display="";
+                document.getElementById("game").children[0].src="http://sda.4399.com/4399swf/upload_swf/ftp24/csya/20180116/5/jifen3.htm";
+            }
+        </script>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

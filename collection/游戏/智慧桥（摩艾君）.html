@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智慧桥（摩艾君）</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+    <shadow></shadow>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>智慧桥（摩艾君）</h1>
+        <div id="info">
+            <span id="time">2018-10-13</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <!--游戏来源 http://www.gamesmomo.com/a.asp?id=5418-->
+        <img id="gameImage" src="https://pic.superbed.cn/item/5c68dae25f3e509ed9ac5482" alt="">
+        <div class="atCenter" id="game" style="display: none;">
+            <iframe marginwidth="0" marginheight="0" src="http://game.gamesmomo.com/o/499games/nbox/nes/moai-kun-nes.htm" frameborder="0" width="510" scrolling="no" height="480"></iframe>
+        </div>
+
+        <script>
+            var image=document.getElementById("gameImage");
+            image.onclick=function(){
+                image.style.display="none";
+                document.getElementById("game").style.display="";
+            }
+        </script>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
