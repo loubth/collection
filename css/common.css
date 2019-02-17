@@ -93,7 +93,8 @@ header #info #time {
     margin: 1em auto;
     box-sizing: border-box;
     max-width: 100%;
-    border: 3px solid black;
+    border: 1px dotted black;
+    box-shadow: 1px 1px 25px blue;
     border-radius: 15px;
 }
 
