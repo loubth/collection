@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取“网易云音乐”中音乐的直链</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>获取“网易云音乐”中音乐的直链</h1>
+        <div id="info">
+            <span id="time">2018-08-09</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <ol>
+            <li>
+                首先打开<a href="https://music.163.com" target="_blank">网易云音乐网页版</a>
+            </li>
+            <li>
+                随便找一段音乐，例如这段“雷电哥布林”，将浏览器上方的地址栏中的地址复制下来，像这样 <br>
+                <p class="atCenter">https://music.163.com/#/song?id=<strong>37239613</strong></p>
+            </li>
+            <li>
+                复制这个地址末尾的数字如 <strong>37239613</strong>
+            </li>
+            <li>
+                在这个数字前面加上“<strong>http://music.163.com/song/media/outer/url?id=</strong>”，后面加上“<strong>.mp3</strong>”，就形成了这段音乐的真实地址如下：
+                <p class="atCenter"><a href="http://music.163.com/song/media/outer/url?id=37239613.mp3" target="_blank">http://music.163.com/song/media/outer/url?id=<em>37239613</em>.mp3</a></p>
+            </li>
+        </ol>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

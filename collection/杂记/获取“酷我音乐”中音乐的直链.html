@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取“酷我音乐”中音乐的直链</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article style="width: 1000px;">
+    <header>
+        <h1>获取“酷我音乐”中音乐的直链</h1>
+        <div id="info">
+            <span id="time">2018-08-14</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <p>1. 首先要打开<a href="http://www.kuwo.cn" target="_blank">酷我音乐网页版</a>，搜索想要做外链的音乐，打开这个歌曲的页面，示例如下，比如说要找歌曲“雪”</p>
+        <img src="/collection/image/2018/8/20180814_2.png" alt="">
+        <img src="/collection/image/2018/8/20180814_3.png" alt="">
+        <p>2. 此时会跳转到播放页面，我们要做的是复制地址栏的URL然后截取后面的数字部分，暂且叫他“音乐ID”</p>
+        <img src="/collection/image/2018/8/20180814_4.png" alt="">
+        <p>3. 拿到这个ID以后，我们给他前面加上“<em>http://player.kuwo.cn/webmusic/st/getNewMuiseByRid?rid=MUSIC_</em>”形成一个新的URL，访问这个新的URL，示例如下
+            <br>
+            我们形成的URL是“<a href="http://player.kuwo.cn/webmusic/st/getNewMuiseByRid?rid=MUSIC_6945530" target="_blank">http://player.kuwo.cn/webmusic/st/getNewMuiseByRid?rid=MUSIC_6945530</a>”
+        </p>
+        <p>4. 此时我们会看到一个歌曲信息的代码页面，我们要截取“<strong>mp3dl</strong>”标签中的内容和“<strong>mp3path</strong>”标签中的内容，示例如下</p>
+        <img src="/collection/image/2018/8/20180814_5.png" alt="">
+        <p> 5. 此时我们拿到了“mp3dl”标签中的内容“<strong>other.web.rh01.sycdn.kuwo.cn</strong>”和“mp3path”标签中的内容“<strong>n1/79/83/194960358.mp3</strong>”，现在只需要把这两段内容按“<em>http:// + <strong>mp3dl标签中的内容</strong>+ /resource/ + <strong>mp3path标签中的内容</strong></em>”的方式组合，就形成了这首歌曲的真实地址，示例如下我们组成的新地址是“<a href="http://other.web.rh01.sycdn.kuwo.cn/resource/n1/79/83/194960358.mp3" target="_blank">http://other.web.rh01.sycdn.kuwo.cn/resource/n1/79/83/194960358.mp3</a>”</p>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

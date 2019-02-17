@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>右击死机桌面崩溃解决方案</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>右击死机桌面崩溃解决方案</h1>
+        <div id="info">
+            <span id="time">2018-09-12</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+        <p>
+            1、win+r输入regedit打开注册表
+        </p>
+        <p>2、找到<em>HKEY_CLASSES_ROOT\Directory\Background\Shellex\ContextMenuHandlers</em><strong>删除ContextMenuHandlers</strong>内除【New】以外的注册表项，删除过程中可能有提示无法删除，点击确定好了，因为删除后会重置为默认值或者键值变为空值，退出注册表管理器右键桌面看看，是不是秒弹出菜单了
+        </p>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

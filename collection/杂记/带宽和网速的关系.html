@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>带宽和网速的关系</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>带宽和网速的关系</h1>
+        <div id="info">
+            <span id="time">2018-09-01</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+        <h3>以电信宽带<em>100M</em>为例</h3>
+        <p>先要普及下：宽带所标的“M”跟我们平常所理解的下载文件速度的“M”是有区别的。我们通常说现在的下载速度（或某文件的大小）是1M。这里的“M”的最基础单位是指“字节”，即下载的速度或这个文件的大小有1024K×1024字节这么快（或这么大）。而平常说我下载了一个100M的文件，就是指这个文件的大小有100×1024K×1024字节这么大。</p>
+        <p>
+            而字节并不是电子数据的最小单位，最小单位是“位”，8个位保存一个字节（英文字母或数字等单字节字符），而1个中文占16个位。而电信等标的宽带速度是100M，这里就是指它的理论下载带宽每秒最高是：
+        </p>
+        <p>
+            100×1000×1000=100000000位，因为8个位等于1个字节，所以这个速度每秒可下载
+            <br>100000000位÷8=12500000字节，而1024字节＝1K字节，所以换算结果：
+            <br>12500000字节÷1024≈12207.03K字节，1024K字节就等于1M字节，换算结果：
+            <br>12207.03K字节÷1024≈<em>11.92M</em>
+        </p>
+        <p>
+            即这个电信标的<em>100M宽带在下载文件时，理论上每秒可以下载11.92M</em>，即如果我要下载一首20M的高音质歌曲，以这个速度还不用2秒就可以下载完了。
+        </p>
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
