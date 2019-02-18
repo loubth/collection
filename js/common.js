@@ -19,7 +19,14 @@ function myAlert() {
         audio.loop="loop";
     }
 
-
+    //添加编辑
+    var date=document.getElementById("time");
+    var currentHref=window.location.href;
+    var targetHref=currentHref.replace("https://loubth.github.io/collection/","https://github.com/loubth/collection/edit/master/");
+    date.onclick= function () {
+        window.location.href=targetHref;
+    }
+    date.style.cursor="pointer";
 
 }
 
