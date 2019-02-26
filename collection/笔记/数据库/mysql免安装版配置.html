@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mysql免安装版配置</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article style="width:1100px;">
+    <header>
+        <h1>mysql免安装版配置</h1>
+        <div id="info">
+            <span id="time">2019-01-15</span>
+            作者：<span id="author"><a href="javascript:myAlert();">loubth</a></span>
+        </div>
+    </header>
+    <div class="content">
+
+
+        <p>首先要到官网下载与你系统对应的<a href="https://dev.mysql.com/downloads/mysql/?#files-ga" target="_blank">免安装版MySQL</a>，将其解压放入你想要保存的位置
+        </p>
+
+        <img src="/collection/image/2019/1/20190115_1.jpg" alt="">
+        <br><br>
+        <img src="/collection/image/2019/1/20190115_2.jpg" alt="">
+        <hr>
+        <h3>接下来开始配置</h3>
+        <ol>
+            <li>
+                <p>首先配置环境变量，在PATH变量中添加mysql的bin目录</p>
+
+                <img src="/collection/image/2019/1/20190115_3.jpg" alt="">
+            </li>
+            <li>
+                <p>在mysql根目录中添加一个名字为<em>my.ini</em>的文件，内容设置为（安装目录即basedir后写你自己设置的mysql根目录）</p>
+                <div>
+                    <div class="MsoNormal" align="left" style="background: black;"><b><span lang="EN-US"
+                                                                                            style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#66FF00;background:#070707;mso-font-kerning:
+0pt">[mysql]<o:p></o:p></span></b></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">设置</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;color:#9933CC;
+mso-font-kerning:0pt">mysql</span><span style="font-size:12.0pt;font-family:
+宋体;mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:&quot;Courier New&quot;;
+mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:0pt">客户端默认字符集</span><span lang="EN-US"
+                                                                                                      style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#9933CC;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">default-character-set</span><b><span lang="EN-US"
+                                                                                                  style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#99CC99;mso-font-kerning:0pt">=</span></b><span lang="EN-US"
+                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:white;mso-font-kerning:0pt">utf8<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">&nbsp;<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><b><span lang="EN-US"
+                                                                                            style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#66FF00;background:#070707;mso-font-kerning:
+0pt">[mysqld]<o:p></o:p></span></b></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">设置</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;color:#9933CC;
+mso-font-kerning:0pt">3306</span><span style="font-size:12.0pt;font-family:宋体;
+mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:&quot;Courier New&quot;;
+mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:0pt">端口</span><span lang="EN-US"
+                                                                                                style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#9933CC;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">port </span><b><span lang="EN-US"
+                                                                                  style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#99CC99;mso-font-kerning:0pt">=</span></b><span lang="EN-US"
+                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:white;mso-font-kerning:0pt"> 3306<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">设置</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;color:#9933CC;
+mso-font-kerning:0pt">mysql</span><span style="font-size:12.0pt;font-family:
+宋体;mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:&quot;Courier New&quot;;
+mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:0pt">的安装目录</span><span lang="EN-US"
+                                                                                                   style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#9933CC;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">basedir</span><b><span lang="EN-US"
+                                                                                    style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#99CC99;mso-font-kerning:0pt">=</span></b><span lang="EN-US"
+                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:white;mso-font-kerning:0pt">C:\\Program Files\\mysql-8.0.13-winx64<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">设置</span><span lang="EN-US" style="font-size:
+12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;color:#9933CC;
+mso-font-kerning:0pt"> mysql</span><span style="font-size:12.0pt;font-family:
+宋体;mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:&quot;Courier New&quot;;
+mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:0pt">数据库的数据的存放目录，</span><span lang="EN-US"
+                                                                                                          style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#9933CC;mso-font-kerning:0pt">MySQL 8+ </span><span style="font-size:
+12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:
+&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:
+0pt">不需要以下配置，系统自己生成即可，否则有可能报错</span><span lang="EN-US" style="font-size:12.0pt;
+font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:
+0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt">#
+datadir=C:\\web\\sqldata<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">允许最大连接数</span><span lang="EN-US"
+                                                        style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:#9933CC;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">max_connections</span><b><span lang="EN-US"
+                                                                                            style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#99CC99;mso-font-kerning:0pt">=</span></b><span lang="EN-US"
+                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:white;mso-font-kerning:0pt">20<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">服务端使用的字符集默认为</span><span lang="EN-US"
+                                                             style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:#9933CC;mso-font-kerning:0pt">8</span><span style="font-size:12.0pt;
+font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:&quot;Courier New&quot;;
+mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:0pt">比特编码的</span><span lang="EN-US"
+                                                                                                   style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#9933CC;mso-font-kerning:0pt">latin1</span><span style="font-size:
+12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:
+&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:
+0pt">字符集</span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">character-set-server</span><b><span lang="EN-US"
+                                                                                                 style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#99CC99;mso-font-kerning:0pt">=</span></b><span lang="EN-US"
+                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:white;mso-font-kerning:0pt">utf8<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">创建新表时将使用的默认存储引擎</span><span lang="EN-US"
+                                                                style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:#9933CC;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">default-storage-engine</span><b><span lang="EN-US"
+                                                                                                   style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#99CC99;mso-font-kerning:0pt">=</span></b><span lang="EN-US"
+                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:white;mso-font-kerning:0pt">INNODB<o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:#9933CC;mso-font-kerning:0pt"># </span><span
+                            style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;
+mso-hansi-font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Courier New&quot;;
+color:#9933CC;mso-font-kerning:0pt">为了使用</span><span lang="EN-US"
+                                                     style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:#9933CC;mso-font-kerning:0pt">navicat</span><span style="font-size:12.0pt;
+font-family:宋体;mso-ascii-font-family:&quot;Courier New&quot;;mso-hansi-font-family:&quot;Courier New&quot;;
+mso-bidi-font-family:&quot;Courier New&quot;;color:#9933CC;mso-font-kerning:0pt">客户端，改变密码验证插件</span><span lang="EN-US"
+                                                                                                          style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#9933CC;mso-font-kerning:0pt"><o:p></o:p></span></div>
+
+                    <div class="MsoNormal" align="left" style="background: black;"><span lang="EN-US"
+                                                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;
+mso-fareast-font-family:宋体;color:white;mso-font-kerning:0pt">default_authentication_plugin</span><b><span lang="EN-US"
+                                                                                                          style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+宋体;color:#99CC99;mso-font-kerning:0pt">=</span></b><span lang="EN-US"
+                                                         style="font-size:12.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:宋体;
+color:white;mso-font-kerning:0pt">mysql_native_password</span><span lang="EN-US" style="font-size:12.0pt;font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:
+0pt"><o:p></o:p></span></div>
+
+                </div>
+            </li>
+            <li>
+                <p>
+                    在命令行（管理员模式）中初始化mysql ，初始化命令为<em>mysqld --initialize-insecure</em>。等待初始化完成，在命令行中安装mysql服务并启动即可。安装命令为<em>mysqld install</em>，启动命令为<em>net start mysql</em>。大功告成！
+                </p>
+            </li>
+        </ol>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
