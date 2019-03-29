@@ -46,6 +46,7 @@ article {
     width: 888px;
     margin: 0 auto;
     background-color: #FFFFFF;
+    border-bottom: 1px solid #E4D0D0;
 }
 
 header {
@@ -77,7 +78,6 @@ header #info #time {
 
 .content {
     margin: 10px;
-    border-bottom: 1px solid #E4D0D0;
     max-width: 100%;
     overflow: hidden;
     word-break: break-all;
