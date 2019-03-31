@@ -119,6 +119,29 @@ header #info #time {
     line-height: 1.6;
 }
 
+table {
+    border-collapse: collapse;
+    border: 1px solid #aaa;
+}
+
+table th {
+    background-color: #3F3F3F;
+    border: 1px solid #3F3F3F;
+    color: #fff;
+}
+
+table td {
+    border: 1px solid #aaa;
+}
+
+table tr:nth-child(odd) {
+    background-color: #F5F5F5;
+}
+
+table tr:nth-child(even) {
+    background-color: #fff;
+}
+
 em {
     color: rgb(164, 34, 16);
     font-weight: 900;
@@ -145,4 +168,12 @@ footer {
 
 .atCenter {
     text-align: center;
+}
+
+.syntaxhighlighter code, .syntaxhighlighter div {
+    word-break: normal;
+}
+
+.syntaxhighlighter pre, .syntaxhighlighter code {
+    white-space: pre;
 }
