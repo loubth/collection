@@ -149,7 +149,7 @@ em {
 }
 
 strong {
-    background-color: #00ff3754;
+    background-color: rgba(0,255,55,0.33);
     font-weight: normal;
     font-style: normal;
 }
