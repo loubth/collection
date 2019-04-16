@@ -122,6 +122,7 @@ header #info #time {
 table {
     border-collapse: collapse;
     border: 1px solid #aaa;
+    margin: 0 auto;
 }
 
 table th {
@@ -132,6 +133,11 @@ table th {
 
 table td {
     border: 1px solid #aaa;
+    padding:0 4px;
+}
+
+table.atCenter td {
+    text-align: center;
 }
 
 table tr:nth-child(odd) {
@@ -149,7 +155,7 @@ em {
 }
 
 strong {
-    background-color: rgba(0,255,55,0.33);
+    background-color: rgba(0, 255, 55, 0.33);
     font-weight: normal;
     font-style: normal;
 }
