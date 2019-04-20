@@ -67,13 +67,17 @@ header h1 {
 
 header #info {
     padding: 10px 20px;
-    text-align: right;
     font-weight: 500;
     color: gray;
+    overflow: hidden;
 }
 
 header #info #time {
     float: left;
+}
+
+header #info #author {
+    float: right;
 }
 
 .content {
@@ -133,7 +137,7 @@ table th {
 
 table td {
     border: 1px solid #aaa;
-    padding:0 4px;
+    padding: 0 4px;
 }
 
 table.atCenter td {
