@@ -17,6 +17,10 @@ input, img {
     margin: 0;
 }
 
+::selection {
+    background-color: #ff8621;
+}
+
 a {
     color: #175199;
     text-decoration: none;
@@ -106,7 +110,9 @@ header #info #author {
     display: inline-block;
     margin: 0;
     box-sizing: content-box;
-    border: 0px;
+    border: 0;
+    box-shadow: inherit;
+    border-radius: 0;
 }
 
 .content pre, .content code {
