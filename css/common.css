@@ -27,7 +27,7 @@ a {
 }
 
 /* 清除浮动 */
-.clearfix:after {
+.clearfix::after {
     content: "";
     height: 0;
     line-height: 0;
@@ -51,6 +51,50 @@ article {
     margin: 0 auto;
     background-color: #FFFFFF;
     border-bottom: 1px solid #E4D0D0;
+}
+
+h2 {
+    counter-increment: counter_h2;
+    counter-reset: counter_h3 counter_h4 counter_h5 counter_h6;
+}
+
+h2::before {
+    content: counter(counter_h2) " ";
+}
+
+h3 {
+    counter-increment: counter_h3;
+    counter-reset: counter_h4 counter_h5 counter_h6;
+}
+
+h3::before {
+    content: counter(counter_h2) "." counter(counter_h3) " ";
+}
+
+h4 {
+    counter-increment: counter_h4;
+    counter-reset: counter_h5 counter_h6;
+}
+
+h4::before {
+    content: counter(counter_h2) "." counter(counter_h3) "." counter(counter_h4) " ";
+}
+
+h5 {
+    counter-increment: counter_h5;
+    counter-reset: counter_h6;
+}
+
+h5::before {
+    content: counter(counter_h2) "." counter(counter_h3) "." counter(counter_h4) "." counter(counter_h5) " ";
+}
+
+h6 {
+    counter-increment: counter_h6;
+}
+
+h6::before {
+    content: counter(counter_h2) "." counter(counter_h3) "." counter(counter_h4) "." counter(counter_h5) "." counter(counter_h6) " ";
 }
 
 header {
