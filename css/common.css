@@ -216,12 +216,9 @@ strong {
 }
 
 .content hr {
-    height: 55px;
+    height: 70px;
     margin: 50px 0;
-    background-image: url(https://img02.sogoucdn.com/app/a/100520146/C5DDEE641512730E31AA9E286FE499B3);
-    /*图片备份地址*/
-    /*background-image: url(https://ws3.sinaimg.cn/large/005BYqpgly1g2d03vfdctg304u01pjrm.jpg);*/
-    /*background-image: url(/collection/image/common/hr_horse.gif);*/
+    background-image: url(/collection/image/common/hr_icon.png);
     background-position: center center;
     border: 0;
 }
