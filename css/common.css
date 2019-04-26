@@ -91,48 +91,48 @@ header #info #author {
     overflow: hidden;
     word-break: break-all;
 }
-
-.content h2 {
+/*让标题自动标号排序*/
+.doc h2 {
     counter-increment: counter_h2;
     counter-reset: counter_h3 counter_h4 counter_h5 counter_h6;
 }
 
-.content h2::before {
+.doc h2::before {
     content: counter(counter_h2) " ";
 }
 
-.content h3 {
+.doc h3 {
     counter-increment: counter_h3;
     counter-reset: counter_h4 counter_h5 counter_h6;
 }
 
-.content h3::before {
+.doc h3::before {
     content: counter(counter_h2) "." counter(counter_h3) " ";
 }
 
-.content h4 {
+.doc h4 {
     counter-increment: counter_h4;
     counter-reset: counter_h5 counter_h6;
 }
 
-.content h4::before {
+.doc h4::before {
     content: counter(counter_h2) "." counter(counter_h3) "." counter(counter_h4) " ";
 }
 
-.content h5 {
+.doc h5 {
     counter-increment: counter_h5;
     counter-reset: counter_h6;
 }
 
-.content h5::before {
+.doc h5::before {
     content: counter(counter_h2) "." counter(counter_h3) "." counter(counter_h4) "." counter(counter_h5) " ";
 }
 
-.content h6 {
+.doc h6 {
     counter-increment: counter_h6;
 }
 
-.content h6::before {
+.doc h6::before {
     content: counter(counter_h2) "." counter(counter_h3) "." counter(counter_h4) "." counter(counter_h5) "." counter(counter_h6) " ";
 }
 
