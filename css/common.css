@@ -217,7 +217,7 @@ strong {
 
 .content hr {
     height: 70px;
-    margin: 50px 0;
+    margin: 50px 0 10px 0;
     background-image: url(/collection/image/common/hr_icon.png);
     background-position: center center;
     border: 0;
