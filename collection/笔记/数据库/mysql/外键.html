@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>外键</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>外键</h1>
+        <div id="info">
+            <div id="time">2019-04-27</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content doc">
+        <h2>外键概念</h2>
+        <p>外键：foreign key，如果公共关键字在一个关系中是主关键字，那么这个公共关键字被称为另一个关系的外键。由此可见，外键表示了两个关系之间的相关联系。以另一个关系的外键作主关键字的表被称为主表，具有此外键的表被称为主表的从表。外键又称作外关键字</p>
+        <p>很绕，以我的理解举个例子吧，A表的一个字段指向B表的主键字段，那么A表的这个字段就是A表的外键，此时我们称B表是A表的“主表”，A表是B表的“从表”</p>
+        <h2>外键的操作</h2>
+        <h3>增加外键</h3>
+        <p><em>注</em>：constraint是“约束”的意思，“`”这个符号不是单引号，是<a href="https://baike.baidu.com/item/%60/5633084?fr=aladdin" target="_blank">反单引号</a>，就是Esc键下面那个</p>
+        <p>Mysql中提供了两种方式增加外键</p>
+        <ol>
+            <li>在创建表的时候增加外键（类似主键）
+                <p><em>基本语法</em>：<strong>[CONSTRAINT `<em>外键名</em>`] FOREIGN KEY(<em>外键字段</em>) REFERENCES <em>主表</em>(<em>主键</em>);</strong></p>
+
+            </li>
+            <li>在创建表后增加外键
+                <p><em>基本语法</em>：<strong>ALTER TABLE <em>从表</em> ADD [CONSTRAINT `外键名`] FOREIGN KEY(<em>外键字段</em>) REFERENCES <em>主表</em>(<em>主键</em>);</strong></p>
+
+            </li>
+        </ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
