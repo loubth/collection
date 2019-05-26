@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件系统目录结构</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>文件系统目录结构</h1>
+        <div id="info">
+            <div id="time">2019-05-25</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content">
+        <h2>Linux文件系统与Windows的区别</h2>
+        <p>在Windows操作系统中，是先将物理地址分开，再在分区上建立目录，在Windows操作系统中，所有路径都是从盘符开始，如“C:\Program Files”。Linux正好相反，是先有目录，再将物理地址映射到目录中。在Linux操作系统中，所有路径都是从根目录开始。Linux默认可分为3个分区，分别是boot分区、swap分区和根分区，在Linux操作系统中，用户可根据需要进行修改分区，修改后的分区中，同一目录下的文件可能在不同分区中，比如/home目录下有a、b、c三个目录，然后有三个分区分别挂载到这三个目录下，这种操作是允许的</p>
+        <p>Windows的分区是物理上的概念，就像我们把一块硬盘分成C:、D:、E:三个区一样，物理上将存储空间分开。Linux的目录是逻辑上的概念，Linux的目录树实际上是一个分区之间的数据逻辑结构关系，不是物理结构</p>
+
+        <p>linux的文件系统是采用层级式的树状目录结构，在此结构中的最上层是根目录“/”，然后在此目录下再创建其他的目录，另外要注意的是<em>在Linux系统里，一切皆文件</em></p>
+        <img src="/collection/image/2019/5/20190525_8.png" alt="">
+
+        <h2>Linux系统目录结构</h2>
+        <div id="highlighter_605614" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;/]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number2 index1 alt1"><code class="bash plain">bin&nbsp;&nbsp;&nbsp;dev&nbsp;&nbsp;home&nbsp;&nbsp;lib64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;media&nbsp;&nbsp;opt&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;selinux&nbsp;&nbsp;sys&nbsp;&nbsp;usr</code></div><div class="line number3 index2 alt2"><code class="bash plain">boot&nbsp;&nbsp;etc&nbsp;&nbsp;lib&nbsp;&nbsp;&nbsp;lost+found&nbsp;&nbsp;mnt&nbsp;&nbsp;&nbsp;&nbsp;proc&nbsp;&nbsp;sbin&nbsp;&nbsp;srv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tmp&nbsp;&nbsp;var</code></div></div></td></tr></tbody></table>
+        </div>
+        <img src="/collection/image/2019/5/20190525_9.jpg" alt="">
+        <p>那么这些目录都是用来干什么的呢？</p>
+        <ul><li><p><em>/bin</em>：<br> bin是Binary的缩写, 这个目录存放着最经常使用的命令</p></li>
+            <li><p><em>/boot</em>：<br>这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件</p></li>
+            <li><p><em>/dev </em>：<br>dev是DEVice(设备)的缩写, 该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的</p></li>
+            <li><p><em>/etc</em>：<br>ETCetera，这个目录用来存放所有的系统管理所需要的配置文件和子目录</p></li>
+            <li><p><em>/home</em>：<br>用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的</p></li>
+            <li><p><em>/lib</em>：<br>这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库</p></li>
+            <li><p><em>/lost+found</em>：<br>这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件</p></li>
+            <li><p><em>/media</em>：<br> linux系统会自动识别一些设备，当识别后，linux会把识别的设备挂载到这个目录下，media是媒体的英文，顾名思义，这个/media底下放置的就是可移除的装置。 包括U盘、软碟、光碟、DVD等等装置都暂时挂载于此。常见的档名有：/media/floppy, /media/cdrom等等</p></li>
+            <li><p><em>/mnt</em>：<br>MouNT，系统提供该目录是为了让用户临时<strong>挂载</strong>别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了，以前这个目录的用途与/media相同啦。 只是有了/media之后，这个目录就用来暂时挂载用了</p></li>
+            <li><p><em>/opt</em>：<br>OPTional，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的</p></li>
+            <li><p><em>/proc</em>：<br>这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</p>
+                <div id="highlighter_774646" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash functions">echo</code>&nbsp;<code class="bash plain">1&nbsp;&gt;&nbsp;</code><code class="bash plain">/proc/sys/net/ipv4/icmp_echo_ignore_all</code></div></div></td></tr></tbody></table></div>
+            </li>
+            <li><p><em>/root</em>：<br>该目录为系统管理员，也称作超级权限者的用户主目录</p></li>
+            <li><p><em>/sbin</em>：<br> s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序</p></li>
+            <li><p><em>/selinux</em>：<br>Security-Enhanced LINUX，这个目录是Redhat/CentOS所特有的目录，Selinux是一个安全机制，类似于windows的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的</p></li>
+            <li><p><em>/srv</em>：<br>SeRVices，该目录存放一些服务启动之后需要提取的数据</p></li>
+            <li><p><em>/sys</em>：</p><p>这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统&nbsp;sysfs&nbsp;</p>sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。<p></p><p>该文件系统是内核设备树的一个直观反映</p><p>当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建</p></li>
+            <li><p><em>/tmp</em>：<br>这个目录是用来存放一些临时文件的</p></li>
+            <li><p><em>/usr</em>：<br>Unix System Resources，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录</p></li>
+            <li><p><em>/usr/bin</em>：<br>系统用户使用的应用程序</p></li>
+            <li><p><em>/usr/sbin</em>：<br>超级用户使用的比较高级的管理程序和系统守护程序</p></li>
+            <li><p><em>/usr/src</em>：<br>内核源代码默认的放置目录</p></li>
+            <li><p><em>/var</em>：<br>VARiable，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件</p></li>
+            <li><p><em>/run</em>：<br>是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run</p></li>
+        </ul>
+        <p>/mnt /media /dev 目录的区别</p>
+        <ul>
+            <li><em>/mnt</em>：是被系统管理员使用,<strong>手动挂载</strong>一些临时媒体设备的目录</li>
+            <li><em>/media</em>：是自动挂载的目录,比如我们的U盘插在ubuntu下回自动挂载,就会在/media下生成一个目录,这个目录就是U盘所在目录,或者说文件</li>
+            <li><em>/dev</em>：不是存放设备的驱动程序,而是作为访问外部设备文件的接口。比如,我们的U盘,插入linux系统后,用fdisk -l查看分区,显示文件为/dev/sda1。则我们可以将u盘挂载到/mnt/usb1下,mount /dev/sda1 /mnt/usb1 即可，类似Windows的“设备管理器”
+                <img src="/collection/image/2019/5/20190525_10.png" alt="">
+            </li>
+        </ul>
+
+
+
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>

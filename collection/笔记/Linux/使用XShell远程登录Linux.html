@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用XShell远程登录Linux</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>使用XShell远程登录Linux</h1>
+        <div id="info">
+            <div id="time">2019-05-25</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content">
+        <p>为什么需要远程登录Linux？</p>
+        <p>linux服务器是开发小组共享的，正式上线的项目是运行在公网的，而你工作用的电脑和服务器可能不在同一个地方，因此程序员需要远程登录到CentOS进行项目管理或者开发</p>
+        <p>远程登录客户端有XShell，xftp，我们学习使用XShell5和Xftp，其它的远程工具大同小异</p>
+        <img src="/collection/image/2019/5/20190526_1.png" alt="">
+
+        <h2>XShell说明</h2>
+        <blockquote>
+            XShell是目前最好的远程登录到Linux操作的软件，有流畅的速度并且完美解决了中文乱码的问题，是目前程序员首选的软件
+            <br>XShell是一个强大的安全终端模拟软件，它支持SSH1，SSH2，以及Microsoft Windows平台的TELNET协议
+            <br>XShell可以在Windows界面下用来访问远端不同系统下的服务器，从而比较好的达到远程控制终端的目的
+        </blockquote>
+        <h2>XShell下载</h2>
+        <p><a href="http://www.downcc.com/soft/11133.html" target="_blank">下载XShell</a>（若失效请自寻下载地址）</p>
+
+        <h2>XShell5安装步骤</h2>
+        <p>狂点下一步即可</p>
+
+        <h2>XShell5使用</h2>
+        <p>要使用XShell必须在Linux中开启sshd（Secure SHell Daemon）服务（监听22号端口），开启步骤如下</p>
+        <ol>
+            <li>打开终端输入“setup”</li>
+            <li>选择“系统服务”</li>
+            <li>找到sshd服务，前面标注“*”的代表已经启动（空格键切换是否启动，tab键切换选项），启动服务后确定、退出</li>
+        </ol>
+        <img src="/collection/image/2019/5/20190526_2.gif" alt="">
+        <p>还需要知道要登录的Linux的ip地址，我们使用虚拟机测试，只需要在终端使用ifconfig命令即可查看到ip地址</p>
+        <div id="highlighter_759503" class="syntaxhighlighter  js"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">[root@host-loubth&nbsp;桌面]</code><code class="js preprocessor">#&nbsp;ifconfig</code></div><div class="line number2 index1 alt1"><code class="js plain">eth0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Link&nbsp;encap:Ethernet&nbsp;&nbsp;HWaddr&nbsp;00:0C:29:14:75:9B&nbsp;&nbsp;</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain"><strong>inet&nbsp;addr:192.168.217.128</strong>&nbsp;&nbsp;Bcast:192.168.217.255&nbsp;&nbsp;Mask:255.255.255.0</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">inet6&nbsp;addr:&nbsp;fe80::20c:29ff:fe14:759b/64&nbsp;Scope:Link</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">UP&nbsp;BROADCAST&nbsp;RUNNING&nbsp;MULTICAST&nbsp;&nbsp;MTU:1500&nbsp;&nbsp;Metric:1</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">RX&nbsp;packets:6698&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;frame:0</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">TX&nbsp;packets:79&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;carrier:0</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">collisions:0&nbsp;txqueuelen:1000&nbsp;</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">RX&nbsp;bytes:418461&nbsp;(408.6&nbsp;KiB)&nbsp;&nbsp;TX&nbsp;bytes:6523&nbsp;(6.3&nbsp;KiB)</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="js plain">lo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Link&nbsp;encap:Local&nbsp;Loopback&nbsp;&nbsp;</code></div><div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">inet&nbsp;addr:127.0.0.1&nbsp;&nbsp;Mask:255.0.0.0</code></div><div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">inet6&nbsp;addr:&nbsp;::1/128&nbsp;Scope:Host</code></div><div class="line number14 index13 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">UP&nbsp;LOOPBACK&nbsp;RUNNING&nbsp;&nbsp;MTU:65536&nbsp;&nbsp;Metric:1</code></div><div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">RX&nbsp;packets:10&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;frame:0</code></div><div class="line number16 index15 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">TX&nbsp;packets:10&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;carrier:0</code></div><div class="line number17 index16 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">collisions:0&nbsp;txqueuelen:0&nbsp;</code></div><div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">RX&nbsp;bytes:582&nbsp;(582.0&nbsp;b)&nbsp;&nbsp;TX&nbsp;bytes:582&nbsp;(582.0&nbsp;b)</code></div></div></td></tr></tbody></table>
+        </div>
+
+        <p>得到ip地址后，就可以使用XShell5来远程登录Linux了</p>
+        <ol>
+            <li>打开XShell5新建一个会话（就是与Linux的连接）</li>
+            <li>填入指定信息，名称随便起一个，协议必须选SSH，主机填刚才得到的远程Linux的ip地址，端口号必须填22，接下来点击确定，填入远程Linux的用户名和密码即可·</li>
+        </ol>
+        <img src="/collection/image/2019/5/20190526_3.gif" alt="">
+        <p>可以看到我们已经成功登入Linux</p>
+
+
+
+
+
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
