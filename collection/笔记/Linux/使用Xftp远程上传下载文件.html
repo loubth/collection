@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用Xftp远程上传下载文件</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article style="width: 900px;">
+    <header>
+        <h1>使用Xftp远程上传下载文件</h1>
+        <div id="info">
+            <div id="time">2019-05-26</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content">
+
+        <p>前面介绍过XShell可以远程控制安装Linux系统的机器，为什么还需要Xftp呢？因为你虽然可以远程控制Linux对它自己进行各种操作，但是两台机器之间互相传输文件却不是很容易，Xftp就是用来解决这个问题的</p>
+        <h2>Xftp介绍</h2>
+        <blockquote>是一个基于windows平台的功能强大的SFTP、FTP文件传输软件。使用了Xftp以后，windows用户能安全地在UNIX/Linux和Windows PC之间传输文件</blockquote>
+        <h2>Xftp下载</h2>
+        <p><a href="https://pan.baidu.com/s/1AmDqMODihyifgW9gevrSwA#list/path=%2Fsharelink120553861-800089016921060%2F尚硅谷-Linux-经典升级%2F软件&parentPath=%2Fsharelink120553861-800089016921060" target="_blank">下载远程访问工具Xftp </a>提取码：kxpp<br>位置为 <em>尚硅谷-Linux-经典升级 > 软件 > 远程访问工具</em>，若失效请自寻下载地址</p>
+
+        <h2>Xftp安装步骤</h2>
+        <p>狂点下一步即可</p>
+
+        <h2>Xftp使用</h2>
+        <h3>使用Xftp进入Linux</h3>
+        <ol>
+            <li>打开Xftp新建一个会话（就是与Linux的连接）</li>
+            <li>填入指定信息，名称随便起一个，协议必须选SFTP而不是FTP（因为FTP使用21端口，而Linux为了安全一般只对外开放一个22端口），主机填远程Linux的ip地址（可以使用ifconfig命令查看），端口号必须填22，接下来点击确定，填入远程Linux的用户名和密码即可</li>
+        </ol>
+        <img src="/collection/image/2019/5/20190526_4.gif" alt="">
+        <p>此时我们成功进入到Linux，可以看到我们进入了root用户的根目录“/root”，这是因为我们使用的root用户登录Linux，若使用普通用户登录则会进入普通用户的根目录“/home/xxx”</p>
+        <h3>解决中文乱码</h3>
+        <p>我们仔细观察发现进入的这个目录下的文件夹名称有许多中文乱码，这是由于Linux里使用的是UTF-8编码，而Xftp默认使用GBK编码，我们只需要将Xftp使用的编码改为UTF-8即可</p>
+        <img src="/collection/image/2019/5/20190526_5.gif" alt="">
+
+        <h3>互相传输文件</h3>
+        <p>在Xftp中可以看到两个机器，一个是本机Windows，一个是远程机的Linux，它们之间想要传输文件只需要在Xftp中选中要传输的文件右击选择传输即可，或者直接将要传输的文件拖过去也可以</p>
+        <img src="/collection/image/2019/5/20190526_6.gif" alt="">
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
