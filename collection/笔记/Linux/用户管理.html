@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>用户管理</h1>
+        <div id="info">
+            <div id="time">2019-05-27</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content doc">
+
+        <h2>基本介绍</h2>
+        <p>登录时尽量少用root帐号登录，因为它是系统管理员，拥有最大的权限。为避免操作失误，可以使用普通用户登录，登录后再用“su - 用户名”命令来切换成系统管理员身份
+        </p>
+        <p>Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个帐号，然后以这个帐号的身份进入系统</p>
+        <p>Linux的用户需要至少要属于一个“组”</p>
+        <img src="/collection/image/2019/5/20190527_4.png" alt="">
+        <hr>
+        <h2>添加用户</h2>
+        <h3>基本语法</h3>
+        <p><em>基本语法</em>：<strong>useradd [<em>选项</em>] <em>用户名</em></strong></p>
+        <p><em>注意</em>：创建用户时如果不为其指定一个组，那么系统会自动为其创建一个同名的组，并将这个用户添加到这个组内</p>
+        <p>示例（创建一个新用户“xm”）</p>
+        <div id="highlighter_537281" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number2 index1 alt1"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;useradd&nbsp;xm</code></div><div class="line number3 index2 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number4 index3 alt1"><code class="bash plain">xm</code></div></div></td></tr></tbody></table>
+        </div>
+        <p><em>特别说明</em>：cd（change directory）命令，切换目录。ls（list）命令，列表，也就是显示当前目录下所有文件夹和文件</p>
+        <h3>细节说明</h3>
+        <ul>
+            <li>当创建用户成功后，会自动的创建和用户同名的家目录（在/home目录下）</li>
+            <li>也可以通过<strong>useradd -d <em>指定目录</em> <em>新的用户名</em></strong>，给新创建的用户指定家目录</li>
+        </ul>
+        <div id="highlighter_47245" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number2 index1 alt1"><code class="bash plain">xm</code></div><div class="line number3 index2 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;useradd&nbsp;-d&nbsp;/home/dog&nbsp;xq</code></div><div class="line number4 index3 alt1"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number5 index4 alt2"><code class="bash plain">dog&nbsp;&nbsp;xm</code></div></div></td></tr></tbody></table>
+        </div>
+        <p><em>注意</em>：指定的家目录不要事先存在，否则会导致创建用户失败，只需要指定名字系统会帮你自动创建该目录并且初始化。另外此时还不能使用这个用户登录Linux，<strong>要想使用这个用户登录必须要为其指定密码</strong></p>
+        <hr>
+        <h2>给用户指定密码</h2>
+        <p>修改密码也是同一个指令</p>
+        <p><em>基本语法</em>：<strong>passwd <em>用户名</em></strong></p>
+        <p>示例（给用户xm指定密码）</p>
+        <div id="highlighter_655075" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;passwd&nbsp;xm</code></div><div class="line number2 index1 alt1"><code class="bash plain">更改用户&nbsp;xm&nbsp;的密码&nbsp;。</code></div><div class="line number3 index2 alt2"><code class="bash plain">新的&nbsp;密码：</code></div><div class="line number4 index3 alt1"><code class="bash plain">重新输入新的&nbsp;密码：</code></div><div class="line number5 index4 alt2"><code class="bash functions">passwd</code><code class="bash plain">：&nbsp;所有的身份验证令牌已经成功更新。</code></div></div></td></tr></tbody></table>
+        </div>
+        <hr>
+        <h2>删除用户</h2>
+        <h3>基本语法</h3>
+        <p><em>基本语法</em>：<strong>userdel [<em>选项</em>] <em>用户名</em></strong></p>
+        <p><em>注意</em>：删除用户时默认会保留其家目录，想要连同这个目录一起删除的话需要添加参数“-r”</p>
+        <p>示例</p>
+        <ul>
+            <li>删除用户xm，但是要保留xm的家目录xm
+                <div id="highlighter_795532" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number2 index1 alt1"><code class="bash plain">dog&nbsp;&nbsp;xm</code></div><div class="line number3 index2 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;userdel&nbsp;xm</code></div><div class="line number4 index3 alt1"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number5 index4 alt2"><code class="bash plain">dog&nbsp;&nbsp;xm</code></div></div></td></tr></tbody></table>
+                </div>
+            </li>
+            <li>删除用户xq，以及xq的家目录dog
+                <div id="highlighter_209063" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number2 index1 alt1"><code class="bash plain">dog&nbsp;&nbsp;xm</code></div><div class="line number3 index2 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;userdel&nbsp;-r&nbsp;xq</code></div><div class="line number4 index3 alt1"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;ls</code></div><div class="line number5 index4 alt2"><code class="bash plain">xm</code></div></div></td></tr></tbody></table>
+                </div>
+            </li>
+        </ul>
+        <p>在删除用户时，我们一般不会将家目录删除</p>
+        <hr>
+        <h2>查看用户信息</h2>
+        <h3>基本语法</h3>
+        <p><em>基本语法</em>：<strong>id <em>用户名</em></strong></p>
+
+        <p>示例（查询root信息）</p>
+        <div id="highlighter_100104" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;id&nbsp;root</code></div><div class="line number2 index1 alt1"><code class="bash plain">uid=0(root)&nbsp;gid=0(root)&nbsp;组=0(root)</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>uid是该用户的id号，gid是该用户所属主要组（创建用户时指定的那个组）的id号，groups是改用户所属的所有组的id号，包括主要组和次要组（后加入的组）的id号</p>
+        <blockquote>
+            Linux中有两种类型的默认组。每个用户应该只有一个主要组primary group和任意数量的次要组secondary group
+            <br><br>主要组：创建用户帐户时，已将主要组添加到用户。它通常是用户的名称。在执行诸如创建新文件（或目录）、修改文件或执行命令等任何操作时，主要组将应用于用户。用户的主要组信息存储在/etc/passwd文件中
+            <br><br>次要组：它被称为次要组。它允许用户组在同一组成员文件中执行特定操作。例如，如果你希望允许少数用户运行Apache（httpd）服务命令，那么它将非常适合
+        </blockquote>
+        <hr>
+        <h2>切换用户</h2>
+        <h3>介绍</h3>
+        <p>在操作Linux中，如果当前用户的权限不够，可以通过su-指令，切换到高权限用户，比如root</p>
+        <h3>基本语法</h3>
+        <p><em>基本语法</em>：<strong>su - <em>切换用户名</em></strong></p>
+        <p>示例（创建一个用户zf，指定密码，然后切换到zf）</p>
+        <div id="highlighter_904522" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;~]</code><code class="bash comments">#&nbsp;useradd&nbsp;zf</code></div><div class="line number2 index1 alt1"><code class="bash plain">[root@host-loubth&nbsp;~]</code><code class="bash comments">#&nbsp;passwd&nbsp;zf</code></div><div class="line number3 index2 alt2"><code class="bash plain">更改用户&nbsp;zf&nbsp;的密码&nbsp;。</code></div><div class="line number4 index3 alt1"><code class="bash plain">新的&nbsp;密码：</code></div><div class="line number5 index4 alt2"><code class="bash plain">重新输入新的&nbsp;密码：</code></div><div class="line number6 index5 alt1"><code class="bash functions">passwd</code><code class="bash plain">：&nbsp;所有的身份验证令牌已经成功更新。</code></div><div class="line number7 index6 alt2"><code class="bash plain">[root@host-loubth&nbsp;~]</code><code class="bash comments">#&nbsp;su&nbsp;-&nbsp;zf</code></div><div class="line number8 index7 alt1"><code class="bash plain">[zf@host-loubth&nbsp;~]$&nbsp;</code><code class="bash functions">cd</code>&nbsp;<code class="bash plain">/root</code></div><div class="line number9 index8 alt2"><code class="bash plain">-</code><code class="bash functions">bash</code><code class="bash plain">:&nbsp;</code><code class="bash functions">cd</code><code class="bash plain">:&nbsp;</code><code class="bash plain">/root</code><code class="bash plain">:&nbsp;权限不够</code></div><div class="line number10 index9 alt1"><code class="bash plain">[zf@host-loubth&nbsp;~]$&nbsp;</code><code class="bash functions">exit</code></div><div class="line number11 index10 alt2"><code class="bash functions">logout</code></div><div class="line number12 index11 alt1"><code class="bash plain">[root@host-loubth&nbsp;~]</code><code class="bash comments">#&nbsp;cd&nbsp;/root</code></div><div class="line number13 index12 alt2"><code class="bash plain">[root@host-loubth&nbsp;~]</code><code class="bash comments">#&nbsp;</code></div></div></td></tr></tbody></table>
+        </div>
+        <h3>细节说明</h3>
+        <ul>
+            <li>从权限高的用户切换到权限低的用户，不需要输入密码，反之需要</li>
+            <li>当需要返回到原来用户时，使用exit指令</li>
+        </ul>
+        <hr>
+        <h2>查看当前用户</h2>
+        <h3>基本语法</h3>
+        <p><em>基本语法</em>：<strong>whoami</em></strong></p>
+        <p>whoami（我是谁）</p>
+        <p>示例（查看当前用户）</p>
+        <div id="highlighter_98831" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;~]</code><code class="bash comments">#&nbsp;whoami</code></div><div class="line number2 index1 alt1"><code class="bash plain">root</code></div></div></td></tr></tbody></table>
+        </div>
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
