@@ -44,7 +44,7 @@
         <p><em>注意</em>：指定的家目录不要事先存在，否则会导致创建用户失败，只需要指定名字系统会帮你自动创建该目录并且初始化。另外此时还不能使用这个用户登录Linux，<strong>要想使用这个用户登录必须要为其指定密码</strong></p>
         <hr>
         <h2>给用户指定密码</h2>
-        <p>修改密码也是同一个指令</p>
+        <p>修改密码也是同一个命令</p>
         <p><em>基本语法</em>：<strong>passwd <em>用户名</em></strong></p>
         <p>示例（给用户xm指定密码）</p>
         <div id="highlighter_655075" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;home]</code><code class="bash comments">#&nbsp;passwd&nbsp;xm</code></div><div class="line number2 index1 alt1"><code class="bash plain">更改用户&nbsp;xm&nbsp;的密码&nbsp;。</code></div><div class="line number3 index2 alt2"><code class="bash plain">新的&nbsp;密码：</code></div><div class="line number4 index3 alt1"><code class="bash plain">重新输入新的&nbsp;密码：</code></div><div class="line number5 index4 alt2"><code class="bash functions">passwd</code><code class="bash plain">：&nbsp;所有的身份验证令牌已经成功更新。</code></div></div></td></tr></tbody></table>
@@ -76,14 +76,14 @@
         </div>
         <p>uid是该用户的id号，gid是该用户所属主要组（创建用户时指定的那个组）的id号，groups是改用户所属的所有组的id号，包括主要组和次要组（后加入的组）的id号</p>
         <blockquote>
-            Linux中有两种类型的默认组。每个用户应该只有一个主要组primary group和任意数量的次要组secondary group
+            Linux中有两种类型的组。每个用户应该只有一个主要组primary group和任意数量的次要组secondary group
             <br><br>主要组：创建用户帐户时，已将主要组添加到用户。它通常是用户的名称。在执行诸如创建新文件（或目录）、修改文件或执行命令等任何操作时，主要组将应用于用户。用户的主要组信息存储在/etc/passwd文件中
             <br><br>次要组：它被称为次要组。它允许用户组在同一组成员文件中执行特定操作。例如，如果你希望允许少数用户运行Apache（httpd）服务命令，那么它将非常适合
         </blockquote>
         <hr>
         <h2>切换用户</h2>
         <h3>介绍</h3>
-        <p>在操作Linux中，如果当前用户的权限不够，可以通过su-指令，切换到高权限用户，比如root</p>
+        <p>在操作Linux中，如果当前用户的权限不够，可以通过su命令，切换到高权限用户，比如root</p>
         <h3>基本语法</h3>
         <p><em>基本语法</em>：<strong>su - <em>切换用户名</em></strong></p>
         <p>示例（创建一个用户zf，指定密码，然后切换到zf）</p>
@@ -92,12 +92,12 @@
         <h3>细节说明</h3>
         <ul>
             <li>从权限高的用户切换到权限低的用户，不需要输入密码，反之需要</li>
-            <li>当需要返回到原来用户时，使用exit指令</li>
+            <li>当需要返回到原来用户时，使用exit命令</li>
         </ul>
         <hr>
         <h2>查看当前用户</h2>
         <h3>基本语法</h3>
-        <p><em>基本语法</em>：<strong>whoami</em></strong></p>
+        <p><em>基本语法</em>：<strong>whoami</strong></p>
         <p>whoami（我是谁）</p>
         <p>示例（查看当前用户）</p>
         <div id="highlighter_98831" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;~]</code><code class="bash comments">#&nbsp;whoami</code></div><div class="line number2 index1 alt1"><code class="bash plain">root</code></div></div></td></tr></tbody></table>
