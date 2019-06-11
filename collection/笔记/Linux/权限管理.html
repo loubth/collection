@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>权限管理</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>权限管理</h1>
+        <div id="info">
+            <div id="time">2019-06-10</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content">
+
+        <h2>用户、组与文件之间的关系</h2>
+        <p>在linux中的每个用户至少属于一个组，不能独立于组外<br>在linux中每个文件都有<em>所有者（属主）、所在组（属组）、其它用户</em>的概念，但注意该文件的所有者不一定属于该文件的所在组<br>当某个用户创建了一个文件后，默认这个文件的属主就是这个用户，这个文件的属组就是该用户所在的组</p>
+
+        <p><em>注意</em>：对于root用户来说，一般情况下，文件的权限对其不起作用</p>
+
+        <h2>查看文件的信息</h2>
+        <p>使用<strong>ls -l</strong>（可使用这个命令的别名ll）命令查看文件详细信息</p>
+        <p>示例（创建一个组police，再创建一个用户tom，将tom放在police组，然后使用tom来创建一个文件test.txt）</p>
+        <div id="highlighter_29230" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;groupadd&nbsp;police</code></div><div class="line number2 index1 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;useradd&nbsp;-g&nbsp;police&nbsp;tom</code></div><div class="line number3 index2 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;su&nbsp;-&nbsp;tom</code></div><div class="line number4 index3 alt1"><code class="bash plain">[tom@host-loubth&nbsp;~]$&nbsp;</code><code class="bash functions">touch</code>&nbsp;<code class="bash functions"></code><code class="bash plain">test.txt</code></div><div class="line number5 index4 alt2"><code class="bash plain">[tom@host-loubth&nbsp;~]$&nbsp;</code><code class="bash functions">ls</code>&nbsp;<code class="bash plain">-l</code></div><div class="line number6 index5 alt1"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number7 index6 alt2"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;<strong>tom</strong>&nbsp;police&nbsp;0&nbsp;6月&nbsp;&nbsp;10&nbsp;18:38&nbsp;</code><code class="bash functions"></code><code class="bash plain">test.txt</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>如上所示，该文件的所有者就是tom，所在组是police</p>
+
+        <h2>文件基本属性介绍</h2>
+        <p>示例</p>
+        <div id="highlighter_944037" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number2 index1 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number3 index2 alt2"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;orange.txt</code></div></div></td></tr></tbody></table>
+        </div>
+        <ol>
+            <li>文件类型与权限
+                <p>实例中，orange.txt文件的第一个属性用"-"表示。"-"在Linux中代表该文件是一个普通文件</p>
+                <p>在Linux中第一个字符代表这个文件是目录、文件或链接文件等等</p>
+                <ul>
+                    <li>当为[ <strong>d</strong> ]则是目录</li>
+                    <li>当为[ <strong>-</strong> ]则是文件</li>
+                    <li>若是[ <strong>l</strong> ]则表示为链接文档(link file)</li>
+                    <li>若是[ <strong>b</strong> ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)</li>
+                    <li>若是[ <strong>c</strong> ]则表示为字符设备，装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</li>
+                </ul>
+                <p>接下来的9个字符中，以三个为一组，且均为『rwx』 的三个参数的组合。其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。 要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已</p>
+
+                <img src="/collection/image/2019/6/20190610_1.png" alt="">
+
+                <p>第0位确定文件类型，第1-3位确定属主（该文件的所有者）拥有该文件的权限， 第4-6位确定属组（所有者的同组用户）拥有该文件的权限，第7-9位确定其它用户拥有该文件的权限</p>
+                <p>其中，第1、4、7位表示读权限，如果用"r"字符表示，则有读权限，如果用"-"字符表示，则没有读权限；第2、5、8位表示写权限，如果用"w"字符表示，则有写权限，如果用"-"字符表示没有写权限；第3、6、9位表示可执行权限，如果用"x"字符表示，则有执行权限，如果用"-"字符表示，则没有执行权限</p>
+
+                <p><em>rwx作用到文件</em></p>
+                <ul>
+                    <li>[r]代表可读（read）：可以读取，查看</li>
+                    <li>[w]代表可写（write）：可以修改，但是不代表可以删除该文件，删除一个文件的前提条件是对该文件所在的目录有写权限，才能删除该文件</li>
+                    <li>[x]代表可执行（execute）：可以被执行</li>
+                </ul>
+                <p><em>rwx作用到目录</em></p>
+                <ul>
+                    <li>[r]代表可读（read）：可以读取，ls查看目录内容</li>
+                    <li>[w]代表可写（write）：可以修改，目录内创建+删除+重命名目录</li>
+                    <li>[x]代表可执行（execute）：可以进入该目录</li>
+                </ul>
+                <p>每组权限可用数字表示：r=4，w=2，x=1，因此rwx=4+2+1=7，r-x=4+0+1=5等</p>
+            </li>
+            <li>. <em>与selinux有关，selinux关闭之后创建的内容没有这个“.”</em></li>
+            <li>1 <em>普通文件：硬链接数（目录：子目录数）</em></li>
+            <li>root <em>属主</em></li>
+            <li>police <em>属组</em></li>
+            <li>676 <em>文件大小（字节），如果是文件夹，显示4096字节</em></li>
+            <li>6月  11 07:52 <em>最后修改日期</em></li>
+            <li>orange.txt <em>文件名</em></li>
+        </ol>
+
+
+        <h2>修改文件所有者chown</h2>
+        <h4>基本语法</h4>
+        <p><em>基本语法</em>：<strong>chown <em>新属主用户名</em> <em>文件名</em></strong></p>
+        <p><em>基本语法</em>：<strong>chown <em>新属主用户名:新属组组名</em> <em>文件名</em></strong></p>
+        <h4>常用选项</h4>
+        <ul>
+            <li>-R <em>如果是目录则使其下所有子文件或目录递归生效</em></li>
+        </ul>
+        <p>示例（使用root创建一个文件apple.xt，然后将其所有者修改成tom）</p>
+        <div id="highlighter_329246" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;touch&nbsp;apple.txt</code></div><div class="line number2 index1 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number3 index2 alt2"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number4 index3 alt1"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;<strong>root</strong>&nbsp;root&nbsp;0&nbsp;6月&nbsp;&nbsp;10&nbsp;18:54&nbsp;apple.txt</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chown&nbsp;tom&nbsp;apple.txt&nbsp;</code></div><div class="line number6 index5 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number7 index6 alt2"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number8 index7 alt1"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;<strong>tom</strong>&nbsp;root&nbsp;0&nbsp;6月&nbsp;&nbsp;10&nbsp;18:54&nbsp;apple.txt</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>示例（将Dir目录下所有文件的属主改为tom，所有属组改为police）</p>
+        <p><em>注意</em>：“./”表示当前目录，“../”表示上一级目录</p>
+        <div id="highlighter_136994" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number2 index1 alt1"><code class="bash plain">总用量&nbsp;8</code></div><div class="line number3 index2 alt2"><code class="bash plain">-rwxr-xr-x.&nbsp;1&nbsp;root&nbsp;police&nbsp;&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;</code><code class="bash functions">test</code></div><div class="line number4 index3 alt1"><code class="bash plain">drwxr-xr-x.&nbsp;2&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;4096&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;testDir</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll&nbsp;testDir</code></div><div class="line number6 index5 alt1"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number7 index6 alt2"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;root&nbsp;root&nbsp;0&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;test2</code></div><div class="line number8 index7 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chown&nbsp;-R&nbsp;tom:police&nbsp;./</code></div><div class="line number9 index8 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number10 index9 alt1"><code class="bash plain">总用量&nbsp;8</code></div><div class="line number11 index10 alt2"><code class="bash plain">-rwxr-xr-x.&nbsp;1&nbsp;tom&nbsp;police&nbsp;&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;</code><code class="bash functions">test</code></div><div class="line number12 index11 alt1"><code class="bash plain">drwxr-xr-x.&nbsp;2&nbsp;tom&nbsp;police&nbsp;4096&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;testDir</code></div><div class="line number13 index12 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll&nbsp;testDir</code></div><div class="line number14 index13 alt1"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number15 index14 alt2"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;tom&nbsp;police&nbsp;0&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;test2</code></div></div></td></tr></tbody></table>
+        </div>
+
+
+        <h2>修改文件所在组chgrp</h2>
+        <h4>基本语法</h4>
+        <p><em>基本语法</em>：<strong>chgrp <em>新属组组名</em> <em>文件名</em></strong></p>
+        <h4>常用选项</h4>
+        <ul>
+            <li>-R <em>如果是目录则使其下所有子文件或目录递归生效</em></li>
+        </ul>
+        <p>示例（使用root用户创建文件orange.txt，看看当前这个文件属于哪个组，然后将这个文件所在组修改到police组）</p>
+        <div id="highlighter_123395" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;touch&nbsp;orange.txt</code></div><div class="line number2 index1 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number3 index2 alt2"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number4 index3 alt1"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;root&nbsp;<strong>root</strong>&nbsp;0&nbsp;6月&nbsp;&nbsp;10&nbsp;23:20&nbsp;orange.txt</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chgrp&nbsp;police&nbsp;orange.txt&nbsp;</code></div><div class="line number6 index5 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number7 index6 alt2"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number8 index7 alt1"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;root&nbsp;<strong>police</strong>&nbsp;0&nbsp;6月&nbsp;&nbsp;10&nbsp;23:20&nbsp;orange.txt</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>示例（将Dir目录下所有文件的所有属组改为root）</p>
+        <p><em>注意</em>：“./”表示当前目录，“../”表示上一级目录</p>
+        <div id="highlighter_932621" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number2 index1 alt1"><code class="bash plain">总用量&nbsp;8</code></div><div class="line number3 index2 alt2"><code class="bash plain">-rwxr-xr-x.&nbsp;1&nbsp;tom&nbsp;police&nbsp;&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;</code><code class="bash functions">test</code></div><div class="line number4 index3 alt1"><code class="bash plain">drwxr-xr-x.&nbsp;2&nbsp;tom&nbsp;police&nbsp;4096&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;testDir</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll&nbsp;testDir</code></div><div class="line number6 index5 alt1"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number7 index6 alt2"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;tom&nbsp;police&nbsp;0&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;test2</code></div><div class="line number8 index7 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chgrp&nbsp;-R&nbsp;root&nbsp;./</code></div><div class="line number9 index8 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number10 index9 alt1"><code class="bash plain">总用量&nbsp;8</code></div><div class="line number11 index10 alt2"><code class="bash plain">-rwxr-xr-x.&nbsp;1&nbsp;tom&nbsp;root&nbsp;&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;</code><code class="bash functions">test</code></div><div class="line number12 index11 alt1"><code class="bash plain">drwxr-xr-x.&nbsp;2&nbsp;tom&nbsp;root&nbsp;4096&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;testDir</code></div><div class="line number13 index12 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll&nbsp;testDir</code></div><div class="line number14 index13 alt1"><code class="bash plain">总用量&nbsp;0</code></div><div class="line number15 index14 alt2"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;tom&nbsp;root&nbsp;0&nbsp;6月&nbsp;&nbsp;11&nbsp;10:57&nbsp;test2</code></div></div></td></tr></tbody></table>
+        </div>
+        <h2>修改权限chmod</h2>
+        <h3>基本说明</h3>
+        <p>通过chmod（CHange MODe）指令，可以修改文件或者目录的权限</p>
+        <h3>基本语法</h3>
+        <h4>第一种方式：+、-、=变更权限</h4>
+        <p>u：属主<br>g：属组<br>o：其它用户<br>a：所有人（u、g、o的总和）</p>
+        <p><em>基本语法</em>：<strong>chmod u=rwx,g=rx,o=x <em>文件或目录名</em></strong></p>
+        <p><em>基本语法</em>：<strong>chmod o+w <em>文件或目录名</em></strong></p>
+        <p><em>基本语法</em>：<strong>chmod a-x <em>文件或目录名</em></strong></p>
+
+        <p>示例（给abc文件的属主读写执行的权限，给属组读执行权限，给其它组读执行权限）</p>
+        <div id="highlighter_404203" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number2 index1 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number3 index2 alt2"><code class="bash plain">-rw-r--r--.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;abc</code></div><div class="line number4 index3 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chmod&nbsp;u=rwx,g=rx,o=rx&nbsp;abc</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number6 index5 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number7 index6 alt2"><code class="bash plain">-rwxr-xr-x.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;abc</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>示例（给abc文件的属主去除执行权限，属组增加写权限）</p>
+        <div id="highlighter_829285" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number2 index1 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number3 index2 alt2"><code class="bash plain">-rwxr-xr-x.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;abc</code></div><div class="line number4 index3 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chmod&nbsp;u-x,g+w&nbsp;abc</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number6 index5 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number7 index6 alt2"><code class="bash plain">-rw-rwxr-x.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;abc</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>示例（给所有用户添加abc文件的读权限）</p>
+        <div id="highlighter_780023" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number2 index1 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number3 index2 alt2"><code class="bash plain">--w--wx--x.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;abc</code></div><div class="line number4 index3 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chmod&nbsp;a+r&nbsp;abc</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number6 index5 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number7 index6 alt2"><code class="bash plain">-rw-rwxr-x.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;abc</code></div></div></td></tr></tbody></table>
+        </div>
+
+
+        <h4>第二种方式：通过数字变更权限</h4>
+        <p><em>规则</em>：r=4 w=2 x=1，所以 rwx=4+2+1=7</p>
+        <p><em>基本语法</em>：<strong>chmod <em>表示权限的数字</em> <em>文件或目录名</em></strong></p>
+        <p>示例（转换过程）</p>
+        <p><strong>chmod u=rwx,g=rx,o=x <em>文件目录名</em></strong><br>分析可知，rwx=4+2+1=<em>7</em>，rx=4+1=<em>5</em>，x=<em>1</em>，所以这条语句等价于<br>
+        <strong>chmod 751 <em>文件目录名</em></strong>
+        </p>
+        <p>示例（将test文件的权限修改成 rwxr-xr-x）</p>
+        <p>分析：rwx=4+2+1=7，r-x=4+1=5，r-x=4+1=5，所以指令为chmod 755 test</p>
+        <div id="highlighter_695081" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number2 index1 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number3 index2 alt2"><code class="bash plain">----------.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;</code><code class="bash functions">test</code></div><div class="line number4 index3 alt1"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;chmod&nbsp;755&nbsp;test</code></div><div class="line number5 index4 alt2"><code class="bash plain">[root@host-loubth&nbsp;Dir]</code><code class="bash comments">#&nbsp;ll</code></div><div class="line number6 index5 alt1"><code class="bash plain">总用量&nbsp;4</code></div><div class="line number7 index6 alt2"><code class="bash plain">-rwxr-xr-x.&nbsp;1&nbsp;root&nbsp;police&nbsp;676&nbsp;6月&nbsp;&nbsp;11&nbsp;07:52&nbsp;</code><code class="bash functions">test</code></div></div></td></tr></tbody></table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
