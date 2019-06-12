@@ -19,16 +19,84 @@
     </header>
     <div class="content">
 
+        <h2>概述</h2>
+        <p>当安装完成操作系统之后，默认便会启动crond任务调度命令。crond命令每分钟会定期检查是否有要执行的工作，如果有要执行的工作便会自动执行该工作。crond服务通过crontab命令实现，crontab（cron来源于希腊语chronos(χρόνος)，原意是时间。tab全称是table，表）是用来定期执行程序的命令。总而言之，<strong>crontab命令的作用就是<em>定时执行任务</em></strong></p>
 
+        <p>linux任务调度的工作主要分为以下两类：</p>
+        <ol>
+            <li>系统执行的工作：系统周期性所要执行的工作，如备份系统数据、清理缓存</li>
+            <li>个人执行的工作：某个用户定期要做的工作，例如每隔10分钟检查邮件服务器是否有新信，这些工作可由每个用户自行设置</li>
+        </ol>
+        <h2>基本语法</h2>
+        <p><em>基本语法</em>：<strong>crontab <em>选项</em></strong></p>
+        <h3>常用选项</h3>
+        <ul>
+            <li>-e: <em>设定时程表</em>，<strong>时程表中设定了要执行的程序及其执行时间</strong>，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个文字编辑器(比如说 setenv VISUAL joe)</li>
+            <li>-r: <em>删除目前的时程表</em></li>
+            <li>-l: <em>列出目前的时程表</em></li>
+            <li>-u: <em>设定指定user的时程表</em>，这个前提是你必须要有其权限(比如说是root)才能够指定他人的时程表。如果不使用-u user的话，就是表示设定自己的时程表</li>
+        </ul>
+        <h3>时程表的格式</h3>
+        <div id="highlighter_852017" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">f1&nbsp;f2&nbsp;f3&nbsp;f4&nbsp;f5&nbsp;program</code></div></div></td></tr></tbody></table>
+        </div>
+        <ul>
+            <li>其中 f1 是表示分钟，f2 表示小时，f3 表示一个月份中的第几日，f4 表示月份，f5 表示一个星期中的第几天（0和7都代表星期日）。program 表示要执行的程序</li>
+            <li><em>“*”代表任何时间</em>，当 f1 为 * 时表示每分钟都要执行 program，f2 为 * 时表示每小时都要执行程序，其余类推</li>
+            <li><em>“*/n”代表每隔一段时间执行一次</em>，当 f1 为 */n 时表示每 n 分钟个时间间隔执行一次，f2 为 */n 表示每 n 小时个时间间隔执行一次，其余类推</li>
+            <li><em>“-”代表连续的时间</em>，当 f1 为 a-b 时表示从第 a 分钟到第 b 分钟这段时间内要执行，f2 为 a-b 时表示从第 a 到第 b 小时都要执行，其余类推</li>
+            <li><em>“,”代表不连续的时间</em>，当 f1 为 a, b, c,... 时表示第 a, b, c,... 分钟要执行，f2 为 a, b, c,... 时表示第 a, b, c...个小时要执行，其余类推</li>
+        </ul>
+        <p>使用者也可以将所有的设定先存放在文件中，用 crontab file 的方式来设定时程表</p>
+        <img src="/collection/image/2019/6/20190611_1.png" alt="">
+        <h4>特定时间执行任务案例</h4>
+        <table>
+            <tr>
+                <th style="width: 150px;">时间</th>
+                <th>含义</th>
+            </tr>
+            <tr>
+                <td>45 22 * * * 命令</td>
+                <td>在22点45分执行命令</td>
+            </tr>
+            <tr>
+                <td>0 17 * * 1 命令</td>
+                <td>每周一的17点0分执行命令</td>
+            </tr>
+            <tr>
+                <td>0 5 1,15 * * 命令</td>
+                <td>每月1号和15号的凌晨5点0分执行命令</td>
+            </tr>
+            <tr>
+                <td>40 4 * * 1-5 命令</td>
+                <td>每周一到周五的凌晨4点40分执行命令</td>
+            </tr>
+            <tr>
+                <td>*/10 4 * * * 命令</td>
+                <td>每天的凌晨4点，每隔10分钟执行一次命令（这里应该指的是4点到5点之间的时间段）</td>
+            </tr>
+            <tr>
+                <td>0 0 1,15 * 1 命令</td>
+                <td>每月1号和15号，每周1的0点0分都会执行命令。注意：星期几和几号最好不要同时出现，因为他们定义的都是天。非常容易让管理员混乱</td>
+            </tr>
+        </table>
 
+        <p>示例（每隔一分钟向桌面上的test文件输入时间）</p>
+        <ol>
+            <li>使用tail命令实时观察test文件内容（不要关闭此终端窗口）
+                <div id="highlighter_831396" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;桌面]</code><code class="bash comments">#&nbsp;tail&nbsp;-f&nbsp;test</code></div></div></td></tr></tbody></table>
+                </div>
+            </li>
+            <li>另开一个终端窗口，使用crontab命令添加目标任务（添加完记得保存）
+                <div id="highlighter_783185" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;桌面]</code><code class="bash comments">#&nbsp;crontab&nbsp;-e</code></div><div class="line number2 index1 alt1"><code class="bash plain">*</code><code class="bash plain">/1</code>&nbsp;<code class="bash plain">*&nbsp;*&nbsp;*&nbsp;*&nbsp;</code><code class="bash functions">date</code>&nbsp;<code class="bash plain">&gt;&gt;&nbsp;</code><code class="bash plain">/root/</code><code class="bash plain">桌面</code><code class="bash plain">/test</code></div></div></td></tr></tbody></table>
+                </div>
+            </li>
+        </ol>
+        <p>等待，可以发现test文件每分钟都会多出一行时间内容</p>
+        <div id="highlighter_758058" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;桌面]</code><code class="bash comments">#&nbsp;tail&nbsp;-f&nbsp;test</code></div><div class="line number2 index1 alt1"><code class="bash plain">Tue&nbsp;Jun&nbsp;11&nbsp;23:51:02&nbsp;CST&nbsp;2019</code></div><div class="line number3 index2 alt2"><code class="bash plain">Tue&nbsp;Jun&nbsp;11&nbsp;23:52:01&nbsp;CST&nbsp;2019</code></div><div class="line number4 index3 alt1"><code class="bash plain">Tue&nbsp;Jun&nbsp;11&nbsp;23:53:01&nbsp;CST&nbsp;2019</code></div><div class="line number5 index4 alt2"><code class="bash plain">Tue&nbsp;Jun&nbsp;11&nbsp;23:54:01&nbsp;CST&nbsp;2019</code></div><div class="line number6 index5 alt1"><code class="bash plain">Tue&nbsp;Jun&nbsp;11&nbsp;23:55:01&nbsp;CST&nbsp;2019</code></div><div class="line number7 index6 alt2"><code class="bash plain">Tue&nbsp;Jun&nbsp;11&nbsp;23:56:01&nbsp;CST&nbsp;2019</code></div></div></td></tr></tbody></table>
+        </div>
 
-
-
-
-
-        <img src="/collection/image/2019/5/20190611_1.png" alt="">
-
-
+        <h2>crond相关指令</h2>
+        <p><em>重启任务调度</em>：<strong>service crond restart</strong></p>
 
 
 
