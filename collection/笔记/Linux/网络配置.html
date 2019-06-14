@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网络配置</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>网络配置</h1>
+        <div id="info">
+            <div id="time">2019-06-13</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content">
+        <h2>Linux网络配置原理图（含虚拟机）</h2>
+        <p>目前我们的网络配置采用的是NAT（Network Address Translation）模式</p>
+        <p>NAT模式下，外部windows主机有两个ip，一个是真实网卡的ip，另一个的虚拟网卡VMnet8的ip，这个虚拟网卡想要访问外网需要经过真实网卡的转换。虚拟网卡的作用是与虚拟机中linux系统形成一个可以互相通信的小型网络</p>
+        <img src="/collection/image/2019/6/20190613_1.png" alt="">
+        <p>拓展：几种不同网络连接模式区别</p>
+        <div style="height: 300px;overflow-y: auto;border: 1px gray dotted;">
+            <a href="https://zhuanlan.zhihu.com/p/32948325" target="_blank"><img src="/collection/image/2019/5/20190523_4.jpg" alt=""></a>
+        </div>
+
+        <h2>查看网络ip和网关</h2>
+        <h3>查看linux系统ip地址</h3>
+        <p>linux系统查看ip使用ifconfig命令（InterFaces CONFIGuration）</p>
+        <p><em>基本语法</em>：<strong>ifconfig</strong></p>
+        <div id="highlighter_225013" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;桌面]</code><code class="bash comments">#&nbsp;ifconfig</code></div><div class="line number2 index1 alt1"><code class="bash plain">eth0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Link&nbsp;encap:Ethernet&nbsp;&nbsp;HWaddr&nbsp;00:0C:29:14:75:9B&nbsp;&nbsp;</code></div><div class="line number3 index2 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain"><strong>inet&nbsp;addr:192.168.217.218</strong>&nbsp;&nbsp;Bcast:192.168.217.255&nbsp;&nbsp;Mask:255.255.255.0</code></div><div class="line number4 index3 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">inet6&nbsp;addr:&nbsp;fe80::20c:29ff:fe14:759b</code><code class="bash plain">/64</code>&nbsp;<code class="bash plain">Scope:Link</code></div><div class="line number5 index4 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">UP&nbsp;BROADCAST&nbsp;RUNNING&nbsp;MULTICAST&nbsp;&nbsp;MTU:1500&nbsp;&nbsp;Metric:1</code></div><div class="line number6 index5 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">RX&nbsp;packets:88&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;frame:0</code></div><div class="line number7 index6 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">TX&nbsp;packets:62&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;carrier:0</code></div><div class="line number8 index7 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">collisions:0&nbsp;txqueuelen:1000&nbsp;</code></div><div class="line number9 index8 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">RX&nbsp;bytes:6177&nbsp;(6.0&nbsp;KiB)&nbsp;&nbsp;TX&nbsp;bytes:4388&nbsp;(4.2&nbsp;KiB)</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="bash plain">lo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Link&nbsp;encap:Local&nbsp;Loopback&nbsp;&nbsp;</code></div><div class="line number12 index11 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">inet&nbsp;addr:127.0.0.1&nbsp;&nbsp;Mask:255.0.0.0</code></div><div class="line number13 index12 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">inet6&nbsp;addr:&nbsp;::1</code><code class="bash plain">/128</code>&nbsp;<code class="bash plain">Scope:Host</code></div><div class="line number14 index13 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">UP&nbsp;LOOPBACK&nbsp;RUNNING&nbsp;&nbsp;MTU:65536&nbsp;&nbsp;Metric:1</code></div><div class="line number15 index14 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">RX&nbsp;packets:8&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;frame:0</code></div><div class="line number16 index15 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">TX&nbsp;packets:8&nbsp;errors:0&nbsp;dropped:0&nbsp;overruns:0&nbsp;carrier:0</code></div><div class="line number17 index16 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">collisions:0&nbsp;txqueuelen:0&nbsp;</code></div><div class="line number18 index17 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">RX&nbsp;bytes:480&nbsp;(480.0&nbsp;b)&nbsp;&nbsp;TX&nbsp;bytes:480&nbsp;(480.0&nbsp;b)</code></div></div></td></tr></tbody></table>
+        </div>
+
+
+        <h3>查看虚拟网络编辑器</h3>
+        <p>在VMware的菜单栏中点击“编辑”，然后选择“虚拟网络编辑器”</p>
+        <img src="/collection/image/2019/6/20190613_2.png" alt="">
+
+        <h3>查看VMnet8这块虚拟网卡的子网ip</h3>
+        <img src="/collection/image/2019/6/20190613_3.png" alt="">
+        <h3>查看网关</h3>
+        <img src="/collection/image/2019/6/20190613_4.png" alt="">
+
+        <h2>设置自动获取ip</h2>
+        <p>我们每次开机都需要点击网络图标手动联网，有没有办法让系统开机自动联网呢？答案是有的，只需要设置让系统自动获取ip地址即可</p>
+        <p>系统->首选项->网络连接->编辑->勾选自动连接自动连接->应用</p>
+        <img src="/collection/image/2019/6/20190613_5.png" alt="">
+        <img src="/collection/image/2019/6/20190613_6.png" alt="">
+
+        <p>设置完成后，linux启动时会自动获取ip，缺点是每次自动获取的ip地址可能不一样。这点不适用于做服务器，因为我们的服务器的ip需要是固定的</p>
+
+        <h2>设置固定ip</h2>
+        <p>查看使用的网卡</p>
+        <p>使用“<strong>ip addr</strong>”命令查看一下网卡名字（e开头的那个）</p>
+        <div id="highlighter_344984" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;桌面]</code><code class="bash comments">#&nbsp;ip&nbsp;addr</code></div><div class="line number2 index1 alt1"><code class="bash plain">1:&nbsp;lo:&nbsp;&lt;LOOPBACK,UP,LOWER_UP&gt;&nbsp;mtu&nbsp;65536&nbsp;qdisc&nbsp;noqueue&nbsp;state&nbsp;UNKNOWN&nbsp;</code></div><div class="line number3 index2 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">link</code><code class="bash plain">/loopback</code>&nbsp;<code class="bash plain">00:00:00:00:00:00&nbsp;brd&nbsp;00:00:00:00:00:00</code></div><div class="line number4 index3 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">inet&nbsp;127.0.0.1</code><code class="bash plain">/8</code>&nbsp;<code class="bash plain">scope&nbsp;host&nbsp;lo</code></div><div class="line number5 index4 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">inet6&nbsp;::1</code><code class="bash plain">/128</code>&nbsp;<code class="bash plain">scope&nbsp;host&nbsp;</code></div><div class="line number6 index5 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">valid_lft&nbsp;forever&nbsp;preferred_lft&nbsp;forever</code></div><div class="line number7 index6 alt2"><code class="bash plain">2:&nbsp;<strong>eth0</strong>:&nbsp;&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;&nbsp;mtu&nbsp;1500&nbsp;qdisc&nbsp;pfifo_fast&nbsp;state&nbsp;UP&nbsp;qlen&nbsp;1000</code></div><div class="line number8 index7 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">link</code><code class="bash plain">/ether</code>&nbsp;<code class="bash plain">00:0c:29:14:75:9b&nbsp;brd&nbsp;ff:ff:ff:ff:ff:ff</code></div><div class="line number9 index8 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">inet&nbsp;192.168.217.218</code><code class="bash plain">/24</code>&nbsp;<code class="bash plain">brd&nbsp;192.168.217.255&nbsp;scope&nbsp;global&nbsp;eth0</code></div><div class="line number10 index9 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">inet6&nbsp;fe80::20c:29ff:fe14:759b</code><code class="bash plain">/64</code>&nbsp;<code class="bash plain">scope&nbsp;link&nbsp;</code></div><div class="line number11 index10 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">valid_lft&nbsp;forever&nbsp;preferred_lft&nbsp;forever</code></div><div class="line number12 index11 alt1"><code class="bash plain">3:&nbsp;pan0:&nbsp;&lt;BROADCAST,MULTICAST&gt;&nbsp;mtu&nbsp;1500&nbsp;qdisc&nbsp;noop&nbsp;state&nbsp;DOWN&nbsp;</code></div><div class="line number13 index12 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">link</code><code class="bash plain">/ether</code>&nbsp;<code class="bash plain">7a:44:a2:56:14:af&nbsp;brd&nbsp;ff:ff:ff:ff:ff:ff</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>由此可知我们使用的虚拟网卡是“eth0”。与其相关的配置文件在“<strong>/etc/sysconfig/network-scripts</strong>”目录下，以“<strong>ifcfg-</strong>”开头，所以文件名应该为“<strong>/etc/sysconfig/network-scripts/ifcfg-eth0</strong>”</p>
+        <p>现在们只需直接修改配置文件（<strong>/etc/sysconfig/network-scripts/ifcfg-eth0</strong>）来指定固定ip</p>
+        <p>在/etc/sysconfig/network-scripts/目录下有不少文件，绝大部分都是脚本类的文件，但有一类ifcfg开头的文件为网卡配置文件(interface config)，所有ifcfg开头的文件在启动网络服务的时候都会被加载读取，但具体的文件名ifcfg-XXX的XXX可以随意命名</p>
+        <p>先来查看一下这个文件</p>
+        <div id="highlighter_500538" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;桌面]</code><code class="bash comments">#&nbsp;vim&nbsp;/etc/sysconfig/network-scripts/ifcfg-eth0&nbsp;</code></div><div class="line number2 index1 alt1"><code class="bash plain">DEVICE=eth0</code></div><div class="line number3 index2 alt2"><code class="bash plain">TYPE=Ethernet</code></div><div class="line number4 index3 alt1"><code class="bash plain">UUID=4bc06fbe-c044-4acd-af11-0913cdbdd10e</code></div><div class="line number5 index4 alt2"><code class="bash plain">ONBOOT=</code><code class="bash functions">yes</code></div><div class="line number6 index5 alt1"><code class="bash plain">NM_CONTROLLED=</code><code class="bash functions">yes</code></div><div class="line number7 index6 alt2"><code class="bash plain">BOOTPROTO=dhcp</code></div><div class="line number8 index7 alt1"><code class="bash plain">DEFROUTE=</code><code class="bash functions">yes</code></div><div class="line number9 index8 alt2"><code class="bash plain">IPV4_FAILURE_FATAL=</code><code class="bash functions">yes</code></div><div class="line number10 index9 alt1"><code class="bash plain">IPV6INIT=no</code></div><div class="line number11 index10 alt2"><code class="bash plain">NAME=</code><code class="bash string">"System&nbsp;eth0"</code></div><div class="line number12 index11 alt1"><code class="bash plain">HWADDR=00:0C:29:14:75:9B</code></div><div class="line number13 index12 alt2"><code class="bash plain">PEERDNS=</code><code class="bash functions">yes</code></div><div class="line number14 index13 alt1"><code class="bash plain">PEERROUTES=</code><code class="bash functions">yes</code></div><div class="line number15 index14 alt2"><code class="bash plain">LAST_CONNECT=1560409351</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>参数说明</p>
+        <ul style="height: 300px;overflow-y: auto;border: 1px gray dotted;">
+            <li>
+                <p>
+                    NAME：网卡名：eth0
+                </p>
+            </li>
+            <li>
+                <p>
+                    TYPE=Ethernet：模式：以太网
+                </p>
+            </li>
+            <li>
+                <p>
+                    DEVICE=eth0：网卡接口名称，必须/sys/class/net/目录下的某个网卡名相同
+                </p>
+            </li>
+            <li>
+                <p>
+                    BOOTPROTO：启用地址协议
+                </p>
+            </li>
+            <ul style="list-style-type: circle;">
+                <li>
+                    <p>
+                        static：静态协议
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        bootp：协议
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        dhcp：协议
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        none：不使用启动地址协议
+                    </p>
+                </li>
+            </ul>
+            <li>
+                <p>
+                    PEERDNS
+                </p>
+            </li>
+            <ul style="list-style-type: square;">
+                <li>
+                    <p>
+                        yes：
+                        <br>
+                        设置为yes时，此文件设置的DNS将覆盖/etc/resolv.conf，
+                        <br>
+                        若开启了DHCP，则默认为yes，所以dhcp的dns也会覆盖/etc/resolv.conf
+                    </p>
+                </li>
+            </ul>
+            <li>
+                <p>
+                    PEERROUTES=yes
+                </p>
+            </li>
+            <li>
+                <p>
+                    IPV4_FAILURE_FATAL=no
+                </p>
+            </li>
+            <li>
+                <p>
+                    IPV6INIT：是否执行IPv6
+                </p>
+            </li>
+            <ul style="list-style-type: circle;">
+                <li>
+                    <p>
+                        yes：支持IPv6
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        no：不支持IPv6
+                    </p>
+                </li>
+            </ul>
+            <li>
+                <p>
+                    UUID：唯一标识
+                </p>
+            </li>
+            <li>
+                <p>
+                    HWADDR：MAC地址。只需设置其中一个，同时设置时不能相互冲突。
+                </p>
+            </li>
+            <li>
+                <p>
+                    ONBOOT：系统启动时是否自动加载
+                </p>
+            </li>
+            <ul style="list-style-type: circle;">
+                <li>
+                    <p>
+                        yes：系统启动时激活该网络接口
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        no：系统启动时不激活该网络接口
+                    </p>
+                </li>
+            </ul>
+            <li>
+                <p>
+                    IPADDR：IP地址
+                </p>
+            </li>
+            <li>
+                <p>
+                    NETMASK：子网掩码
+                </p>
+            </li>
+            <li>
+                <p>
+                    GATEWAY：网关地址
+                </p>
+            </li>
+            <li>
+                <p>
+                    BROADCAST：广播地址
+                </p>
+            </li>
+            <li>
+                <p>
+                    PEERDNS：是否指定DNS。如果使用DHCP协议，默认为yes。
+                </p>
+            </li>
+            <ul style="list-style-type: circle;">
+                <li>
+                    <p>
+                        yes：如果DNS设置，修改/etc/resolv.conf中的DNS
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        no：不修改/etc/resolv.conf中的DNS
+                    </p>
+                </li>
+            </ul>
+            <li>
+                <p>
+                    DNS{1, 2}：DNS地址。当PEERDNS为yes时会被写入/etc/resolv.conf中。
+                </p>
+            </li>
+            <li>
+                <p>
+                    NM_CONTROLLED：是否由Network Manager控制该网络接口。修改保存后立即生效，无需重启。被其坑过几次，建议一般设为no。
+                </p>
+            </li>
+            <ul style="list-style-type: circle;">
+                <li>
+                    <p>
+                        yes：由Network Manager控制
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        no：不由Network Manager控制
+                    </p>
+                </li>
+            </ul>
+            <li>
+                <p>
+                    USERCTL：用户权限控制
+                </p>
+            </li>
+            <ul style="list-style-type: circle;">
+                <li>
+                    <p>
+                        yes：非root用户允许控制该网络接口
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        no：非root用户不运行控制该网络接口
+                    </p>
+                </li>
+            </ul>
+        </ul>
+        <p>要想配置固定的ip就要修改这个文件</p>
+        <p>示例（配置固定ip为“192.168.217.218”）</p>
+        <p>修改下面五个配置项，要是没有该配置项就在下方加上即可</p>
+        <div id="highlighter_872334" class="syntaxhighlighter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">ONBOOT=yes</code></div><div class="line number2 index1 alt1"><code class="xml plain">BOOTPROTO=static</code></div><div class="line number3 index2 alt2"><code class="xml plain">IPADDR=192.168.217.218</code></div><div class="line number4 index3 alt1"><code class="xml plain">GATEWAY=192.168.217.2</code></div><div class="line number5 index4 alt2"><code class="xml plain">DNS1=192.168.217.2</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>网关地址就写前面在“虚拟网络编辑器”中查看到的就行，要是不知道DNS1的地址设置多少就设置为和网关一样即可，为保证能顺利联网，ip地址前三项要设置成网关一样</p>
+        <p>修改完后配置文件如下</p>
+        <div id="highlighter_7567" class="syntaxhighlighter  bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash plain">[root@host-loubth&nbsp;桌面]</code><code class="bash comments">#&nbsp;vim&nbsp;/etc/sysconfig/network-scripts/ifcfg-eth0</code></div><div class="line number2 index1 alt1"><code class="bash plain">DEVICE=eth0</code></div><div class="line number3 index2 alt2"><code class="bash plain">TYPE=Ethernet</code></div><div class="line number4 index3 alt1"><code class="bash plain">UUID=4bc06fbe-c044-4acd-af11-0913cdbdd10e</code></div><div class="line number5 index4 alt2"><code class="bash plain">ONBOOT=</code><code class="bash functions">yes</code></div><div class="line number6 index5 alt1"><code class="bash plain">NM_CONTROLLED=</code><code class="bash functions">yes</code></div><div class="line number7 index6 alt2"><code class="bash plain">BOOTPROTO=static</code></div><div class="line number8 index7 alt1"><code class="bash plain">DEFROUTE=</code><code class="bash functions">yes</code></div><div class="line number9 index8 alt2"><code class="bash plain">IPV4_FAILURE_FATAL=</code><code class="bash functions">yes</code></div><div class="line number10 index9 alt1"><code class="bash plain">IPV6INIT=no</code></div><div class="line number11 index10 alt2"><code class="bash plain">NAME=</code><code class="bash string">"System&nbsp;eth0"</code></div><div class="line number12 index11 alt1"><code class="bash plain">HWADDR=00:0C:29:14:75:9B</code></div><div class="line number13 index12 alt2"><code class="bash plain">PEERDNS=</code><code class="bash functions">yes</code></div><div class="line number14 index13 alt1"><code class="bash plain">PEERROUTES=</code><code class="bash functions">yes</code></div><div class="line number15 index14 alt2"><code class="bash plain">LAST_CONNECT=1560409351</code></div><div class="line number16 index15 alt1"><code class="bash plain">IPADDR=192.168.217.218</code></div><div class="line number17 index16 alt2"><code class="bash plain">GATEWAY=192.168.217.2</code></div><div class="line number18 index17 alt1"><code class="bash plain">DNS1=192.168.217.2</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>此时虽然修改完成，但还没有生效，需要重启一下网络服务，使用“<strong>service network restart</strong>”命令重启网络服务即可</p>
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
