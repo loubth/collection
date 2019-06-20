@@ -30,5 +30,17 @@ function myAlert() {
 
 }
 
+//添加目录
+window.onload = function () {
+    var catalog=document.createElement("div");
+    catalog.id="catalog";
+    catalog.style.width="60px";
+    catalog.style.margin="0 auto";
+    catalog.innerHTML="<a href='https://loubth.github.io/collection/index.html' target='_blank'>返回目录</a>";
+    var info=document.getElementById("info");
+    info.appendChild(catalog);
+};
+
+
 
 
