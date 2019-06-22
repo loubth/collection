@@ -199,7 +199,7 @@
         <p>创建唯一键与创建主键非常类似</p>
         <ol>
             <li>
-                创建表时直接在表字段之后增加唯一键标识符：unique[ key]
+                创建表时直接在表字段之后增加唯一键标识符：unique[key]
                 <div id="highlighter_4010" class="syntaxhighlighter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">mysql&gt;&nbsp;CREATE&nbsp;TABLE&nbsp;my_unique1(</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;&nbsp;&nbsp;id&nbsp;int&nbsp;PRIMARY&nbsp;KEY&nbsp;AUTO_INCREMENT,</code></div><div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;&nbsp;&nbsp;username&nbsp;varchar(10)&nbsp;UNIQUE</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;);</code></div><div class="line number5 index4 alt2"><code class="xml plain">Query&nbsp;OK,&nbsp;0&nbsp;rows&nbsp;affected&nbsp;(0.07&nbsp;sec)</code></div></div></td></tr></tbody></table>
                 </div>
             </li>
