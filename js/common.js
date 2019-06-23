@@ -36,7 +36,7 @@ window.onload = function () {
     catalog.id="catalog";
     catalog.style.width="60px";
     catalog.style.margin="0 auto";
-    catalog.innerHTML="<a href='https://loubth.github.io/collection/index.html' target='_blank'>返回目录</a>";
+    catalog.innerHTML="<a href='/collection/index.html' target='_blank'>返回目录</a>";
     var info=document.getElementById("info");
     info.appendChild(catalog);
 };

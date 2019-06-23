@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程控制</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>流程控制</h1>
+        <div id="info">
+            <div id="time">2019-06-23</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content doc">
+
+        <p>流程结构：代码的执行顺序</p>
+        <h2>if分支</h2>
+        <h3>基本语法</h3>
+        <p>if在mysql中有两种基本用法</p>
+        <ol>
+            <li>用在select查询当中，当做一种条件来进行判断
+                <p><em>基本语法</em>：if(条件,为真结果,为假结果)</p>
+                <div id="highlighter_93355" class="syntaxhighlighter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">mysql&gt;&nbsp;select&nbsp;*&nbsp;from&nbsp;my_student;</code></div><div class="line number2 index1 alt1"><code class="xml plain">+---------+----------+----------+---------+------------+--------+</code></div><div class="line number3 index2 alt2"><code class="xml plain">|&nbsp;stu_id&nbsp;&nbsp;|&nbsp;stu_name&nbsp;|&nbsp;class_id&nbsp;|&nbsp;stu_age&nbsp;|&nbsp;stu_height&nbsp;|&nbsp;gender&nbsp;|</code></div><div class="line number4 index3 alt1"><code class="xml plain">+---------+----------+----------+---------+------------+--------+</code></div><div class="line number5 index4 alt2"><code class="xml plain">|&nbsp;stu0001&nbsp;|&nbsp;夏洛&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;185&nbsp;|&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number6 index5 alt1"><code class="xml plain">|&nbsp;stu0002&nbsp;|&nbsp;张四&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;165&nbsp;|&nbsp;女&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number7 index6 alt2"><code class="xml plain">|&nbsp;stu0003&nbsp;|&nbsp;张五&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;187&nbsp;|&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number8 index7 alt1"><code class="xml plain">|&nbsp;stu0004&nbsp;|&nbsp;小婷&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;189&nbsp;|&nbsp;女&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number9 index8 alt2"><code class="xml plain">+---------+----------+----------+---------+------------+--------+</code></div><div class="line number10 index9 alt1"><code class="xml plain">4&nbsp;rows&nbsp;in&nbsp;set&nbsp;(0.05&nbsp;sec)</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="xml plain">mysql&gt;&nbsp;select&nbsp;*,<strong>if(stu_age&gt;20,'符合','不符合')</strong>&nbsp;as&nbsp;'大于20岁'&nbsp;from&nbsp;my_student;</code></div><div class="line number13 index12 alt2"><code class="xml plain">+---------+----------+----------+---------+------------+--------+-------------+</code></div><div class="line number14 index13 alt1"><code class="xml plain">|&nbsp;stu_id&nbsp;&nbsp;|&nbsp;stu_name&nbsp;|&nbsp;class_id&nbsp;|&nbsp;stu_age&nbsp;|&nbsp;stu_height&nbsp;|&nbsp;gender&nbsp;|&nbsp;大于20岁&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number15 index14 alt2"><code class="xml plain">+---------+----------+----------+---------+------------+--------+-------------+</code></div><div class="line number16 index15 alt1"><code class="xml plain">|&nbsp;stu0001&nbsp;|&nbsp;夏洛&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;185&nbsp;|&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;不符合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number17 index16 alt2"><code class="xml plain">|&nbsp;stu0002&nbsp;|&nbsp;张四&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;165&nbsp;|&nbsp;女&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;符合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number18 index17 alt1"><code class="xml plain">|&nbsp;stu0003&nbsp;|&nbsp;张五&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;187&nbsp;|&nbsp;男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;符合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number19 index18 alt2"><code class="xml plain">|&nbsp;stu0004&nbsp;|&nbsp;小婷&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;32&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;189&nbsp;|&nbsp;女&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;符合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</code></div><div class="line number20 index19 alt1"><code class="xml plain">+---------+----------+----------+---------+------------+--------+-------------+</code></div><div class="line number21 index20 alt2"><code class="xml plain">4&nbsp;rows&nbsp;in&nbsp;set&nbsp;(0.00&nbsp;sec)</code></div></div></td></tr></tbody></table>
+                </div>
+            </li>
+            <li>用在复杂的语句块中（函数/存储过程/触发器）
+                <p><em>基本语法</em>：
+                    <div id="highlighter_809381" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">if&nbsp;条件表达式&nbsp;then</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">满足条件要执行的语句;</code></div><div class="line number3 index2 alt2"><code class="xml plain">end&nbsp;if;</code></div></div></td></tr></tbody></table>
+                </div>
+                </p>
+            </li>
+        </ol>
+
+        <h3>复合语法</h3>
+        <p>复合语法：代码的判断存在两面性，两面都有对应的代码执行。而且if else可以嵌套</p>
+        <p><em>基本语法</em>：
+            <div id="highlighter_820847" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">if&nbsp;条件表达式&nbsp;then</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">满足条件要执行的语句;</code></div><div class="line number3 index2 alt2"><code class="xml plain">else</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">不满足条件要执行的语句;</code></div><div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">if&nbsp;条件表达式&nbsp;then</code></div><div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">满足条件要执行的语句;</code></div><div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">end&nbsp;if;</code></div><div class="line number8 index7 alt1"><code class="xml plain">end&nbsp;if;</code></div></div></td></tr></tbody></table>
+    </div>
+        </p>
+
+
+        <h2>while循环</h2>
+        <p>循环体都是需要在大型代码块中使用</p>
+        <h3>基本语法</h3>
+        <p><em>基本语法</em>：
+            <div id="highlighter_806449" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">while&nbsp;条件&nbsp;do</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">要循环执行的代码;</code></div><div class="line number3 index2 alt2"><code class="xml plain">end&nbsp;while;</code></div></div></td></tr></tbody></table>
+        </div>
+        </p>
+
+        <h3>结构标识符</h3>
+        <p>结构标识符：为某些特定的结构进行命名，然后为的是在某些地方使用名字</p>
+        <h3>基本语法</h3>
+        <p><em>基本语法</em>：
+
+        </p>
+        <div id="highlighter_740834" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">标识名字:while&nbsp;条件&nbsp;do</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">循环体</code></div><div class="line number3 index2 alt2"><code class="xml plain">end&nbsp;while&nbsp;[标识名字];</code></div></div></td></tr></tbody></table>
+        </div>
+
+        <p>标识符的存在主要是为了循环体中使用循环控制。在mysql中没有continue和break，但有自己的关键字替代:
+            <br>iterate:迭代，就是以下的代码不执行，重新开始循环（替代continue）
+            <br>leave:离开，整个循环终止（替代break）</p>
+
+        <div id="highlighter_734185" class="syntaxhighlighter nogutter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">标识名字:while&nbsp;条件&nbsp;do</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">if&nbsp;条件判断&nbsp;then</code></div><div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">循环控制;</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">iterate/leave&nbsp;标识名字;</code></div><div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">End&nbsp;if;</code></div><div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">循环体</code></div><div class="line number7 index6 alt2"><code class="xml plain">End&nbsp;while&nbsp;[标识名字];</code></div></div></td></tr></tbody></table>
+        </div>
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
