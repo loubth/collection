@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,9 +32,9 @@
         <p>分为两种修改方式：</p>
         <ol>
             <li>局部修改（会话级别）：<em>只针对当前自己客户端当次连接有效</em>，基本语法：<strong>set 变量名=新值;</strong></li>
-            <li>全局修改：针对所有的客户端所有时刻都有效，基本语法：<strong>set global 变量名=值;</strong>或者<strong>set @@global.变量名=值;</strong>（注意全局修改<em>需要客户端重新连接数据库</em>才生效）</li>
+            <li>全局修改：针对所有的客户端所有时刻都有效（只要不重启mysql服务），基本语法：<strong>set global 变量名=值;</strong>或者<strong>set @@global.变量名=值;</strong>（注意全局修改<em>需要客户端重新连接数据库</em>才生效）</li>
         </ol>
-
+        <p>如果想要一直使用，重启服务也不会失效，那应该将其写入mysql.ini或mysql.cnf配置文件，而不是用命令指定，因为在用命令设置的变量会随着MySQL服务的重启而恢复默认值</p>
 
         <h2>会话变量</h2>
         <p>会话变量也称之为用户变量，会话变量跟mysql客户端是绑定的，设置的变量，<em>只对当前用户正在使用的客户端生效</em></p>
@@ -60,7 +60,7 @@
         <p>作用范围在begin到end语句块之间。在该语句块里设置的变量，declare语句专门用于定义局部变量</p>
         <ol>
             <li>局部变量是使用declare关键字声明</li>
-            <li>局部变量declare语句出现的位置一定是在begin和end之间（begin end是在大型语句块中使用：函数/存储过程/触发器）</li>
+            <li>局部变量declare语句出现的位置一定是在begin和end之间（begin end是在大型语句块中使用：函数/存储过程/触发器），在函数体的最前面</li>
             <li>声明语法：declare 变量名 数据类型 [属性]</li>
         </ol>
 

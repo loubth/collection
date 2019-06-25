@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数与流程控制综合案例</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>函数与流程控制综合案例</h1>
+        <div id="info">
+            <div id="time">2019-06-25</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content doc">
+
+        <p>需求：从1开始，直到用户传入的对应的值为止，自动求这些数的和，但是不要5的倍数</p>
+        <p>设计：</p>
+        <ol>
+            <li>创建函数</li>
+            <li>需要一个形参来确定要累加到什么位置</li>
+            <li>需要定义一个变量来保存对应的结果</li>
+            <li>内部需要一个循环来实现迭代累加</li>
+            <li>循环内部需要进行条件判断控制：5的倍数</li>
+        </ol>
+        <div id="highlighter_914675" class="syntaxhighlighter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">--&nbsp;创建一个自动求和的函数</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="xml plain">--&nbsp;修改语句结束符</code></div><div class="line number4 index3 alt1"><code class="xml plain">delimiter&nbsp;$$</code></div><div class="line number5 index4 alt2"><code class="xml plain">--&nbsp;创建函数</code></div><div class="line number6 index5 alt1"><code class="xml plain">create&nbsp;function&nbsp;my_sum&nbsp;(end_value&nbsp;int)&nbsp;returns&nbsp;int</code></div><div class="line number7 index6 alt2"><code class="xml plain">begin</code></div><div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">--&nbsp;声明变量（局部变量）：如果使用declare声明变量：必须在函数体其他语句之前</code></div><div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">declare&nbsp;res&nbsp;int&nbsp;default&nbsp;0;</code></div><div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">declare&nbsp;i&nbsp;int&nbsp;default&nbsp;1;</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">--&nbsp;循环处理</code></div><div class="line number13 index12 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">mywhile:while&nbsp;i&nbsp;&lt;=&nbsp;end_value&nbsp;do</code></div><div class="line number14 index13 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">--&nbsp;判断当前数据是否合理</code></div><div class="line number15 index14 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">if&nbsp;i%5=0&nbsp;then</code></div><div class="line number16 index15 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">--&nbsp;5的倍数不要</code></div><div class="line number17 index16 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">set&nbsp;i&nbsp;=i&nbsp;+&nbsp;1;</code></div><div class="line number18 index17 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">iterate&nbsp;mywhile;</code></div><div class="line number19 index18 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">end&nbsp;if;</code></div><div class="line number20 index19 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">--&nbsp;修改变量：累加</code></div><div class="line number21 index20 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">set&nbsp;res&nbsp;=&nbsp;res+i;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;mysql中没有++</code></div><div class="line number22 index21 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">set&nbsp;i&nbsp;=&nbsp;i+1;</code></div><div class="line number23 index22 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">end&nbsp;while;</code></div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">--&nbsp;返回值</code></div><div class="line number26 index25 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">return&nbsp;res;</code></div><div class="line number27 index26 alt2"><code class="xml plain">end</code></div><div class="line number28 index27 alt1"><code class="xml plain">--&nbsp;结束</code></div><div class="line number29 index28 alt2"><code class="xml plain">$$</code></div><div class="line number30 index29 alt1">&nbsp;</div><div class="line number31 index30 alt2"><code class="xml plain">--&nbsp;修改语句结束符</code></div><div class="line number32 index31 alt1"><code class="xml plain">delimiter&nbsp;;</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>使用该函数</p>
+        <div id="highlighter_942001" class="syntaxhighlighter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">mysql&gt;&nbsp;select&nbsp;my_sum(5),my_sum(100);</code></div><div class="line number2 index1 alt1"><code class="xml plain">+-----------+-------------+</code></div><div class="line number3 index2 alt2"><code class="xml plain">|&nbsp;my_sum(5)&nbsp;|&nbsp;my_sum(100)&nbsp;|</code></div><div class="line number4 index3 alt1"><code class="xml plain">+-----------+-------------+</code></div><div class="line number5 index4 alt2"><code class="xml plain">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4000&nbsp;|</code></div><div class="line number6 index5 alt1"><code class="xml plain">+-----------+-------------+</code></div><div class="line number7 index6 alt2"><code class="xml plain">1&nbsp;row&nbsp;in&nbsp;set&nbsp;(0.01&nbsp;sec)</code></div></div></td></tr></tbody></table>
+        </div>
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
