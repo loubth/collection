@@ -19,7 +19,7 @@
     </header>
     <div class="content doc">
         <p>在mysql中，函数分为两类：系统函数（内置函数）和自定义函数</p>
-        <p>不管是内置函数还是用户自定义函数，都是使用<strong>select 函数名(参数列表);</strong></p>
+        <p>不管是内置函数还是用户自定义函数，都可以使用<strong>select 函数名(参数列表);</strong>查看</p>
 
         <h2>内置函数</h2>
         <h3>字符串函数</h3>
@@ -149,10 +149,10 @@
             <p>原因：这是我们开启了bin-log, 我们就必须指定我们的函数是否是</p>
             <ul>
                 <li>DETERMINISTIC 不确定的</li>
-                <li>NO SQL 没有SQl语句，当然也不会修改数据</li>
+                <li>NO SQL 没有-- SQL语句，当然也不会修改数据</li>
                 <li>READS SQL DATA 只是读取数据，当然也不会修改数据</li>
                 <li>MODIFIES SQL DATA 要修改数据</li>
-                <li>CONTAINS SQL 包含了SQL语句</li>
+                <li>CONTAINS SQL 包含了-- SQL语句</li>
             </ul>
             <p>其中在function里面，只有 DETERMINISTIC, NO SQL 和 READS SQL DATA 被支持。如果我们开启了 bin-log, 我们就必须为我们的function指定一个参数</p>
             <p>解决方法：</p>
