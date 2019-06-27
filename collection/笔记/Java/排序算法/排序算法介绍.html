@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>排序算法介绍</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>排序算法介绍</h1>
+        <div id="info">
+            <div id="time">2019-06-27</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content doc">
+        <h2>排序算法的介绍</h2>
+        <p>排序也称排序算法（Sort Algorithm），排序是将一组数据，依指定的顺序进行排列的过程</p>
+        <h2>排序算法的分类</h2>
+        <ol>
+            <li>内部排序：指将需要处理的所有数据都加载到内部存储器（内存）中进行排序</li>
+            <li>外部排序法：数据量过大，无法全部加载到内存中，需要借助外部存储（文件等）进行排序</li>
+        </ol>
+        <p>常见的排序算法分类</p>
+        <img src="/collection/image/2019/6/20190627_1.png" alt="">
+
+        <h2>算法的时间复杂度</h2>
+        <p>度量一个程序（算法）执行时间的两种方法</p>
+        <ol>
+            <li>事后统计的方法
+                <p>这种方法可行，但是有两个问题：一是要想对设计的算法的运行性能进行评测，需要实际运行该程序；二是所得时间的统计量依赖于计算机的硬件、软件等环境因素，这种方式，要在同一台计算机的相同状态下运行，才能比较哪个算法速度更快</p>
+            </li>
+            <li>事前估算的方法
+                <p>通过分析某个算法的<em>时间复杂度</em>来判断哪个算法更优</p>
+            </li>
+        </ol>
+        <h3>时间频度</h3>
+        <p><em>时间频度</em>：一个算法花费的时间与算法中语句的执行次数成正比例，哪个算法中语句执行次数多，它花费时间就多。一个算法中的语句执行次数称为语句频度或时间频度，记为T(n)</p>
+        <p>示例</p>
+        <div id="highlighter_696664" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">int</code>&nbsp;<code class="java plain">sum(</code><code class="java keyword">int</code>&nbsp;<code class="java plain">n)&nbsp;{</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">int</code>&nbsp;<code class="java plain">p&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">,&nbsp;sum&nbsp;=&nbsp;</code><code class="java value">0</code><code class="java plain">,&nbsp;i;&nbsp;&nbsp;</code><code class="java comments">//频度：1</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code>&nbsp;<code class="java plain">(i&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;i++)&nbsp;{&nbsp;&nbsp;</code><code class="java comments">//频度：n+1（因为条件判断了n+1次，但要注意循环体只执行n次）</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">p&nbsp;*=&nbsp;i;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java comments">//频度：n</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">sum&nbsp;+=&nbsp;p;&nbsp;&nbsp;&nbsp;</code><code class="java comments">//频度：n</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">return</code>&nbsp;<code class="java plain">(sum);&nbsp;&nbsp;&nbsp;</code><code class="java comments">//频度：1</code></div><div class="line number8 index7 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table>
+        </div>
+        <p>该函的执行频度为：3n+3</p>
+
+        <h3>时间复杂度</h3>
+        <p>一般情况下，<em>算法中的基本操作语句的重复执行次数是问题规模n的某个函数</em>，用T(n)表示，若有某个辅助函数f(n)，使得当n趋近于无穷大时，T(n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数，记作T(n)=O(f(n))，称O(f(n))为算法的渐进时间复杂度，简称时间复杂度</p>
+        <p>T(n)不同，但时间复杂度可能相同。如：T(n)=n²+7n+6与T(n)=3n²+2n+2它们的T(n)不同，但时间复杂度相同，都为O(n²)</p>
+
+        <p>我们计算时间复杂度时，会对语句频度进行如下处理</p>
+        <ul>
+            <li>忽略常数项</li>
+            <li>忽略低次项</li>
+            <li>忽略系数</li>
+        </ul>
+        <p>因为随着n逐渐变大，常数项、低次项、系数对整体的值的影响越来越小，决定整个算法语句频度的就是最高次项</p>
+        <p>嵌套循环结构最内层执行次数最多的语句就决定了整个算法的趋势</p>
+
+
+        <p>计算时间复杂度的方法：</p>
+        <ol>
+            <li>用常数1代替运行时间中的所有加法常数T(n)=n²+7n+6 => T(n)=n² +7n+1</li>
+            <li>修改后的运行次数函数中，只保留最高阶项T(n)=n²+7n+1 => T(n)=n²</li>
+            <li>去除最高阶项的系数T(n)=n² => T(n)=n² => O(n²)</li>
+        </ol>
+
+
+        <h3>常见的时间复杂度</h3>
+        <ul>
+            <li>常数阶O(1)</li>
+            <li>对数阶O(log2n)</li>
+            <li>线性阶O(n)</li>
+            <li>线性对数阶O(nlog2n)</li>
+            <li>平方阶O(n²)</li>
+            <li>立方阶O(n^3)</li>
+            <li>k次方阶O(n^k)</li>
+            <li>指数阶O(2^n)</li>
+        </ul>
+
+        <p>常见的时间复杂度对应的图：</p>
+        <img src="/collection/image/2019/6/20190627_2.png" alt="">
+
+        <p>说明：</p>
+        <ul>
+            <li>常见的算法时间复杂度由小到大依次为：O(1) &lt; O(log2n) &lt; O(n) &lt; O(nlog2n) &lt; O(n2) &lt; O(n3) &lt; O(nk) &lt; O(2n)，随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低</li>
+            <li>从图中可见,我们应该尽可能避免使用指数阶的算法</li>
+        </ul>
+
+        <p>常见的时间复杂度说明：</p>
+
+        <ul>
+            <li>常数阶O(1)
+                <p>无论代码执行了多少行，只要是没有循环等复杂结构，那这个代码的时间复杂度就都是O(1)，如：</p>
+                <div id="highlighter_84475" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">int</code>&nbsp;<code class="java plain">i&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;</code></div><div class="line number2 index1 alt1"><code class="java keyword">int</code>&nbsp;<code class="java plain">j&nbsp;=&nbsp;</code><code class="java value">2</code><code class="java plain">;</code></div><div class="line number3 index2 alt2"><code class="java plain">++i;</code></div><div class="line number4 index3 alt1"><code class="java plain">j++;</code></div><div class="line number5 index4 alt2"><code class="java keyword">int</code>&nbsp;<code class="java plain">m&nbsp;=&nbsp;i&nbsp;+&nbsp;j;</code></div></div></td></tr></tbody></table>
+                </div>
+                <p>上述代码在执行的时候，它消耗的时候并不随着某个变量的增长而增长，那么无论这类代码有多长，即使有几万几十万行，都可以用O(1)来表示它的时间复杂度</p>
+            </li>
+            <li>线性阶O(n)
+                <div id="highlighter_969241" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">for</code><code class="java plain">(i=</code><code class="java value">1</code><code class="java plain">;&nbsp;i&lt;=n;&nbsp;++i){</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">j&nbsp;=&nbsp;i;</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">j++;</code></div><div class="line number4 index3 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table>
+                </div>
+                <p>这段代码，for循环里面的代码会执行n遍，因此它消耗的时间是随着n的变化而变化的，因此这类代码都可以用O(n)来表示它的时间复杂度</p>
+            </li>
+            <li>对数阶O(log2n)
+                <div id="highlighter_176489" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">int</code>&nbsp;<code class="java plain">i&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;</code></div><div class="line number2 index1 alt1"><code class="java keyword">while</code>&nbsp;<code class="java plain">(i&nbsp;&lt;&nbsp;n)&nbsp;{</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i&nbsp;=&nbsp;i&nbsp;*&nbsp;</code><code class="java value">2</code><code class="java plain">;</code></div><div class="line number4 index3 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table>
+                </div>
+                <p>从上面代码可以看到，在while循环里面，每次都将 i 乘以 2，乘完之后，i 距离 n 就越来越近了。我们试着求解一下，假设循环x次之后，i 就大于 2 了，此时这个循环就退出了，也就是说 2 的 x 次方等于 n，那么 x = log2n</p>
+                <p>也就是说当循环 log2n 次以后，这个代码就结束了。因此这个代码的时间复杂度为：O(log2n)</p>
+            </li>
+            <li>线性对数阶O(nlog2n)
+                <p>线性对数阶O(nlogn) 其实非常容易理解，将时间复杂度为O(log2n)的代码循环n遍的话，那么它的时间复杂度就是 n * O(log2n)，也就是了O(nlog2n)</p>
+                <div id="highlighter_930150" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">for</code>&nbsp;<code class="java plain">(m&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;m&nbsp;&lt;&nbsp;n;&nbsp;m++)&nbsp;{</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">while</code>&nbsp;<code class="java plain">(i&nbsp;&lt;&nbsp;n)&nbsp;{</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">i&nbsp;=&nbsp;i&nbsp;*&nbsp;</code><code class="java value">2</code><code class="java plain">;</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number6 index5 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table>
+                </div>
+            </li>
+            <li>平方阶O(n²)
+                <p>平方阶 O(n²) 就更容易理解了，如果把 O(n) 的代码再嵌套循环一遍，它的时间复杂度就是 O(n²) 了</p>
+                <div id="highlighter_49875" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">for</code>&nbsp;<code class="java plain">(x&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;x++)&nbsp;{</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code>&nbsp;<code class="java plain">(i&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;i++)&nbsp;{</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">j&nbsp;=&nbsp;i;</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">j++;</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number6 index5 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table>
+                </div>
+                <p>这段代码其实就是嵌套了2层n循环，它的时间复杂度就是 O(n*n)，即  O(n²) 如果将其中一层循环的n改成m，即：</p>
+                <div id="highlighter_477565" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">for</code>&nbsp;<code class="java plain">(x&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;i&nbsp;&lt;=&nbsp;m;&nbsp;x++)&nbsp;{</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code>&nbsp;<code class="java plain">(i&nbsp;=&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;i&nbsp;&lt;=&nbsp;n;&nbsp;i++)&nbsp;{</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">j&nbsp;=&nbsp;i;</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">j++;</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number6 index5 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table>
+                </div>
+                <p>那它的时间复杂度就变成了 O(m*n)</p>
+            </li>
+        </ul>
+        <h3>平均时间复杂度和最坏时间复杂度</h3>
+        <ul>
+            <li>平均时间复杂度是指所有可能的输入实例均以等概率出现的情况下，该算法的运行时间</li>
+            <li>最坏情况下的时间复杂度称最坏时间复杂度。<em>一般讨论的时间复杂度均是最坏情况下的时间复杂度</em>。这样做的原因是：最坏情况下的时间复杂度是算法在任何输入实例上运行时间的界限，这就保证了算法的运行时间不会七最坏情况更长</li>
+        </ul>
+
+
+        <h2>算法的空间复杂度</h2>
+        <h3>简介</h3>
+        <ul>
+            <li>类似于时间复杂度的讨论，一个算法的空间复杂度（Space Complexity）定义为该算法所耗费的存储空间，它也是问题规模n的函数</li>
+            <li>空间复杂度（Space Complexity）是对一个算法在运行过程中临时占用存储空间大小的量度。有的算法需要占用的临时工作单元数与解决问题的规模n有关，它随着n的增大而增大，当n较大时，将占用较多的存储单元，例如快速排序和归并排序算法，基数排序就属于这种情况</li>
+            <li>在做算法分析时，主要讨论的是时间复杂度。从用户使用体验上看，更看重的程序执行的速度。一些缓存产品（redis，memcache）和算法（基数排序）本质就是用空间换时间</li>
+        </ul>
+
+
+
+
+
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
