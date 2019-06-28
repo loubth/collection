@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择排序</title>
+    <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="/collection/js/common.js"></script>
+</head>
+<body>
+<aside></aside>
+<article>
+    <header>
+        <h1>选择排序</h1>
+        <div id="info">
+            <div id="time">2019-06-28</div>
+            <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
+        </div>
+    </header>
+    <div class="content doc">
+
+        <h2>思路</h2>
+        <p>选择排序（select
+            sorting）的基本思想是：选择最前面的数字充当临时最小值，然后遍历其余数字，如果比它更小，就将这个更小的数字记录下来当最小值，直到遍历完所有数字，此时就获得了这些数字中的真正的最小值，将当前记录的最小值的位置与序列最前面的数字的位置进行交换。然后对其余数字重复此过程，最终完成排序</p>
+
+        <p><em>过程</em>：第一次从arr[0]~arr[n-1]中选取最小值，与arr[0]交换，第二次从arr[1]~arr[n-1]中选取最小值，与arr[1]交换，第三次从arr[2]~arr[n-1]中选取最小值，与arr[2]交换，…，第i次从arr[i-1]~arr[n-1]中选取最小值，与arr[i-1]交换，…,
+            第n-1次从arr[n-2]~arr[n-1]中选取最小值，与arr[n-2]交换，总共通过n-1次，得到一个按排序码从小到大排列的有序序列</p>
+        示例（将下列一组数据“[4,8,7,3,2,9,6,5,1]”通过选择排序法整理成升序排序）
+        <img src="/collection/image/2019/6/20190628_2.gif" alt="">
+        <div style="color: #f74141;background: #222222;">
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">1</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">1</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span
+                    style="background:lime;background:lime">1</span>, 8, 7, 3, 2, 9, 6, 5, 4]</span></div>
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">2</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">2</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span style="background:lime;background:lime">1, 2</span>, 7, 3, 8, 9, 6, 5, 4]</span>
+            </div>
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">3</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">3</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span style="background:lime;background:lime">1, 2, 3</span>, 7, 8, 9, 6, 5, 4]</span>
+            </div>
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">4</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">4</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span style="background:lime;background:lime">1, 2, 3, 4</span>, 8, 9, 6, 5, 7]</span>
+            </div>
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">5</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">5</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span style="background:lime;background:lime">1, 2, 3, 4, 5</span>, 9, 6, 8, 7]</span><span
+                    style="font-family:'Arial',sans-serif;color:#92D050"></span></div>
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">6</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">6</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span style="background:lime;background:lime">1, 2, 3, 4, 5, 6</span>, 9, 8, 7]</span>
+            </div>
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">7</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">7</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span style="background:lime;background:lime">1, 2, 3, 4, 5, 6, 7</span>, 8, 9]</span>
+            </div>
+            <div style="margin: 5px 0">第<span style="font-family: Arial, sans-serif">8</span>轮相邻元素交换，第<span
+                    style="font-family: Arial, sans-serif">8</span>小的元素被选出放到前面<span
+                    style="font-family: Arial, sans-serif">&nbsp; &nbsp;[<span style="background:lime;background:lime">1, 2, 3, 4, 5, 6, 7, 8</span>, 9]</span>
+            </div>
+        </div>
+
+        <h2>代码实现</h2>
+
+        <div id="highlighter_217041" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code>&nbsp;<code class="java keyword">static</code>&nbsp;<code class="java keyword">void</code>&nbsp;<code class="java plain">selectSort(</code><code class="java keyword">int</code><code class="java plain">[]&nbsp;arr)&nbsp;{</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java comments">//选择排序时间复杂度是O(n²)</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code>&nbsp;<code class="java plain">(</code><code class="java keyword">int</code>&nbsp;<code class="java plain">i&nbsp;=&nbsp;</code><code class="java value">0</code><code class="java plain">;&nbsp;i&nbsp;&lt;&nbsp;arr.length&nbsp;-&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;i++)&nbsp;{&nbsp;&nbsp;</code><code class="java comments">//共有arr.length个数字需要排序，只需要选出前面arr.length-1个小的数字，最后一个自然是最大的</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java comments">//首先在未被选出的数字中选择最前面的数字充当最小值，并记录其下标</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">int</code>&nbsp;<code class="java plain">min&nbsp;=&nbsp;arr[i];</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">int</code>&nbsp;<code class="java plain">minIndex&nbsp;=&nbsp;i;</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java comments">//在未被选出的数字中寻找真正的最小值及其下标</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code>&nbsp;<code class="java plain">(</code><code class="java keyword">int</code>&nbsp;<code class="java plain">j&nbsp;=&nbsp;i&nbsp;+&nbsp;</code><code class="java value">1</code><code class="java plain">;&nbsp;j&nbsp;&lt;&nbsp;arr.length;&nbsp;j++)&nbsp;{&nbsp;&nbsp;</code><code class="java comments">//arr[i]不需要与自己比较，下标从i+1开始即可</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code>&nbsp;<code class="java plain">(arr[j]&nbsp;&lt;&nbsp;min)&nbsp;{&nbsp;</code><code class="java comments">//&nbsp;说明假定的最小值，并不是最小</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">min&nbsp;=&nbsp;arr[j];&nbsp;</code><code class="java comments">//&nbsp;重置min</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">minIndex&nbsp;=&nbsp;j;&nbsp;</code><code class="java comments">//&nbsp;重置minIndex</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number16 index15 alt1">&nbsp;</div><div class="line number17 index16 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java comments">//&nbsp;将选出的最小值放大未被选出的数字的最前面，也就是说与最前面的数字进行位置交换</code></div><div class="line number18 index17 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code>&nbsp;<code class="java plain">(minIndex&nbsp;!=&nbsp;i)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java comments">//判断选出的最小值的位置是不是在最前面，是就不用交换了</code></div><div class="line number19 index18 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">arr[minIndex]&nbsp;=&nbsp;arr[i];</code></div><div class="line number20 index19 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">arr[i]&nbsp;=&nbsp;min;</code></div><div class="line number21 index20 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number22 index21 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number23 index22 alt2">&nbsp;</div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2"><code class="java plain">}</code></div></div></td></tr></tbody></table>
+        </div>
+
+
+
+        
+    </div>
+</article>
+<footer></footer>
+</body>
+</html>
