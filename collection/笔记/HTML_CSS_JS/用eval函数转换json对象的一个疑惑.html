@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>用eval函数转换json对象的一个疑惑</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
@@ -17,7 +19,7 @@
         </div>
     </header>
     <div class="content">
-
+        <p><em>提示</em>：eval，evaluate [ɪˈvæljueɪt] 可翻译为“求……的值”</p>
         <h3>问：</h3>
         <p>
             用eval函数转换json对象的时候，为什么要加括号？例：var dataObj=eval("("+data+")");
@@ -26,11 +28,30 @@
         <p>
             加上圆括号的目的是迫使eval函数在处理JavaScript代码的时候强制将括号内的表达式（expression）转化为对象，而不是作为语句（statement）来执行。举一个例子，例如对象字面量{}，如若不加外层的括号，那么eval会将大括号识别为JavaScript代码块的开始和结束标记，那么{}将会被认为是执行了一句空语句。所以下面两个执行结果是不同的：
         </p>
-        <div><font style="font-family: &quot;PingFang SC&quot;; color: rgb(51, 51, 51); background-color: rgba(0, 0, 0, 0);"><br><div style="text-align: left;"><font style="background-color: rgba(0, 0, 0, 0);">alert(&nbsp; &nbsp; eval(&nbsp; &nbsp; "{}"&nbsp; &nbsp; )&nbsp; &nbsp;&nbsp;</font>)<span style="background-color: rgba(0, 0, 0, 0);">;&nbsp; &nbsp; &nbsp;// return <b>undefined</b></span></div></font></div>
-        <div style="text-align: left;"><font color="#333333" face="PingFang SC">alert(&nbsp; &nbsp; eval(&nbsp; &nbsp;"({})"&nbsp; &nbsp;)&nbsp; &nbsp; )</font><span style="background-color: rgba(0, 0, 0, 0); color: rgb(51, 51, 51); font-family: &quot;PingFang SC&quot;;">;&nbsp; &nbsp; &nbsp;// return <b>object[Object]</b></span></div>
-
-
-
+        <link rel='stylesheet' type='text/css'
+              href='https://loubth.github.io/collection/css/Syntaxhighlighter/shCoreMDUltra.css'/>
+        <div id="highlighter_121616" class="syntaxhighlighter  js">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td class="gutter">
+                        <div class="line number1 index0 alt2">1</div>
+                        <div class="line number2 index1 alt1">2</div>
+                    </td>
+                    <td class="code">
+                        <div class="container">
+                            <div class="line number1 index0 alt2"><code class="js plain">alert(&nbsp;&nbsp;&nbsp;&nbsp;eval(&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="js string">"{}"</code>&nbsp;&nbsp;&nbsp;&nbsp;<code class="js plain">)&nbsp;&nbsp;&nbsp;&nbsp;);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="js comments">//&nbsp;return&nbsp;undefined</code></div>
+                            <div class="line number2 index1 alt1"><code class="js plain">alert(&nbsp;&nbsp;&nbsp;&nbsp;eval(&nbsp;&nbsp;&nbsp;</code><code
+                                    class="js string">"({})"</code>&nbsp;&nbsp;&nbsp;<code class="js plain">)&nbsp;&nbsp;&nbsp;&nbsp;);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="js comments">//&nbsp;return&nbsp;object[Object]</code></div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
 
     </div>
