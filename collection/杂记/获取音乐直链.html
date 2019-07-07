@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>获取音乐直链</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>获取音乐直链</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <p>今天想给网页添加一个背景音乐，那么如何找到一个可以引用的稳定的音乐外链呢，我想到了浏览器中的“FVD Download”插件可以下载音乐然后通过下载器就能得到音乐的下载地址。</p>
         <p>插件如下</p>

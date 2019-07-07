@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>jQuery加载JS的不同的方式</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>jQuery加载JS的不同的方式</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <blockquote>
             为了不用把script标签写在body标签末尾而可以写在head标签中，我们可以将想要运行的代码绑定在载入事件处理函数里，这样就可以让js代码即使写在头部也可以最后运行

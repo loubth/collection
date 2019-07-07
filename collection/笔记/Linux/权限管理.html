@@ -5,10 +5,11 @@
     <title>权限管理</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>权限管理</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <h2>用户、组与文件之间的关系</h2>
         <p>在linux中的每个用户至少属于一个组，不能独立于组外<br>在linux中每个文件都有<em>所有者（属主）、所在组（属组）、其它用户</em>的概念，但注意该文件的所有者不一定属于该文件的所在组<br>当某个用户创建了一个文件后，默认这个文件的属主就是这个用户，这个文件的属组就是该用户所在的组</p>

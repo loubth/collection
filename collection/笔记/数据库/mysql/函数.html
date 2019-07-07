@@ -5,10 +5,11 @@
     <title>函数</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>函数</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content doc">
+    <div id="k-catelog" class="content doc">
         <p>在mysql中，函数分为两类：系统函数（内置函数）和自定义函数</p>
         <p>不管是内置函数还是用户自定义函数，都可以使用<strong>select 函数名(参数列表);</strong>查看</p>
 

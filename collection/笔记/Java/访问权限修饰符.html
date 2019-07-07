@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>访问权限修饰符</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>访问权限修饰符</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <p>Java提供了3个访问控制符：private、protected和public，分别代表了3个访问控制级别，另外还有一个不加任何访问控制符的访问控制级别，提供了4个访问控制级别。Java的访问控制级别由小到大如图所示</p>
         <img src="/collection/image/2019/6/20190619_1.png" alt="">

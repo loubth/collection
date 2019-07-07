@@ -5,10 +5,11 @@
     <title>字段属性</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel='stylesheet' type='text/css' href='/collection/css/Syntaxhighlighter/shCoreMDUltra.css'/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>字段属性</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content doc">
+    <div id="k-catelog" class="content doc">
         <p>列属性又称之为字段属性，在mysql中一共有6个字段属性：null、默认值、列描述、主键、自动增长和唯一键</p>
         <h2>Null</h2>
         <p>如果对应的值为<em>YES</em>表示该字段可以为NULL，值为<em>NO</em>表示该字段不可以为NULL，</p>

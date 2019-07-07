@@ -5,10 +5,11 @@
     <title>联合查询</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>联合查询</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content doc">
+    <div id="k-catelog" class="content doc">
         <h2>基本概念</h2>
         <p>联合查询是可合并多个相似的选择查询的结果集。等同于将一个表追加到另一个表，从而实现将两个表的查询组合到一起，使用谓词为UNION或UNION ALL</p>
         <p>联合查询：将多个查询的结果合并到一起（纵向合并），字段数不变，多个查询的记录数合应用场景</p>

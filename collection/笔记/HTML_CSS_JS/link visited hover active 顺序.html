@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>link visited hover active 顺序</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
     <style>
         td{
@@ -12,7 +13,7 @@
     </style>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>link visited hover active 顺序</h1>
@@ -21,7 +22,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
 
         <h3>CSS中通过四个伪类来定义链接的样式，分别是：</h3>

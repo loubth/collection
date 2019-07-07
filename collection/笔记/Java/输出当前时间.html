@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>输出当前时间</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>输出当前时间</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
         <p>
             jdk1.7中<em>Date</em>类好像找不到以前版本jdk里无参的构造函数了，也就是说不能<em>Date date=new Date()</em>了必须在<em>Date()</em>的括号里调用<em>System.currentTimeMillis()</em>如下
         </p>

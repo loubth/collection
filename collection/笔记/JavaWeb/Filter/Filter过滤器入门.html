@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Filter过滤器入门</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>Filter过滤器入门</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <h3>过滤器是干什么的？</h3>
         <p>他会在一组资源（jsp、servlet、css、html等）的前面执行<br>他可以控制你是否能得到你请求的资源</p>

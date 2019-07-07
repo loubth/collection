@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>overflow:hidden</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>overflow:hidden</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
         <p>overflow:hidden的意思是<strong>隐藏超出范围的子元素</strong></p>
         <p>因为其会触发BFC（块级格式化上下文）机制，BFC机制计算范围的时候会算上浮动元素，所以它也可以用来清除浮动</p>
 

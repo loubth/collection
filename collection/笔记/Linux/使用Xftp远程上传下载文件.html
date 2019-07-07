@@ -5,10 +5,11 @@
     <title>使用Xftp远程上传下载文件</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article style="width: 900px;">
     <header>
         <h1>使用Xftp远程上传下载文件</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <p>前面介绍过XShell可以远程控制安装Linux系统的机器，为什么还需要Xftp呢？因为你虽然可以远程控制Linux对它自己进行各种操作，但是两台机器之间互相传输文件却不是很容易，Xftp就是用来解决这个问题的</p>
         <h2>Xftp介绍</h2>

@@ -247,3 +247,50 @@ footer {
 .syntaxhighlighter pre, .syntaxhighlighter code {
     white-space: pre;
 }
+
+/*目录插件*/
+#k-catelog {
+    position: relative;
+    overflow: hidden;
+}
+
+.k-catelog-list {
+    width: 10px;
+    height: 500px;
+    position: fixed;
+    left: 0px;
+    top: 100px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    background-color: skyblue;
+    z-index: 1;
+}
+
+.k-catelog-list > ul {
+    padding: 0;
+}
+
+.k-catelog-list li {
+    list-style: none;
+}
+
+.k-catelog-link {
+    cursor: pointer;
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    transition: background 0.5s;
+    -moz-transition: background 0.5s;
+    /* Firefox 4 */
+    -webkit-transition: background 0.5s;
+    /* Safari and Chrome */
+    -o-transition: background 0.5s;
+    /* Opera */
+}
+
+.k-catelog-link-active {
+    background: #333;
+    color: white;
+}

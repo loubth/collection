@@ -5,10 +5,11 @@
     <title>任务调度</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>任务调度</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <h2>概述</h2>
         <p>当安装完成操作系统之后，默认便会启动crond任务调度命令。crond命令每分钟会定期检查是否有要执行的工作，如果有要执行的工作便会自动执行该工作。crond服务通过crontab命令实现，crontab（cron来源于希腊语chronos(χρόνος)，原意是时间。tab全称是table，表）是用来定期执行程序的命令。总而言之，<strong>crontab命令的作用就是<em>定时执行任务</em></strong></p>

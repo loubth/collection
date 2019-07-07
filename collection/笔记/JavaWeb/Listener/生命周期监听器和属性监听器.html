@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>生命周期监听器和属性监听器</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>生命周期监听器和属性监听器</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <h3>ServletContext</h3>
         <p><em>生命周期监听</em>：ServletContextListener，它有两个方法，一个出生时调用，一个死亡时调用。</p>

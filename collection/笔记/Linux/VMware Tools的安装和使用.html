@@ -5,10 +5,11 @@
     <title>VMware Tools的安装和使用</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>VMware Tools的安装和使用</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
         <p>安装完CentOS后，我们发现虚拟机与主机之间的操作很不方便，两个机子之间不能互相复制粘贴，文件也不能直接使用鼠标拖入拖出的传输，要想解决这个问题，我们就需要安装辅助工具“VMware Tools”</p>
         <h2>VMware Tools的作用</h2>
         <ul>

@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>jQuery prop代替attr场景</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>jQuery prop代替attr场景</h1>
@@ -16,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <blockquote>
             在操作checked等值和属性相同的属性的时候，attr函数在显示效果上有缺陷（只有第一次选中有效果），此时需要用prop函数替代它

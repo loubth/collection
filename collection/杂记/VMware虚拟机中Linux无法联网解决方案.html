@@ -5,10 +5,11 @@
     <title>VMware虚拟机中Linux无法联网解决方案</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
     <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside></aside>
+<aside class="k-catelog-list" id="catelog-list"></aside>
 <article>
     <header>
         <h1>VMware虚拟机中Linux无法联网解决方案</h1>
@@ -17,7 +18,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div class="content">
+    <div id="k-catelog" class="content">
 
         <p>由于这个原因导致无法联网的情况发生过很多次，为了防止自己忘记特意写了一篇博客记录，因为我尝试过很多解决方案，比如重新配置ip或者重启网络（network）服务等等，结果发现不管用，这种情况下，断网的原因竟然是<em>因为在宿主机中关闭了VMware的网络相关服务</em>，所以解决方案就是启动这些服务即可</p>
 
