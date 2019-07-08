@@ -31,8 +31,8 @@ function myAlert() {
 }
 
 //文档加载后运行
-window.onload = function () {
-    //添加目录
+$(function () {
+    //添加“返回目录”
     var catalog = document.createElement("div");
     catalog.id = "catalog";
     catalog.style.width = "60px";
@@ -214,7 +214,7 @@ window.onload = function () {
         active: function (el) {
         }
     })
-};
+});
 
 
 
