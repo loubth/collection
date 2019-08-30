@@ -41,6 +41,11 @@ $(function () {
     var info = document.getElementById("info");
     info.appendChild(catalog);
 
+
+    //添加收藏夹图标
+    $("html>head>title").next("link").after($("<link rel='shortcut icon' href='/collection/image/common/favicon.ico'>"));
+
+
     //-----------目录插件----------------
 
     $("#catelog-list").mouseenter(function () {
@@ -214,6 +219,8 @@ $(function () {
         active: function (el) {
         }
     })
+
+
 });
 
 
