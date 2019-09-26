@@ -95,7 +95,7 @@ font-family:宋体;color:white">destroy</span><span lang="EN-US" style="font-siz
 }</span></div>
 
                 <p>我们发现Filter接口有三个方法，init方法是在过滤器创建后马上执行，destroy方法是filter销毁之前执行，而doFilter在每次过滤的时候都会执行。</p>
-                <p><strong>注意：Filter在服务器启动是就会创建！服务器关闭的时候Filter销毁。Filter是单例的，与servlet一样。</strong></p>
+                <p><strong>注意：Filter在服务器启动时就会创建！服务器关闭的时候Filter销毁。Filter是单例的，与servlet一样。</strong></p>
             </li>
             <li>为Filter配置web.xml
                 <p>
@@ -132,25 +132,7 @@ color:#D8D8D8">&gt;<br>
                                                                                                   style="font-size:15.0pt;color:#D8D8D8">&gt;</span>
                 </div>
                 <p>根据这个servlet 的配置，我们要想使拦截器拦截这个servlet，就可以这么配</p>
-                <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
-color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span
-                        lang="EN-US" style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
-&nbsp;&nbsp;&nbsp; &lt;</span><span lang="EN-US" style="font-size:15.0pt;
-color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
-color:#D8D8D8">&gt;AFilter&lt;/</span><span lang="EN-US" style="font-size:15.0pt;
-color:#60FF60">filter-name</span><span lang="EN-US" style="font-size:15.0pt;
-color:#D8D8D8">&gt;<br>
-&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:15.0pt;color:#757575">&lt;!--</span><span
-                        style="font-size:15.0pt;color:#757575">在这配置想要拦截的资源，不仅仅是<span lang="EN-US">servlet</span>，其他资源也可以，这里用<span
-                        lang="EN-US">ASerlvet</span>做实验<span lang="EN-US">--&gt;<br>
-&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-US" style="font-size:15.0pt;
-color:#D8D8D8">&lt;</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">url-pattern</span><span lang="EN-US"
-                                                                                                            style="font-size:15.0pt;color:#D8D8D8">&gt;/AServlet&lt;/</span><span
-                        lang="EN-US" style="font-size:15.0pt;color:#60FF60">url-pattern</span><span lang="EN-US"
-                                                                                                    style="font-size:15.0pt;color:#D8D8D8">&gt;<br>
-&lt;/</span><span lang="EN-US" style="font-size:15.0pt;color:#60FF60">filter-mapping</span><span lang="EN-US"
-                                                                                                 style="font-size:15.0pt;color:#D8D8D8">&gt;</span>
-                </div>
+                <pre style="background-color:#000000;color:#d8d8d8;font-family:'宋体';font-size:15.0pt;"><b>&lt;<span style="color:#60ff60;">filter</span>&gt;<br>    &lt;<span style="color:#60ff60;">filter-name</span>&gt;AFilter&lt;/<span style="color:#60ff60;">filter-name</span>&gt;<br>    &lt;<span style="color:#60ff60;">filter-class</span>&gt;cn.loubth.web.AFilter&lt;/<span style="color:#60ff60;">filter-class</span>&gt;<br>&lt;/<span style="color:#60ff60;">filter</span>&gt;<br><br>&lt;<span style="color:#60ff60;">filter-mapping</span>&gt;<br>    &lt;<span style="color:#60ff60;">filter-name</span>&gt;AFilter&lt;/<span style="color:#60ff60;">filter-name</span>&gt;<br>    <span style="color:#757575;">&lt;!--在这配置想要拦截的资源，不仅仅是servlet，其他资源也可以，这里用ASerlvet做实验--&gt;<br></span><span style="color:#757575;"> &nbsp; &nbsp;</span>&lt;<span style="color:#60ff60;">url-pattern</span>&gt;/AServlet&lt;/<span style="color:#60ff60;">url-pattern</span>&gt;<br>&lt;/<span style="color:#60ff60;">filter-mapping</span>&gt;</b></pre>
                 <p>然后我们为了看出效果，修改一下AFilter的代码</p>
                 <div style="background:black"><span lang="EN-US" style="font-size:15.0pt;
 color:#60FF60">package </span><span lang="EN-US" style="font-size:15.0pt;
@@ -333,7 +315,7 @@ color:#D8D8D8">(</span><span lang="EN-US" style="font-size:15.0pt;color:#2B91AF"
             首先是init中的filterConfig，他与servletConfig类似
         </p>
         <ul>
-            <li>获取初始化参：<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/FilterConfig.html#getInitParameter-java.lang.String-"><span style="color: windowtext; text-decoration-line: none;">getInitParameter</span></a></li>
+            <li>获取初始化参数：<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/FilterConfig.html#getInitParameter-java.lang.String-"><span style="color: windowtext; text-decoration-line: none;">getInitParameter</span></a></li>
             <li>获取过滤器名称：<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/FilterConfig.html#getFilterName--"><span style="color: windowtext; text-decoration-line: none;">getFilterName</span></a></li>
             <li>获取application：<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/FilterConfig.html#getServletContext--"><span style="color: windowtext; text-decoration-line: none;">getServletContext</span></a></li>
             <li>放行，也就是允许servlet通过：doFilter(ServletRequest,ServletResponse)&nbsp;&nbsp;&nbsp;<em>注意区分与filter接口中doFilter方法的区别，二者参数不同</em></li>
