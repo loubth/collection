@@ -262,9 +262,11 @@ footer {
     top: 100px;
     overflow-y: hidden;
     overflow-x: hidden;
-    font-size: 14px;
+    font-family: 华文彩云;
+    font-size: 20px;
+    font-weight: 900;
     border: 1px solid #e0e0e0;
-    background-color: skyblue;
+    background-color: rgba(139, 151, 156, 0.7);
     z-index: 1;
 }
 
@@ -292,6 +294,6 @@ footer {
 }
 
 .k-catelog-link-active {
-    background: #333;
+    background: rgb(111, 107, 111);
     color: white;
 }

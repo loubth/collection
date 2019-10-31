@@ -52,7 +52,7 @@ $(function () {
         $("#catelog-list>ul").css("display", "block");
         $("#catelog-list").css("overflow-x", "auto");
         $("#catelog-list").css("overflow-y", "auto");
-        $("#catelog-list").css("background-color", "rgba(0, 208, 255, 0.89)");
+        $("#catelog-list").css("background-color", "rgba(139,151,156,0.7)");
         $("#catelog-list").animate({
             "width": "300px",
             "height": "500px",
@@ -63,7 +63,7 @@ $(function () {
         $("#catelog-list>ul").css("display", "none");
         $("#catelog-list").css("overflow-x", "hidden");
         $("#catelog-list").css("overflow-y", "hidden");
-        $("#catelog-list").css("background-color", "skyblue");
+        $("#catelog-list").css("background-color", "rgba(139,151,156,0.7)");
         $("#catelog-list").animate({
             "width": "10px",
             "height": "500px",
