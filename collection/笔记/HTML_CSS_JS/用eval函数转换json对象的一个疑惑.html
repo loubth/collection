@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>用eval函数转换json对象的一个疑惑</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
-    <link rel="stylesheet" type="text/css" href="/collection/css/Syntaxhighlighter/shCoreMDUltra.css"/>
-
     <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
@@ -29,8 +27,6 @@
         <p>
             加上圆括号的目的是迫使eval函数在处理JavaScript代码的时候强制将括号内的表达式（expression）转化为对象，而不是作为语句（statement）来执行。举一个例子，例如对象字面量{}，如若不加外层的括号，那么eval会将大括号识别为JavaScript代码块的开始和结束标记，那么{}将会被认为是执行了一句空语句。所以下面两个执行结果是不同的：
         </p>
-        <link rel='stylesheet' type='text/css'
-              href='https://loubth.github.io/collection/css/Syntaxhighlighter/shCoreMDUltra.css'/>
         <div id="highlighter_121616" class="syntaxhighlighter  js">
             <table border="0" cellpadding="0" cellspacing="0">
                 <tbody>

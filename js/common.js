@@ -35,6 +35,15 @@ function myAlert() {
 
 //文档加载后运行
 $(function () {
+    //添加代码高亮库css文件
+    (function () {
+        if ($(".syntaxhighlighter").length != 0) {
+            var titleElement = $("head title").eq(0);
+            var highlightCssElement = $("<link rel='stylesheet' type='text/css' href='/collection/css/Syntaxhighlighter/shCoreMDUltra.css'/>");
+            titleElement.after(highlightCssElement);
+        }
+    })();
+
     //添加“返回目录”
     (function () {
         var catalog = document.createElement("div");

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>字段属性</title>
     <link rel="stylesheet" type="text/css" href="/collection/css/common.css">
-    <link rel='stylesheet' type='text/css' href='/collection/css/Syntaxhighlighter/shCoreMDUltra.css'/>
     <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="/collection/js/common.js"></script>
 </head>
@@ -104,7 +103,6 @@
         <p>当一个字段无法确定唯一性的时候，需要其他字段来一起形成唯一性，就是说用来组成唯一性的字段如果有多个就是复合主键</p>
         <p>案例：有一张学生选修课表，一个学生可以选修多个选修课，一个选修课也可以由多个学生来选，但是一个学生在一个选修课中只有一个成绩</p>
         <p>复合主键的添加方法：在所有字段之后增加primary key选项“<strong>primary key(字段名1,字段名2,...)</strong>”</p>
-        <link rel='stylesheet' type='text/css' href='https://loubth.github.io/collection/css/Syntaxhighlighter/shCoreMDUltra.css'/>
         <div id="highlighter_566481" class="syntaxhighlighter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">mysql&gt;&nbsp;CREATE&nbsp;TABLE&nbsp;my_score(</code></div><div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;&nbsp;&nbsp;student_no&nbsp;char(10),</code></div><div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;&nbsp;&nbsp;course_no&nbsp;char(10),</code></div><div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;&nbsp;&nbsp;score&nbsp;tinyint&nbsp;NOT&nbsp;NULL,</code></div><div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;&nbsp;&nbsp;<strong>PRIMARY&nbsp;KEY(student_no,course_no)</strong></code></div><div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">-&gt;&nbsp;);</code></div><div class="line number7 index6 alt2"><code class="xml plain">Query&nbsp;OK,&nbsp;0&nbsp;rows&nbsp;affected&nbsp;(0.04&nbsp;sec)</code></div></div></td></tr></tbody></table>
         </div>
         <p>我们来查看一下表结构</p>
