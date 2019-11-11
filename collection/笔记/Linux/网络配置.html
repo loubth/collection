@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>网络配置</title>
@@ -8,7 +8,7 @@
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside class="k-catelog-list" id="catelog-list"></aside>
+<aside></aside>
 <article>
     <header>
         <h1>网络配置</h1>
@@ -17,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div id="k-catelog" class="content">
+    <div class="content">
         <h2>Linux网络配置原理图（含虚拟机）</h2>
         <p>目前我们的网络配置采用的是NAT（Network Address Translation）模式</p>
         <p>NAT模式下，外部windows主机有两个ip，一个是真实网卡的ip，另一个的虚拟网卡VMnet8的ip，这个虚拟网卡想要访问外网需要经过真实网卡的转换。虚拟网卡的作用是与虚拟机中linux系统形成一个可以互相通信的小型网络</p>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>为什么读取非文本文件不用字符流</title>
@@ -8,7 +8,7 @@
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside class="k-catelog-list" id="catelog-list"></aside>
+<aside></aside>
 <article>
     <header>
         <h1>为什么读取非文本文件不用字符流</h1>
@@ -17,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div id="k-catelog" class="content">
+    <div class="content">
         <p>
             用FileReader(java中读字符流的类)读一个非文本文件,然后用FileWriter(java中写字符流的类)写出去。在读文件时,用默认的编码一个字符一个字符的读取,对于有的字节,默认编码根本就不认识(比如字符流读取一个非文本文件，读了两个字节，在字符流所查的码表中根本没有对应的文字),于是打了一个问号(可以用txt打开看到许多问号),导致在读取的时候字符文件里就已经有了很多问号,<em>信息就已经失去了很多</em>。然后即使你在写入文件时采用同样的编码,那也没有用了,因为在读的时候就已经出问题了呀。
         </p>

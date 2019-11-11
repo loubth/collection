@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>文件系统目录结构</title>
@@ -8,7 +8,7 @@
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside class="k-catelog-list" id="catelog-list"></aside>
+<aside></aside>
 <article>
     <header>
         <h1>文件系统目录结构</h1>
@@ -17,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div id="k-catelog" class="content">
+    <div class="content">
         <h2>Linux文件系统与Windows的区别</h2>
         <p>在Windows操作系统中，是先将物理地址分开，再在分区上建立目录，在Windows操作系统中，所有路径都是从盘符开始，如“C:\Program Files”。Linux正好相反，是先有目录，再将物理地址映射到目录中。在Linux操作系统中，所有路径都是从根目录开始。Linux默认可分为3个分区，分别是boot分区、swap分区和根分区，在Linux操作系统中，用户可根据需要进行修改分区，修改后的分区中，同一目录下的文件可能在不同分区中，比如/home目录下有a、b、c三个目录，然后有三个分区分别挂载到这三个目录下，这种操作是允许的</p>
         <p>Windows的分区是物理上的概念，就像我们把一块硬盘分成C:、D:、E:三个区一样，物理上将存储空间分开。Linux的目录是逻辑上的概念，Linux的目录树实际上是一个分区之间的数据逻辑结构关系，不是物理结构</p>

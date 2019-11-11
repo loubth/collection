@@ -43,7 +43,6 @@ $(function () {
             titleElement.after(highlightCssElement);
         }
     })();
-
     //添加“返回目录”
     (function () {
         var catalog = document.createElement("div");
@@ -60,6 +59,13 @@ $(function () {
     })();
     //目录插件
     (function () {
+        //将aside标签标识为目录生成源
+        if ($(".content.doc").length == 0) {
+            return;
+        }
+        $(".content.doc").eq(0).attr("id", "k-catelog");
+        $("aside").eq(0).attr("class", "k-catelog-list");
+        $("aside").eq(0).attr("id", "catelog-list");
         $("#catelog-list").mouseenter(function () {
             $("#catelog-list>ul").css("display", "block");
             $("#catelog-list").css("overflow-x", "auto");

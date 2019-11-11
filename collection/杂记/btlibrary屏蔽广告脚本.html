@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>btlibrary屏蔽广告脚本</title>
@@ -8,7 +8,7 @@
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside class="k-catelog-list" id="catelog-list"></aside>
+<aside></aside>
 <article>
     <header>
         <h1>btlibrary屏蔽广告脚本</h1>
@@ -17,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div id="k-catelog" class="content">
+    <div class="content">
         <div>
             <pre style="background-color:#272822;color:#f8f8f2;font-family:'宋体';font-size:15.0pt;"><pre style="font-family: 宋体; font-size: 15pt;"><span style="color:#736f5c;">// ==UserScript==<br></span><span style="color:#736f5c;">// @name         btlibrary屏蔽广告<br></span><span style="color:#736f5c;">// @namespace    http://tampermonkey.net/<br></span><span style="color:#736f5c;">// @version      1.0<br></span><span style="color:#736f5c;">// @description  屏蔽btlibrary的广告<br></span><span style="color:#736f5c;">// @author       loubth<br></span><span style="color:#736f5c;">// @match        *btlibrary.bid/*<br></span><span style="color:#736f5c;">// @require      http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js<br></span><span style="color:#736f5c;">// @grant        none<br></span><span style="color:#736f5c;"><br></span><span style="color:#736f5c;">// ==/UserScript==<br></span><span style="color:#736f5c;"><br></span><span style="color:#736f5c;">//去除垃圾链接<br></span><span style="color:#6ccab8;">setInterval</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">'</span><span style="color:#6ccab8;font-weight:bold;">$</span><span style="color:#ffe792;">(".wrap-content").</span><span style="color:#6ccab8;">unbind</span><span style="color:#ffe792;">("click");'</span><span style="color:#ffffff;">, </span><span style="color:#66d9ef;">1000</span><span style="color:#ffffff;">);<br></span><span style="color:#736f5c;">//去广告<br></span><span style="color:#6ccab8;font-weight:bold;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"&lt;style id='myStyle'&gt;&lt;/style&gt;"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;font-weight:bold;">prependTo</span><span style="color:#ffffff;">(</span><span style="color:#6ccab8;font-weight:bold;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"head"</span><span style="color:#ffffff;">));<br></span><span style="color:#6ccab8;font-weight:bold;">$</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"#myStyle"</span><span style="color:#ffffff;">).</span><span style="color:#6ccab8;">html</span><span style="color:#ffffff;">(</span><span style="color:#ffe792;">"[id^=__jclm],[id^=__dsje],.shares,iframe{display:none!important;}"</span><span style="color:#ffffff;">);<br></span></pre></pre>
         </div>

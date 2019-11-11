@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>批量文件重命名代码</title>
@@ -8,7 +8,7 @@
     <script src="/collection/js/common.js"></script>
 </head>
 <body>
-<aside class="k-catelog-list" id="catelog-list"></aside>
+<aside></aside>
 <article>
     <header>
         <h1>批量文件重命名代码</h1>
@@ -17,7 +17,7 @@
             <div id="author">作者：<span><a href="javascript:myAlert();">loubth</a></span></div>
         </div>
     </header>
-    <div id="k-catelog" class="content">
+    <div class="content">
         <div>
 
             <pre style="background-color:#23241f;color:#d8d8d8;font-family:'宋体';font-size:12pt;"><span style="color:#60ff60;">import </span><span style="color:#2b91af;">java.io.File</span>;<br><br><span style="color:#60ff60;">class </span><span style="color:#2b91af;">Test </span>{<br>    <span style="color:#60ff60;">public static void </span><span style="color:#ffffff;">main</span>(<span style="color:#2b91af;">String</span>[] <span style="color:#bfa4a4;">args</span>) {<br>        <span style="color:#2b91af;">File </span>dir=<span style="color:#60ff60;">new </span><span style="color:#ffffff;">File</span>(<span style="color:#ffa0a0;">"C:\\Users\\97392\\Desktop\\新建文件夹"</span>);<br>        <span style="color:#2b91af;">File</span>[] files=dir.<span style="color:#ffffff;">listFiles</span>();<br><br><br><br>        <span style="color:#60ff60;">for</span>(<span style="color:#2b91af;">File </span>file:files){<br>            <span style="color:#757575;">renameFile</span>(file,file.<span style="color:#ffffff;">getName</span>()+<span style="color:#ffa0a0;">".txt"</span>);<br>        }<br><br><br><br>        <span style="color:#2b91af;">System</span>.<span style="color:#660e7a;font-weight:bold;font-style:italic;">out</span>.<span style="color:#ffffff;">println</span>(<span style="color:#ffa0a0;">"结束！"</span>);<br>    }<br><br><br><br><br>    <span style="color:#757575;">//修改文件file的名称为newName<br></span><span style="color:#757575;">    </span><span style="color:#60ff60;">public static void </span><span style="color:#ffffff;">renameFile</span>(<span style="color:#2b91af;">File </span><span style="color:#bfa4a4;">file</span>,<span style="color:#2b91af;">String </span><span style="color:#bfa4a4;">newName</span>){<br>        <span style="color:#2b91af;">String </span>path=<span style="color:#bfa4a4;">file</span>.<span style="color:#ffffff;">getAbsolutePath</span>();<br>        <span style="color:#2b91af;">String </span>destPath=path.<span style="color:#ffffff;">substring</span>(<span style="color:#ffa0a0;">0</span>,path.<span style="color:#ffffff;">lastIndexOf</span>(<span style="color:#ffa0a0;">"\\"</span>))+<span style="color:#ffa0a0;">"\\"</span>+<span style="color:#bfa4a4;">newName</span>;<br>        <span style="color:#60ff60;">boolean </span>success=<span style="color:#bfa4a4;">file</span>.<span style="color:#ffffff;">renameTo</span>(<span style="color:#60ff60;">new </span><span style="color:#ffffff;">File</span>(destPath));<br><br>        <span style="color:#60ff60;">if</span>(success){<br>            <span style="color:#2b91af;">System</span>.<span style="color:#660e7a;font-weight:bold;font-style:italic;">out</span>.<span style="color:#ffffff;">println</span>(<span style="color:#bfa4a4;">file</span>.<span style="color:#ffffff;">getName</span>()+<span style="color:#ffa0a0;">" --&gt; "</span>+<span style="color:#bfa4a4;">newName</span>);<br>        }<span style="color:#60ff60;">else</span>{<br>            <span style="color:#2b91af;">System</span>.<span style="color:#660e7a;font-weight:bold;font-style:italic;">out</span>.<span style="color:#ffffff;">println</span>(<span style="color:#bfa4a4;">file</span>.<span style="color:#ffffff;">getName</span>()+<span style="color:#ffa0a0;">" --&gt; "</span>+<span style="color:#bfa4a4;">newName</span>+<span style="color:#ffa0a0;">"\t****重命名失败，可能新名称已经被占用！"</span>);<br>        }<br>    }<br>}</pre>
