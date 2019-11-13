@@ -35,6 +35,12 @@ function myAlert() {
 
 //文档加载后运行
 $(function () {
+    //优化作者标签
+    (function () {
+        var authorName = $("#author").html();
+        var authorElement = "作者：<span><a href=\"javascript:myAlert();\">" + authorName + "</a></span>";
+        $("#author").html(authorElement);
+    })();
     //添加代码高亮库css文件
     (function () {
         if ($(".syntaxhighlighter").length != 0) {
@@ -45,13 +51,13 @@ $(function () {
     })();
     //添加“返回目录”
     (function () {
-        var catalog = document.createElement("div");
-        catalog.id = "catalog";
-        catalog.style.width = "60px";
-        catalog.style.margin = "0 auto";
-        catalog.innerHTML = "<a href='/collection/index.html' target='_blank'>返回目录</a>";
+        var returnCatalog = document.createElement("div");
+        returnCatalog.id = "returnCatalog";
+        returnCatalog.style.width = "60px";
+        returnCatalog.style.margin = "0 auto";
+        returnCatalog.innerHTML = "<a href='/collection/index.html' target='_blank'>返回目录</a>";
         var info = document.getElementById("info");
-        info.appendChild(catalog);
+        info.appendChild(returnCatalog);
     })();
     //添加收藏夹图标
     (function () {
