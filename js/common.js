@@ -60,7 +60,7 @@ $(function () {
     //目录插件
     (function () {
         //如果文章中没有标题则不生生成目录
-        if ($("article .content h1,article .content h2,article .content h3,article .content h4,article .content h4,article .content h5,article .content h6").length == 0) {
+        if ($("article .content h1,article .content h2,article .content h3").length == 0) {
             return;
         }
         //将文章所在元素标识为目录生成源
