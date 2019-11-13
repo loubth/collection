@@ -59,13 +59,15 @@ $(function () {
     })();
     //目录插件
     (function () {
-        //将aside标签标识为目录生成源
-        if ($(".content.doc").length == 0) {
+        //如果文章中没有标题则不生生成目录
+        if ($("article .content h1,article .content h2,article .content h3,article .content h4,article .content h4,article .content h5,article .content h6").length == 0) {
             return;
         }
-        $(".content.doc").eq(0).attr("id", "k-catelog");
-        $("aside").eq(0).attr("class", "k-catelog-list");
-        $("aside").eq(0).attr("id", "catelog-list");
+        //将文章所在元素标识为目录生成源
+        $("article .content").eq(0).attr("id", "k-catelog");
+        //将aside元素标识为目录
+        $("aside").eq(0).attr("class", "k-catelog-list").attr("id", "catelog-list");
+        //设置目录显示效果
         $("#catelog-list").mouseenter(function () {
             $("#catelog-list>ul").css("display", "block");
             $("#catelog-list").css("overflow-x", "auto");
@@ -88,7 +90,7 @@ $(function () {
             }, 100);
         });
 
-
+        //目录插件业务
         var h = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
             return typeof e
         } : function (e) {
