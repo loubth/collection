@@ -35,6 +35,12 @@ function myAlert() {
 
 //文档加载后运行
 $(function () {
+    //使body与窗口高度相同（防止html背景色全漏出来太难看）
+    (function () {
+        if ($("body:eq(0)").height() < $(window).height()) {
+            $("body:eq(0)").height($(window).height());
+        }
+    })();
     //优化作者标签
     (function () {
         var authorName = $("#author").html();

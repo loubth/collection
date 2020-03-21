@@ -1,6 +1,11 @@
 /* 自定义全局css */
+html {
+    background: rgba(33, 150, 243, 0.53);
+}
 
 body, blockquote {
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
     margin: 0;
     padding: 0;
     font-size: 15px;
