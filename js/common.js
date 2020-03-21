@@ -35,18 +35,6 @@ function myAlert() {
 
 //文档加载后运行
 $(function () {
-    //圆角背景
-    (function () {
-        //使body与窗口高度相同（防止html背景色全漏出来太难看）
-        if ($("body:eq(0)").height() < $(window).height()) {
-            $("body:eq(0)").height($(window).height());
-        }
-        if ($(window).width() > 1200) {
-            $("html:eq(0)").css("background-color", "rgba(33, 150, 243, 0.53)");
-            $("body:eq(0)").css("border-top-left-radius", "100px");
-            $("body:eq(0)").css("border-top-right-radius", "100px");
-        }
-    })();
     //优化作者标签
     (function () {
         var authorName = $("#author").html();
@@ -260,8 +248,20 @@ $(function () {
     })();
     //QQ联系
     (function () {
-        $("footer:eq(0)").after("<div style='position: fixed;right: 10px;bottom: 20px;background-color: red;'><a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin=973927314&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=2:973927314:53' alt='点此交谈' title='点此交谈'/></a></div>");
+        $("footer:eq(0)").after("<div style='position: fixed;right: 10px;bottom: 20px;'><a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin=973927314&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=2:973927314:53' alt='点此交谈' title='点此交谈'/></a><div style='text-align: center;cursor:pointer;background-color: rgba(33, 150, 243, 0.53);' onclick='$(this).parent().css(\"display\",\"none\");'>关闭</div></div>");
     }());
+    //圆角背景
+    (function () {
+        //使body与窗口高度相同（防止html背景色全漏出来太难看）
+        if ($("body:eq(0)").height() < $(window).height()) {
+            $("body:eq(0)").height($(window).height());
+        }
+        if ($(window).width() > 1200) {
+            $("html:eq(0)").css("background-color", "rgba(33, 150, 243, 0.53)");
+            $("body:eq(0)").css("border-top-left-radius", "100px");
+            $("body:eq(0)").css("border-top-right-radius", "100px");
+        }
+    })();
 });
 
 
