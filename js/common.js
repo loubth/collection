@@ -253,9 +253,11 @@ $(function () {
     //圆角背景
     (function () {
         //使body与窗口高度相同（防止html背景色全漏出来太难看）
-        if ($("body:eq(0)").height() < $(window).height()) {
-            $("body:eq(0)").height($(window).height());
-        }
+        window.onload = function () {
+            if ($("body:eq(0)").height() < $(window).height()) {
+                $("body:eq(0)").height($(window).height());
+            }
+        };
         if ($(window).width() > 1200) {
             $("html:eq(0)").css("background-color", "rgba(33, 150, 243, 0.53)");
             $("body:eq(0)").css("border-top-left-radius", "100px");
