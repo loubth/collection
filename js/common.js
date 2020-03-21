@@ -248,9 +248,7 @@ $(function () {
     })();
     //QQ联系
     (function () {
-        var footer = $("footer:eq(0)");
-        footer.css("text-align", "center");
-        footer.html("<a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin=973927314&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=2:973927314:53' alt='点此交谈' title='点此交谈'/></a>");
+        $("footer:eq(0)").after("<div style='position: fixed;right: 10px;bottom: 20px;background-color: red;'><a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin=973927314&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=2:973927314:53' alt='点此交谈' title='点此交谈'/></a></div>");
     }());
 });
 
