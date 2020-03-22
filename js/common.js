@@ -248,7 +248,7 @@ $(function () {
     })();
     //QQ联系
     (function () {
-        $("footer:eq(0)").after("<div style='position: fixed;right: 10px;bottom: 20px;'><a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin=973927314&site=qq&menu=yes'><img border='0' src='http://wpa.qq.com/pa?p=2:973927314:53' alt='点此交谈' title='点此交谈'/></a><div style='text-align: center;cursor:pointer;background-color: rgba(33, 150, 243, 0.53);' onclick='$(this).parent().css(\"display\",\"none\");'>关闭</div></div>");
+        $("footer:eq(0)").after("<div style='position: fixed;right: 10px;bottom: 20px;'><a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin=973927314&site=qq&menu=yes'><img border='0' src='/collection/image/common/communication.jpg' alt='点此交谈' title='点此交谈'/></a><div style='text-align: center;cursor:pointer;background-color: rgba(33, 150, 243, 0.53);font-weight:900;' onclick='$(this).parent().css(\"display\",\"none\");'>关闭</div></div>");
     }());
     //圆角背景
     (function () {
