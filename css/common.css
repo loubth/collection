@@ -255,19 +255,19 @@ footer {
 }
 
 .k-catelog-list {
-    width: 10px;
+    width: 2px;
     height: 500px;
     position: fixed;
     left: 0px;
-    top: 100px;
+    top: 120px;
     overflow-y: hidden;
     overflow-x: hidden;
     font-family: 幼圆;
-    color: white;
+    color: black;
     font-size: 20px;
     font-weight: 900;
     border: 1px solid #e0e0e0;
-    background-color: rgba(139, 151, 156, 0.7);
+    background-color: #00ff00a6;
     z-index: 1;
 }
 
@@ -295,6 +295,6 @@ footer {
 }
 
 .k-catelog-link-active {
-    background: rgb(111, 107, 111);
+    background: rgba(117, 113, 117, 0.72);
     color: white;
 }

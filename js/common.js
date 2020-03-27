@@ -78,7 +78,7 @@ $(function () {
             $("#catelog-list>ul").css("display", "block");
             $("#catelog-list").css("overflow-x", "auto");
             $("#catelog-list").css("overflow-y", "auto");
-            $("#catelog-list").css("background-color", "rgba(139,151,156,0.7)");
+            $("#catelog-list").css("background-color", "#00ff00a6");
             $("#catelog-list").animate({
                 "width": "300px",
                 "height": "500px",
@@ -89,9 +89,9 @@ $(function () {
             $("#catelog-list>ul").css("display", "none");
             $("#catelog-list").css("overflow-x", "hidden");
             $("#catelog-list").css("overflow-y", "hidden");
-            $("#catelog-list").css("background-color", "rgba(139,151,156,0.7)");
+            $("#catelog-list").css("background-color", "#00ff00a6");
             $("#catelog-list").animate({
-                "width": "10px",
+                "width": "2px",
                 "height": "500px",
             }, 100);
         });
